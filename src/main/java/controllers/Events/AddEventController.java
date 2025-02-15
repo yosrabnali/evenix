@@ -1,6 +1,7 @@
 package controllers.Events;
 
 import Entity.Events.Event;
+import javafx.scene.control.Alert;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -77,6 +78,12 @@ public class AddEventController {
 
     @FXML
     private void handleSave(ActionEvent event) {
+
+        if (txtTitre.getText().isEmpty() || txtDescription.getText().isEmpty() || datePicker.getValue() == null || txtImage.getText().isEmpty() ) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs et l'image doivent être remplis.");
+            return;
+        }
+
         try {
             // Conversion de la date sélectionnée en java.sql.Date
             Date date = Date.valueOf(datePicker.getValue());
@@ -123,5 +130,12 @@ public class AddEventController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
