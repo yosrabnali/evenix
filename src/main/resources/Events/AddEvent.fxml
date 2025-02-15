@@ -1,70 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.Events.AddEventController">
-    <children>
-        <VBox alignment="CENTER" prefHeight="500" prefWidth="600" spacing="10">
-            <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Ajouter un Événement" />
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.Events.AddEventController"
+      alignment="CENTER" spacing="10" style="-fx-padding: 20;">
 
-            <GridPane hgap="10" prefHeight="420.0" prefWidth="633.0" vgap="10">
-                <Label text="Titre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label text="Ajouter un Événement" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <!-- Champs de saisie visibles -->
+    <TextField fx:id="txtTitre" promptText="Titre"/>
+    <TextField fx:id="txtDescription" promptText="Description"/>
+    <TextField fx:id="txtNBplaces" promptText="Nombre de places"/>
+    <TextField fx:id="txtPrix" promptText="Prix"/>
+    <TextField fx:id="txtLieu" promptText="Lieu"/>
 
-                <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <!-- ComboBox pour l'état de l'événement -->
+    <ComboBox fx:id="comboEtat" promptText="État de l'événement"/>
 
-                <Label text="Lieu:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <TextField fx:id="lieuField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <!-- ComboBox pour le type d'événement -->
+    <ComboBox fx:id="comboType" promptText="Type d'événement"/>
 
-                <Label text="Type:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <ComboBox fx:id="typeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <!-- Zone pour choisir une image -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="txtImage" promptText="Chemin de l'image" prefWidth="200"/>
+        <Button text="Choisir image" onAction="#handleChooseImage"/>
+    </HBox>
 
-                <Label text="Nombre de places:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <TextField fx:id="nbPlacesField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-                <Label text="Prix (€):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                <TextField fx:id="prixField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                <Label text="Image:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                    <Button fx:id="uploadImageButton" text="Choisir une image" />
-                    <Label fx:id="imagePathLabel" text="Aucune image sélectionnée" />
-                </HBox>
-                <columnConstraints>
-                    <ColumnConstraints />
-                    <ColumnConstraints />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                    <RowConstraints />
-                </rowConstraints>
-            </GridPane>
+    <!-- DatePicker pour la date -->
+    <DatePicker fx:id="datePicker" promptText="Date"/>
 
-            <HBox alignment="CENTER" spacing="20">
-                <Button fx:id="addButton" text="Ajouter" />
-                <Button fx:id="cancelButton" text="Annuler" />
-            </HBox>
-        </VBox>
-    </children>
-</AnchorPane>
+    <!-- ComboBox cachée pour le rôle (Admin/User) -->
+    <ComboBox fx:id="comboRole" promptText="Rôle de l'utilisateur" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Save" onAction="#handleSave"/>
+        <Button text="Cancel" onAction="#handleCancel"/>
+    </HBox>
+</VBox>

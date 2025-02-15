@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 
-public class AddEventController {
+public class EditEventController {
 
     @FXML
     private TextField txtTitre;
@@ -28,11 +28,10 @@ public class AddEventController {
     @FXML
     private TextField txtPrix;
 
-    // ComboBox pour l'état de l'événement
+    // ComboBox for event status
     @FXML
     private ComboBox<String> comboEtat;
-
-    // ComboBox pour le type d'événement
+    // ComboBox for event type
     @FXML
     private ComboBox<String> comboType;
 
@@ -43,23 +42,45 @@ public class AddEventController {
     @FXML
     private DatePicker datePicker;
 
-    // ComboBox cachée pour le rôle (test uniquement)
+    // Hidden ComboBox for role (for testing purposes)
     @FXML
     private ComboBox<String> comboRole;
 
     private ServiceEvent serviceEvent = new ServiceEvent();
 
+    // The event to be edited
+    private Event eventToEdit;
+
     @FXML
     public void initialize() {
-        // Initialiser la liste déroulante pour le type d'événement
+        // Initialize the dropdown for event type
         comboType.getItems().addAll("Concert", "Conférence", "Exposition", "Atelier");
-        // Initialiser la liste déroulante pour l'état de l'événement
+        // Initialize the dropdown for event status
         comboEtat.getItems().addAll("Disponible", "Complet", "Annulé");
 
-        // Pour le test, initialiser le comboRole avec "Admin" ou "User"
-        // Comme le champ est caché, vous pouvez définir directement la valeur
+        // For testing, initialize the comboRole with "Admin" or "User"
         comboRole.getItems().addAll("Admin", "User");
-        comboRole.setValue("Admin"); // Par exemple, pour tester en tant qu'administrateur
+        comboRole.setValue("Admin");
+    }
+
+    /**
+     * This method is used to pass the event to be edited into the controller.
+     * It also loads the event data into the form fields.
+     */
+    public void setEvent(Event event) {
+        this.eventToEdit = event;
+        txtTitre.setText(event.getTitre());
+        txtDescription.setText(event.getDescription());
+        txtNBplaces.setText(String.valueOf(event.getNBplaces()));
+        txtPrix.setText(String.valueOf(event.getPrix()));
+        comboEtat.setValue(event.getEtat());
+        comboType.setValue(event.getType());
+        txtImage.setText(event.getImage());
+        txtLieu.setText(event.getLieu());
+        // Convert java.sql.Date to LocalDate for the DatePicker
+        if (event.getDate() != null) {
+            datePicker.setValue(event.getDate().toLocalDate());
+        }
     }
 
     @FXML
@@ -69,7 +90,7 @@ public class AddEventController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-        File selectedFile = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
         if (selectedFile != null) {
             txtImage.setText(selectedFile.getAbsolutePath());
         }
@@ -78,32 +99,36 @@ public class AddEventController {
     @FXML
     private void handleSave(ActionEvent event) {
         try {
-            // Conversion de la date sélectionnée en java.sql.Date
+            // Convert the selected date to java.sql.Date
             Date date = Date.valueOf(datePicker.getValue());
             String titre = txtTitre.getText();
             String description = txtDescription.getText();
-
+            int nbPlaces = Integer.parseInt(txtNBplaces.getText());
             double prix = Double.parseDouble(txtPrix.getText());
             String etat = comboEtat.getValue();
-            int nbPlaces = Integer.parseInt(txtNBplaces.getText());
             String type = comboType.getValue();
-
             String image = txtImage.getText();
             String lieu = txtLieu.getText();
 
+            // Update the eventToEdit object with new values
+            eventToEdit.setDate(date);
+            eventToEdit.setTitre(titre);
+            eventToEdit.setDescription(description);
+            eventToEdit.setNBplaces(nbPlaces);
+            eventToEdit.setPrix(prix);
+            eventToEdit.setEtat(etat);
+            eventToEdit.setType(type);
+            eventToEdit.setImage(image);
+            eventToEdit.setLieu(lieu);
 
-            // Création de l'objet Event
-            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu,1234);
+            // Update the event in the database
+            serviceEvent.updateEvent(eventToEdit);
 
-            // Insérer l'événement dans la base
-            serviceEvent.addEvent(e);
-
-            // Revenir à la vue d'administration des événements
+            // Navigate back to the event administration view
             goToEventAdmin(event);
-
         } catch (Exception ex) {
             ex.printStackTrace();
-            // Vous pouvez afficher un message d'erreur à l'utilisateur ici
+            // Optionally display an error message to the user here
         }
     }
 
@@ -112,11 +137,12 @@ public class AddEventController {
         goToEventAdmin(event);
     }
 
-    // Méthode de navigation pour retourner à EventAdmin.fxml
+    // Method to navigate back to EventAdmin.fxml
     private void goToEventAdmin(ActionEvent event) {
         try {
+            // Ensure that the EventAdmin.fxml is located in your resources folder
             Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

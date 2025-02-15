@@ -1,57 +1,71 @@
 package services.EventsServices;
 
-import Entity.Events.Event;
 import Entity.Events.Reservation;
+import Util.MyDB;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceReservation {
-    private List<Reservation> reservations;
+    private Connection con;
 
     public ServiceReservation() {
-        this.reservations = new ArrayList<>();
+        con = MyDB.getInstance().getConnection();
     }
 
-    // Ajouter une réservation
-    public void ajouterReservation(Reservation reservation) {
-        reservations.add(reservation);
-        System.out.println("Réservation ajoutée avec succès !");
+    public void ajouterReservation(Reservation reservation) throws SQLException {
+        String req = "INSERT INTO reservation (date, NBplace, Montant, Modepaiement, idevent) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setDate(1, new java.sql.Date(reservation.getDate().getTime()));
+        pre.setInt(2, reservation.getNbPlaces());
+        pre.setBigDecimal(3, reservation.getMontant());
+        pre.setString(4, reservation.getModePaiement());
+        pre.setInt(5, reservation.getIdEvent());
+        pre.executeUpdate();
     }
 
-    // Afficher toutes les réservations
-    public List<Reservation> afficherReservations() {
+
+    public List<Reservation> afficherReservations() throws SQLException {
+        List<Reservation> reservations = new ArrayList<>();
+        String req = "SELECT * FROM reservation";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            Reservation reservation = new Reservation(
+                    rs.getInt("idReservation"),
+                    rs.getInt("idEvent"),
+                    rs.getInt("idUser"),
+                    rs.getDate("date"),
+                    rs.getInt("nbPlaces"),
+                    rs.getBigDecimal("montant"),
+                    rs.getString("modePaiement"),
+                    rs.getString("etatReservation")
+            );
+            reservations.add(reservation);
+        }
         return reservations;
     }
 
-    // Modifier une réservation existante
-    public boolean modifierReservation(int id, Reservation nouvelleReservation) {
-        for (int i = 0; i < reservations.size(); i++) {
-            if (reservations.get(i).getIdReservation() == id) {
-                reservations.set(i, nouvelleReservation);
-                System.out.println("Réservation mise à jour !");
-                return true;
-            }
-        }
-        System.out.println("Réservation non trouvée !");
-        return false;
+    public void supprimerReservation(int id) throws SQLException {
+        String req = "DELETE FROM reservation WHERE idReservation = ?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, id);
+        pre.executeUpdate();
     }
 
-    // Supprimer une réservation
-    public boolean supprimerReservation(int id) {
-        return reservations.removeIf(reservation -> reservation.getIdReservation() == id);
-    }
-
-    // Récupérer une réservation par ID
-    public Reservation getReservationById(int id) {
-        for (Reservation r : reservations) {
-            if (r.getIdReservation() == id) {
-                return r;
-            }
-        }
-        return null;
-    }
-
-    public void ajouterReservation(Event selectedEvent, int nbPlaces, String value)
-    {
+    public void modifierReservation(Reservation reservation) throws SQLException {
+        String req = "UPDATE reservation SET idEvent = ?, idUser = ?, date = ?, nbPlaces = ?, montant = ?, modePaiement = ?, etatReservation = ? WHERE idReservation = ?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, reservation.getIdEvent());
+        pre.setInt(2, reservation.getIdUser());
+        pre.setDate(3, new java.sql.Date(reservation.getDate().getTime()));
+        pre.setInt(4, reservation.getNbPlaces());
+        pre.setBigDecimal(5, reservation.getMontant());
+        pre.setString(6, reservation.getModePaiement());
+        pre.setString(7, reservation.getEtatReservation());
+        pre.setInt(8, reservation.getIdReservation());
+        pre.executeUpdate();
     }
 }

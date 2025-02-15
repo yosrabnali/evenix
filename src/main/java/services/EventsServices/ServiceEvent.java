@@ -1,82 +1,105 @@
 package services.EventsServices;
 
-
 import Entity.Events.Event;
 import Util.MyDB;
-import services.IService;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceEvent implements IService<Event> {
-    private Connection con;
+public class ServiceEvent {
+
+    private Connection cnx;
 
     public ServiceEvent() {
-        con = MyDB.getInstance().getConnection();
+        // Récupère la connexion depuis la classe MyDB (Singleton)
+        this.cnx = MyDB.getInstance().getConnection();
     }
 
-    @Override
-    public void ajouter(Event event) throws SQLException {
-        String req = "INSERT INTO evenement (idadmin, date, titre, description, NBplaces, prix, etat, type, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1, event.getIdEvent());
-        pre.setDate(2, new Date(event.getDate().getTime()));
-        pre.setString(3, event.getTitre());
-        pre.setString(4, event.getDescription());
-        pre.setInt(5, event.getNBplaces());
-        pre.setBigDecimal(6, event.getPrix());
-        pre.setString(7, event.getEtat());
-        pre.setString(8, event.getType());
-        pre.setString(9, event.getImage());
-        pre.executeUpdate();
+    // CREATE
+    public void addEvent(Event e) {
+        // Table "evenement" et colonnes : idevent (auto-incr), date, titre, description, NBplaces, prix,
+        // etat, type, image, lieu, iduser
+        String req = "INSERT INTO evenement (date, titre, description, NBplaces, prix, etat, type, image, lieu, iduser) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setDate(1, e.getDate());          // java.sql.Date
+            pst.setString(2, e.getTitre());
+            pst.setString(3, e.getDescription());
+            pst.setInt(4, e.getNBplaces());
+            pst.setDouble(5, e.getPrix());
+            pst.setString(6, e.getEtat());
+            pst.setString(7, e.getType());
+            pst.setString(8, e.getImage());
+            pst.setString(9, e.getLieu());
+            pst.setInt(10, e.getIduser());
+            pst.executeUpdate();
+            System.out.println("Event ajouté avec succès !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    @Override
-    public void supprimer(int id) throws SQLException {
-        String req = "DELETE FROM evenement WHERE idevent = ?";
-        PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1, id);
-        pre.executeUpdate();
+    // READ (All)
+    public List<Event> getAllEvents() {
+        List<Event> events = new ArrayList<>();
+        // Sélection de tous les champs de la table "evenement"
+        String req = "SELECT * FROM evenement";
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                Event e = new Event();
+                e.setIdevent(rs.getInt("idevent"));     // PK
+                e.setDate(rs.getDate("date"));          // java.sql.Date
+                e.setTitre(rs.getString("titre"));
+                e.setDescription(rs.getString("description"));
+                e.setNBplaces(rs.getInt("NBplaces"));
+                e.setPrix(rs.getDouble("prix"));
+                e.setEtat(rs.getString("etat"));
+                e.setType(rs.getString("type"));
+                e.setImage(rs.getString("image"));
+                e.setLieu(rs.getString("lieu"));
+                e.setIduser(rs.getInt("iduser"));
+                events.add(e);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return events;
     }
 
-    @Override
-    public void modifier(Event event) throws SQLException {
-        String req = "UPDATE evenement SET idadmin = ?, date = ?, titre = ?, description = ?, NBplaces = ?, prix = ?, etat = ?, type = ?, image = ? WHERE idevent = ?";
-        PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1, event.getIdEvent());
-        pre.setDate(2, new Date(event.getDate().getTime()));
-        pre.setString(3, event.getTitre());
-        pre.setString(4, event.getDescription());
-        pre.setInt(5, event.getNBplaces());
-        pre.setBigDecimal(6, event.getPrix());
-        pre.setString(7, event.getEtat());
-        pre.setString(8, event.getType());
-        pre.setString(9, event.getImage());
-        pre.setInt(10, event.getIdEvent());
-        pre.executeUpdate();
+    // UPDATE
+    public void updateEvent(Event e) {
+        String req = "UPDATE evenement SET date=?, titre=?, description=?, NBplaces=?, prix=?, "
+                + "etat=?, type=?, image=?, lieu=?, iduser=? WHERE idevent=?";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setDate(1, e.getDate());
+            pst.setString(2, e.getTitre());
+            pst.setString(3, e.getDescription());
+            pst.setInt(4, e.getNBplaces());
+            pst.setDouble(5, e.getPrix());
+            pst.setString(6, e.getEtat());
+            pst.setString(7, e.getType());
+            pst.setString(8, e.getImage());
+            pst.setString(9, e.getLieu());
+            pst.setInt(10, e.getIduser());
+            pst.setInt(11, e.getIdevent());
+            pst.executeUpdate();
+            System.out.println("Event mis à jour avec succès !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
-   // @Override
-  //  public List<Event> afficher() throws SQLException {
-    //    List<Event> events = new ArrayList<>();
-      //  String req = "SELECT * FROM evenement";
-        //Statement st = con.createStatement();
-        //ResultSet rs = st.executeQuery(req);
-
-        //while (rs.next()) {
-          //  Event event = new Event(rs.getInt("idevent"),
-                 //   rs.getInt("idadmin"),
-                   // rs.getDate("date"),
-                    //rs.getString("titre"),
-                    //rs.getString("description"),
-                    //rs.getInt("NBplaces"),
-                    //rs.getBigDecimal("prix"),
-                    //rs.getString("etat"),
-                    //rs.getString("type"),
-                    //rs.getString("image")
-            //);
-           // events.add(event);
-       // }
-       // return events;
-    //}
+    // DELETE
+    public void deleteEvent(int idevent) {
+        String req = "DELETE FROM evenement WHERE idevent=?";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setInt(1, idevent);
+            pst.executeUpdate();
+            System.out.println("Event supprimé avec succès !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

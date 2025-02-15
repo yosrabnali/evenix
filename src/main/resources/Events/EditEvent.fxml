@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Events.EditEvent"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.Events.EditEventController"
+      spacing="10" alignment="CENTER">
 
-</AnchorPane>
+    <!-- Define padding via nested Insets -->
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Edit Event" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtTitre" promptText="Event Title" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtDescription" promptText="Event Description" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Number of Places:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtNBplaces" promptText="Number of Places" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+        <Label text="Price:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtPrix" promptText="Price" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+        <Label text="Status:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="comboEtat" promptText="Status" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+        <Label text="Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="comboType" promptText="Type" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+        <Label text="Image:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <HBox spacing="5" GridPane.rowIndex="6" GridPane.columnIndex="1">
+            <TextField fx:id="txtImage" promptText="Image Path" HBox.hgrow="ALWAYS"/>
+            <Button text="Browse" onAction="#handleChooseImage"/>
+        </HBox>
+
+        <Label text="Location:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtLieu" promptText="Location" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+        <Label text="Date:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="datePicker" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+        <!-- Hidden role field (for testing) -->
+        <ComboBox fx:id="comboRole" visible="false" managed="false" />
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Save" onAction="#handleSave" />
+        <Button text="Cancel" onAction="#handleCancel" />
+    </HBox>
+
+</VBox>
