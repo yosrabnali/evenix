@@ -49,9 +49,9 @@ public class ReservationDetailsController {
      */
     public void setEvent(Event event) {
         this.event = event;
-        lblTitle.setText("Titre: "+ event.getTitre());
+        lblTitle.setText("Titre : "+ event.getTitre());
         lblDescription.setText("Description: "+event.getDescription());
-        lblDate.setText(event.getDate().toString());
+        lblDate.setText("Date: "+event.getDate().toString());
         lblLieu.setText(event.getLieu());
     }
 
