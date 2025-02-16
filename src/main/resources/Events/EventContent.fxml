@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.Events.EventClientController"
+            hbarPolicy="ALWAYS" vbarPolicy="NEVER"
+            fitToWidth="true" prefHeight="500"
+            style="-fx-background-color: transparent;">
+    <content>
+        <!-- Ce FlowPane sera rempli dynamiquement par un contrôleur d'événements ou directement ici -->
+        <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20" style="-fx-padding: 20;"/>
+    </content>
+</ScrollPane>

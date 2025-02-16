@@ -15,11 +15,11 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.Events.EventClientController"
+            fx:controller="controllers.UserMainLayoutController"
             prefWidth="1300" prefHeight="800"
             style="-fx-background-color: #ECECEC;">
    <children>
-      <BorderPane AnchorPane.topAnchor="0"
+      <BorderPane fx:id="mainBorderPane" AnchorPane.topAnchor="0"
                   AnchorPane.bottomAnchor="0"
                   AnchorPane.leftAnchor="0"
                   AnchorPane.rightAnchor="0">
@@ -43,12 +43,16 @@
                <!-- Milieu : Boutons -->
                <VBox prefWidth="300" prefHeight="500" spacing="20" style="-fx-padding: 20; -fx-background-color: linear-gradient(to bottom, #3C6382, #2A465A);">
                   <Button text="Home" maxWidth="Infinity" prefHeight="60"
+                          onAction="#handleHome"
                           style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
                   <Button text="Event" maxWidth="Infinity" prefHeight="60"
+                          onAction="#handleEvent"
                           style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
                   <Button text="Discussion" maxWidth="Infinity" prefHeight="60"
+                          onAction="#handleDiscussion"
                           style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
                   <Button text="Complaint" maxWidth="Infinity" prefHeight="60"
+                          onAction="#handleComplaint"
                           style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
                </VBox>
 
@@ -60,36 +64,12 @@
             </VBox>
          </left>
 
-         <!-- Centre : Barre du haut et zone dynamique d'événements -->
+         <!-- Centre : Zone dynamique de contenu -->
          <center>
-            <VBox spacing="15" style="-fx-padding: 20;">
-               <!-- Barre du haut -->
-               <HBox spacing="15" alignment="CENTER_LEFT" prefHeight="50">
-                  <Label text="Language:" style="-fx-text-fill: #878787; -fx-font-size: 18;"/>
-                  <Label text="English" style="-fx-text-fill: #878787; -fx-font-size: 18; -fx-underline: true;"/>
-                  <Pane HBox.hgrow="ALWAYS"/>
-                  <Label text="Yosra" style="-fx-text-fill: #878787; -fx-font-size: 18;"/>
-                  <Button text="Logout"
-                          style="-fx-background-color: #E53935; -fx-text-fill: white; -fx-font-size: 14; -fx-background-radius: 10; -fx-padding: 5 10;"/>
-               </HBox>
-
-               <!-- Encarts promotionnels -->
-               <HBox spacing="20" alignment="CENTER_LEFT" prefHeight="70">
-                  <HBox alignment="CENTER" style="-fx-background-color: #D3D3D3; -fx-background-radius: 30; -fx-padding: 10 20;">
-                     <Label text="Free delivery&#10;over $20 order" style="-fx-text-fill: #878787; -fx-font-size: 15;"/>
-                  </HBox>
-                  <HBox alignment="CENTER" style="-fx-background-color: #BAEAC3; -fx-background-radius: 30; -fx-padding: 10 20;">
-                     <Label text="Shopping online&#10;get your shopping in same day" style="-fx-text-fill: #878787; -fx-font-size: 15;"/>
-                  </HBox>
-               </HBox>
-
-               <!-- Zone d'affichage des cartes d'événements -->
-               <ScrollPane hbarPolicy="ALWAYS" vbarPolicy="NEVER" fitToWidth="true" prefHeight="500" style="-fx-background-color: transparent;">
-                  <content>
-                     <!-- Ce FlowPane sera rempli dynamiquement -->
-                     <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20" style="-fx-padding: 20;"/>
-                  </content>
-               </ScrollPane>
+            <!-- Ce conteneur contiendra le contenu à changer selon le bouton cliqué -->
+            <VBox fx:id="centerContent" spacing="15" style="-fx-padding: 20;">
+               <!-- Par défaut, contenu de bienvenue -->
+               <Label text="Bienvenue !" style="-fx-font-size: 24; -fx-text-fill: #333;"/>
             </VBox>
          </center>
       </BorderPane>
