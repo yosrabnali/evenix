@@ -1,18 +1,82 @@
-.white-background{
-    -fx-background-color:#fff;
+/* 🎨 Design général */
+.root {
+    -fx-background-color: #1b1b1b; /* Fond sombre */
+    -fx-font-family: 'Poppins', sans-serif;
+}
 
+/* 🟦 Sidebar */
+.sidebar {
+    -fx-background-color: #242424; /* Fond plus foncé */
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
 
+/* Logo et textes */
+.logo {
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-transition: all 0.3s ease-in-out;
 }
-.round-layout{
-    -fx-border-radius: 50;
-    -fx-border-color:#D7D7D7;
+
+.sidebar-button:hover {
+    -fx-background-color: #3b3b3b; /* Effet de survol */
 }
-.selected{
-    -fx-background-color:#F3F3F3;
+
+/* 🟦 Contenu */
+.content-area {
+    -fx-background-color: #222; /* Arrière-plan du conteneur */
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
 }
-.mouse-moved:hover{
-    -fx-background-color:#E4E4E4 ;
+
+/* 🔘 Bouton Logout */
+.logout-button {
+    -fx-background-color: #e74c3c; /* Rouge vif */
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+}
+
+.logout-button:hover {
+    -fx-background-color: #c0392b; /* Rouge plus foncé au survol */
+}
+
+/* 🎟️ Style des événements */
+.event-container {
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+}
+
+.event-card {
+    -fx-background-color: #2c2c2c;
+    -fx-border-radius: 10px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0);
+}
+
+.event-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.event-button {
+    -fx-background-color: #287b8d;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+}
+
+.event-button:hover {
+    -fx-background-color: #1b5f6b;
 }

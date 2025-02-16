@@ -24,62 +24,53 @@ import java.io.IOException;
 public class EventClientController implements Initializable {
 
     @FXML
-    private FlowPane flowPaneEvents;
+    private FlowPane flowPaneEvents; // Ce nœud doit être défini dans le FXML avec fx:id="flowPaneEvents"
 
     private ServiceEvent serviceEvent = new ServiceEvent();
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadEvents();
+        // Vérifiez l'injection du FlowPane
+        if (flowPaneEvents == null) {
+            System.err.println("Erreur : flowPaneEvents n'est pas injecté. Vérifiez le fichier FXML.");
+        } else {
+            loadEvents();
+        }
     }
-
     private void loadEvents() {
         List<Event> events = serviceEvent.getAllEvents();
         flowPaneEvents.getChildren().clear();
 
-        // Pour chaque événement, on crée une "carte" avec l'image, le titre, le lieu et la date, ainsi qu'un bouton "Réserver"
         for (Event e : events) {
-            VBox card = new VBox(5);
-            card.setStyle("-fx-border-color: gray; -fx-padding: 5; -fx-alignment: center;");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventCard.fxml"));
+                VBox card = loader.load();
 
-            // Affichage de la photo
-            String imagePath = e.getImage();
-            Image image = new Image("file:" + imagePath, 100, 100, true, true);
-            ImageView imageView = new ImageView(image);
+                // Récupère le contrôleur de la carte et initialise ses données
+                EventCardController cardController = loader.getController();
+                cardController.setData(e);
 
-            // Affichage du titre
-            Label lblTitle = new Label(e.getTitre());
-
-            // Affichage du lieu
-            Label lblLieu = new Label(e.getLieu());
-
-            // Affichage de la date (formatée, ici en toString, à adapter si besoin)
-            Label lblDate = new Label(e.getDate().toString());
-
-            // Bouton Réserver
-            Button btnReserve = new Button("Réserver");
-            btnReserve.setOnAction(ev -> {
-                navigateToReservationDetails(e, ev);
-            });
-
-            card.getChildren().addAll(imageView, lblTitle, lblLieu, lblDate, btnReserve);
-            flowPaneEvents.getChildren().add(card);
+                flowPaneEvents.getChildren().add(card);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
     /**
-     * Navigue vers la page de détails de l'événement pour la réservation.
+     * Navigue vers la page de détails de réservation en passant l'événement sélectionné.
      */
     private void navigateToReservationDetails(Event event, ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/ReservationDetails.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le contrôleur et lui passer l'événement
+            // Récupère le contrôleur de la page de réservation et lui passe l'événement
             ReservationDetailsController controller = loader.getController();
             controller.setEvent(event);
 
-            // Changer de scène
+            // Changer la scène pour afficher la page de réservation
             Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

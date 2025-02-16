@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.Events.EventCardController"
+      alignment="CENTER"
+      spacing="10"
+      style="
+          -fx-background-color: #FFFFFF;
+          -fx-background-radius: 10;
+          -fx-padding: 15;
+          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.5, 0, 2);
+          ">
+    <children>
+        <ImageView fx:id="imageView" fitWidth="120" preserveRatio="true"/>
+        <Label fx:id="lblTitle" text="Titre" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <Label fx:id="lblLieu" text="Lieu" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+        <Label fx:id="lblDate" text="Date" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+        <Button fx:id="btnReserve" text="Réserver" style="
+            -fx-background-color: #287b8d;
+            -fx-text-fill: white;
+            -fx-font-size: 14px;
+            -fx-background-radius: 8;
+            -fx-padding: 5 15;
+            -fx-cursor: hand;
+        "/>
+    </children>
+</VBox>
