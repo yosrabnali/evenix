@@ -13,11 +13,12 @@ public class HelloApplication extends Application {
         try {
             // Ici, on charge la vue de démarrage.
             // Par exemple, si vous voulez démarrer avec la vue client :
-            boolean isAdmin = true;
-            String fxmlPath = isAdmin ? "/Events/EventAdmin.fxml" : "/Main/UserMainLayout.fxml";
 
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            
+           Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
+
+
+            // Vous pouvez aussi choisir une autre vue, comme EventAdmin.fxml, selon votre cas.
+            //Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));
 
             Scene scene = new Scene(root, 800, 600);
 

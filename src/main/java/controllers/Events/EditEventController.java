@@ -140,11 +140,9 @@ public class EditEventController {
     // Method to navigate back to EventAdmin.fxml
     private void goToEventAdmin(ActionEvent event) {
         try {
-            // Ensure that the EventAdmin.fxml is located in your resources folder
-            Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));
-            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -106,17 +106,17 @@ public class EventAdminController implements Initializable {
     private void navigateToEditEventController(Event event) {
         try {
             // Load the FXML for the Edit Event screen
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EditEvent.fxml"));
-            Parent root = loader.load();
 
-            // Get the controller and pass the event object
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EditEvent.fxml"));
+            Parent newContent = loader.load();
+            // Remplace le contenu actuel du conteneur par le nouveau contenu
+            flowPaneEvents.getChildren().setAll(newContent);
+
+            // Récupère le contrôleur et lui passe l'événement
             EditEventController controller = loader.getController();
             controller.setEvent(event);
 
-            // Get the current stage and switch the scene
-            Stage stage = (Stage) flowPaneEvents.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
         } catch (IOException ex) {
             ex.printStackTrace();
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -131,13 +131,15 @@ public class EventAdminController implements Initializable {
      * Called when the "+" button is clicked to add a new event.
      */
     @FXML
+    private VBox centerContent;  // Assurez-vous que ce champ est bien injecté depuis votre FXML.
+
+    @FXML
     private void handleAddEvent(ActionEvent event) {
         try {
-            // Load the FXML for the Add Event screen (ensure /Events/AddEvent.fxml exists)
-            Parent root = FXMLLoader.load(getClass().getResource("/Events/AddEvent.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            // Charge le FXML de l'écran d'ajout d'événement
+            Parent newContent = FXMLLoader.load(getClass().getResource("/Events/AddEvent.fxml"));
+            // Remplace le contenu actuel du conteneur par le nouveau contenu
+            flowPaneEvents.getChildren().setAll(newContent);
         } catch (IOException ex) {
             ex.printStackTrace();
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -147,4 +149,5 @@ public class EventAdminController implements Initializable {
             errorAlert.showAndWait();
         }
     }
+
 }

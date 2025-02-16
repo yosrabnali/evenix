@@ -52,7 +52,7 @@
 
                     <!-- Milieu : Boutons de Navigation -->
                     <VBox prefWidth="300" spacing="20" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: linear-gradient(to bottom, #3C6382, #2A465A);">
-                        <Button text="Home" maxWidth="Infinity" prefHeight="60"
+                        <Button fx:id="btnhome" text="Home" maxWidth="Infinity" prefHeight="60"
                                 onAction="#handleHome"
                                 style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
                         <Button text="Event" maxWidth="Infinity" prefHeight="60"
@@ -61,9 +61,10 @@
                         <Button text="Discussion" maxWidth="Infinity" prefHeight="60"
                                 onAction="#handleDiscussion"
                                 style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
-                        <Button text="Complaint" maxWidth="Infinity" prefHeight="60"
+                        <Button fx:id="btnComplaint" text="Complaint" maxWidth="Infinity" prefHeight="60"
                                 onAction="#handleComplaint"
                                 style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10;"/>
+
                     </VBox>
 
                     <!-- Bas : Bouton Logout -->

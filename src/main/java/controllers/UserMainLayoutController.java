@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
@@ -15,6 +16,10 @@ public class UserMainLayoutController {
     // Référence au BorderPane principal et à la zone centrale
     @FXML
     private BorderPane mainBorderPane;
+    @FXML
+    private Button btnComplaint;
+    @FXML
+    private Button btnhome;
 
     @FXML
     private VBox centerContent;
@@ -23,10 +28,26 @@ public class UserMainLayoutController {
     public void initialize() {
         // Initialisation du contenu par défaut (page d'accueil)
         showHomeContent();
+        if (false) {
+            // Hide the complaint button if the user is an admin
+            btnComplaint.setVisible(false);
+            btnComplaint.setManaged(false);
+            btnhome.setVisible(false);
+            btnhome.setManaged(false);
+
+        } else {
+            // Ensure the button is visible and managed otherwise
+            btnComplaint.setVisible(true);
+            btnComplaint.setManaged(true);
+            btnhome.setVisible(true);
+            btnhome.setManaged(true);
+
+        }
     }
 
     @FXML
     private void handleHome(ActionEvent event) {
+        System.out.println("Home button clicked");
         showHomeContent();
     }
 
@@ -34,6 +55,8 @@ public class UserMainLayoutController {
     private void handleEvent(ActionEvent event) {
         // Charge le contenu des événements (exemple avec un fichier FXML)
         try {
+           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
             Node eventContent = loader.load();
             // Remplace le contenu central

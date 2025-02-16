@@ -2,6 +2,8 @@ package controllers.Events;
 
 import Entity.Events.Event;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -19,7 +21,8 @@ import java.io.IOException;
 import java.sql.Date;
 
 public class AddEventController {
-
+    @FXML
+    private FlowPane flowPaneEvents;
     @FXML
     private TextField txtTitre;
     @FXML
@@ -122,15 +125,15 @@ public class AddEventController {
     // Méthode de navigation pour retourner à EventAdmin.fxml
     private void goToEventAdmin(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
