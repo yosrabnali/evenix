@@ -70,7 +70,7 @@ public class ReservationDetailsController {
             ServiceReservation serviceReservation = new ServiceReservation();
             Reservation r =new Reservation(event.getIdevent(),1234,new Date(),nbPlaces,new BigDecimal(prix),etat,"confirmee");
             serviceReservation.ajouterReservation(r);
-            Parent root = FXMLLoader.load(getClass().getResource("/Events/EventClient.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
             Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -85,7 +85,7 @@ public class ReservationDetailsController {
     @FXML
     private void handleCancelReservation(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Events/EventClient.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
             Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

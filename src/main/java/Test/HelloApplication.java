@@ -13,7 +13,8 @@ public class HelloApplication extends Application {
         try {
             // Ici, on charge la vue de démarrage.
             // Par exemple, si vous voulez démarrer avec la vue client :
-            Parent root = FXMLLoader.load(getClass().getResource("/Events/EventClient.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
+
 
             // Vous pouvez aussi choisir une autre vue, comme EventAdmin.fxml, selon votre cas.
             //Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));

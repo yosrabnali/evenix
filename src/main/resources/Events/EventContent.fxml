@@ -4,7 +4,7 @@
 
 <ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.Events.EventClientController"
+            fx:controller="controllers.Events.EventContentController"
             hbarPolicy="ALWAYS" vbarPolicy="NEVER"
             fitToWidth="true" prefHeight="500"
             style="-fx-background-color: transparent;">

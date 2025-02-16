@@ -7,10 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,7 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.io.IOException;
 
-public class EventClientController implements Initializable {
+public class EventContentController implements Initializable {
 
     @FXML
     private FlowPane flowPaneEvents; // Ce nœud doit être défini dans le FXML avec fx:id="flowPaneEvents"
