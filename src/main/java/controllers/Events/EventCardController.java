@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -50,16 +51,17 @@ public class EventCardController {
             System.out.println("Réservation demandée pour l'événement : " + event.getTitre());
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/ReservationDetails.fxml"));
-                Parent root = loader.load();
+                Parent reservationView = loader.load();
 
                 // Récupère le contrôleur de la page de réservation et lui passe l'événement
                 ReservationDetailsController controller = loader.getController();
                 controller.setEvent(event);
 
-                // Récupère la scène actuelle et effectue la navigation
-                Stage stage = (Stage)((Node)ev.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
+                // Plutôt que de changer la scène entière, on recherche le conteneur actuel par son fx:id (ici "centerContent")
+                // Assurez-vous que l'id "centerContent" est bien défini dans votre layout principal.
+                VBox centerContent = (VBox)((Node)ev.getSource()).getScene().lookup("#centerContent");
+                centerContent.getChildren().setAll(reservationView);
+
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

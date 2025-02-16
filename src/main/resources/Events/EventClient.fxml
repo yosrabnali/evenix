@@ -16,7 +16,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.UserMainLayoutController"
-            prefWidth="1300" prefHeight="800"
+            prefWidth="800" prefHeight="600"
             style="-fx-background-color: #ECECEC;">
    <children>
       <BorderPane fx:id="mainBorderPane" AnchorPane.topAnchor="0"
