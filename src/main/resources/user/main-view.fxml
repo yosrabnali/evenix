@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MainController">
+    <left>
+        <VBox spacing="20" style="-fx-background-color: #7C2C4F; -fx-padding: 30; -fx-pref-width: 220;">
+            <StackPane>
+                <!-- ImageView -->
+                <ImageView fitHeight="100" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/profile.png" />
+                    </image>
+                </ImageView>
+
+                <!-- Button -->
+                <Button text="Télécharger photo" fx:id="uploadImageButton" graphicTextGap="10" />
+            </StackPane>
+
+            <Button text="Accueil" graphicTextGap="10">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
+
+                        <Image url="@../images/home.jpg" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button text="Profil" fx:id="profileButton" graphicTextGap="10" />
+            <Button text="Événement" fx:id="eventButton" graphicTextGap="10" />
+            <Button text="Discussion" fx:id="discussionButton" graphicTextGap="10" />
+            <Button text="Réclamation" fx:id="complaintButton" graphicTextGap="10" />
+
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane>
+            <Label text="Zone de contenu principale" style="-fx-font-size: 24px;" />
+        </StackPane>
+    </center>
+</BorderPane>

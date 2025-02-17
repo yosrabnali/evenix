@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaterialController">
+    <children>
+        <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
+                            <children>
+                                <Label prefHeight="50.0" prefWidth="191.0" text="Materials" textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria Bold" size="40.0" />
+                                    </font>
+                                </Label>
+                                <Label text="Management" textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria" size="40.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@../css/style.css" VBox.vgrow="NEVER">
+                            <VBox.margin>
+                                <Insets left="30.0" right="30.0" />
+                            </VBox.margin>
+                            <children>
+                                <TextField fx:id="searchField" prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@../css/style.css">
+                                    <HBox.margin>
+                                        <Insets left="20.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Cambria" size="18.0" />
+                                    </font>
+                                </TextField>
+                                <Button fx:id="searchBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@../css/style.css" text="Search" textFill="WHITE" />
+                            </children>
+                            <styleClass>
+                                <String fx:value="search-box" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </HBox>
+                        <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                        <VBox fx:id="chosenMaterialCard" alignment="CENTER" prefHeight="549.0" prefWidth="334.0" stylesheets="@../css/style.css">
+                            <VBox.margin>
+                                <Insets left="50.0" right="50.0" />
+                            </VBox.margin>
+
+                            <children>
+                                <HBox prefHeight="70.0" prefWidth="314.0">
+                                    <children>
+                                        <Label fx:id="materielNameLable" prefHeight="44.0" prefWidth="218.0" text="Name">
+                                            <font>
+                                                <Font name="Cambria" size="36.0" />
+                                            </font>
+                                        </Label>
+                              <Label fx:id="materielPriceLabel" prefHeight="44.0" prefWidth="126.0" text="Price">
+                                 <font>
+                                    <Font name="Cambria" size="36.0" />
+                                 </font>
+                              </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets left="20.0" top="30.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                    <children>
+                                        <Label fx:id="categoryLabel" prefHeight="53.0" prefWidth="167.0" text="Category">
+                                            <font>
+                                                <Font name="Cambria" size="36.0" />
+                                            </font>
+                                        </Label>
+                              <ComboBox fx:id="categoryComboBox" prefHeight="45.0" prefWidth="130.0" promptText="1" styleClass="comboBox" stylesheets="@../css/style.css" />
+                                    </children>
+                                </HBox>
+                                <ImageView fx:id="materielImg" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </ImageView>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <Separator prefHeight="0.0" prefWidth="118.0" />
+                              <Label alignment="CENTER" prefHeight="45.0" prefWidth="64.0" text="and" textFill="WHITE">
+                                 <font>
+                                    <Font name="Cambria" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="0.0" prefWidth="118.0" />
+                           </children>
+                        </HBox>
+                                <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                    <children>
+                                        <Label fx:id="quantityNameLable" prefWidth="329.0" text="Quantity">
+                                            <font>
+                                                <Font name="Cambria" size="36.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+                        <VBox prefHeight="46.0" prefWidth="334.0" />
+                        <Label fx:id="DescriptionLabel" prefHeight="22.0" prefWidth="319.0" text="Description">
+                           <font>
+                              <Font name="Cambria" size="18.0" />
+                           </font>
+                        </Label>
+                        <VBox prefHeight="85.0" prefWidth="334.0" />
+                        <HBox prefHeight="66.0" prefWidth="334.0">
+                           <children>
+                              <HBox prefHeight="49.0" prefWidth="46.0" />
+                              <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="32.0" prefWidth="130.0" styleClass="search-button" stylesheets="@../css/style.css" text="Delete" textFill="#828282">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <HBox prefHeight="49.0" prefWidth="119.0">
+                                 <children>
+                                    <Button fx:id="RentBTN" mnemonicParsing="false" prefHeight="32.0" prefWidth="130.0" styleClass="search-button" stylesheets="@../css/style.css" text="Rent" textFill="#828282">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="ClearBtn" mnemonicParsing="false" prefHeight="48.0" prefWidth="128.0" styleClass="search-button" stylesheets="@../css/style.css" text="Clear" textFill="#828282">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <HBox prefHeight="49.0" prefWidth="42.0" />
+                           </children>
+                        </HBox>
+                            </children>
+                            <styleClass>
+                                <String fx:value="chosen-Material-card" />
+                                <String fx:value="shadow" />
+                            </styleClass>
+                        </VBox>
+                        <Pane prefHeight="99.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                    </children>
+                </VBox>
+            </left>
+            <center>
+                <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0" />
+                            </VBox.margin>
+                            <children>
+                        <ImageView fitHeight="72.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Evenix.png" />
+                           </image>
+                        </ImageView>
+                                <Label prefHeight="29.0" prefWidth="88.0" text="EVENIX" textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
+                                <Label prefHeight="62.0" prefWidth="46.0" text="Dali" textFill="#878787">
+                                    <font>
+                                        <Font name="Cambria" size="18.0" />
+                                    </font>
+                                </Label>
+                                <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/dali.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <Pane prefHeight="100.0" prefWidth="53.0" />
+                        <HBox prefHeight="100.0" prefWidth="148.0">
+                           <children>
+                              <Button fx:id="AddMaterialBTN" mnemonicParsing="false" onAction="#openAddMatView" prefHeight="46.0" prefWidth="120.0" styleClass="search-button" stylesheets="@../css/style.css" text="Add Material" textFill="#828282" />
+                           </children>
+                        </HBox>
+                                <Button fx:id="modifyBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="140.0" styleClass="search-button" stylesheets="@../css/style.css" text="Modify Material" textFill="#828282" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="20.0" right="20.0" top="10.0" />
+                            </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="NW_RESIZE" />
+                     </cursor>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="452.0" prefWidth="880.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <ScrollPane fx:id="scroll" prefHeight="549.0" prefWidth="884.0" styleClass="transparent" stylesheets="@../css/style.css">
+                                    <content>
+                                        <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                            </rowConstraints>
+                                        </GridPane>
+
+
+                                    </content>
+                                    <HBox.margin>
+                                        <Insets top="10.0" />
+                                    </HBox.margin>
+                                </ScrollPane>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+      <HBox layoutX="1141.0" layoutY="739.0" prefHeight="62.0" prefWidth="182.0" styleClass="transparent" stylesheets="@../css/style.css">
+         <children>
+                      <HBox alignment="CENTER" prefHeight="99.0" prefWidth="178.0" spacing="10">
+                          <Label fx:id="pageNumberLabel" text="Page 1" />
+                          <Button fx:id="nextPageBtn" text="Next ➡" />
+                      </HBox>
+         </children>
+      </HBox>
+    </children>
+    <!-- 🔹 Ajoute ce bloc ici -->
+    <stylesheets>
+        <URL value="@../css/sstyles.css" />
+    </stylesheets>
+</AnchorPane>

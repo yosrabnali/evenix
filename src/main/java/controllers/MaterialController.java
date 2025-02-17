@@ -1,0 +1,495 @@
+package controllers;
+
+import entities.Materiel;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import services.MaterielService;
+import util.MyDB;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+public class MaterialController {
+
+        @FXML
+        private GridPane grid;
+
+        @FXML
+        private VBox chosenMaterialCard;
+
+        @FXML
+        private Label materielNameLable;
+
+        @FXML
+        private Label materielPriceLabel;
+
+        @FXML
+        private ImageView materielImg;
+
+        @FXML
+        private Label quantityNameLable;
+
+        @FXML
+        private Button modifyBtn;
+
+        @FXML
+        private Button ClearBtn;
+
+        @FXML
+        private Button deleteBtn,AddMaterialBTN;
+
+        @FXML
+        private Label DescriptionLabel;
+
+        @FXML
+        private Label categoryLabel;
+
+        @FXML
+        private ComboBox<String> categoryComboBox;
+        @FXML
+        private Button searchBtn;
+
+        @FXML
+        private TextField searchField;
+        @FXML
+        private Label MaterialPriceLabel;
+        @FXML
+        private Button nextPageBtn;
+
+        @FXML
+        private Label pageNumberLabel;
+        @FXML
+        private Button RentBTN;
+
+        @FXML
+        private Button prevPageBtn;
+        private String userRole; // Rôle de l'utilisateur
+        private int userId; // ID de l'utilisateur connecté
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private MaterielService materielService = new MaterielService();
+        private Materiel selectedMateriel; // Pour stocker le matériel sélectionné
+
+        @FXML
+        public void initialize() {
+
+                grid.setStyle("-fx-background-color: #f5f5f5; -fx-padding: 20px;");
+                chosenMaterialCard.getStyleClass().add("chosen-Material-Card");
+
+                // Cacher la carte de détail au début
+                chosenMaterialCard.setVisible(false);
+                chosenMaterialCard.setManaged(false);
+
+                if (deleteBtn != null) {
+                        deleteBtn.setOnAction(event -> deleteSelectedMateriel());
+                }
+
+
+                if (ClearBtn != null) {
+                        ClearBtn.setOnAction(event -> clearChosenMaterial());
+
+
+                }
+                if (modifyBtn != null) {
+                        modifyBtn.setOnAction(event -> {
+                                if (selectedMateriel != null) {
+                                        openEditMaterialView(selectedMateriel);
+                                } else {
+                                        showWarningDialog("⚠ No material selected!");
+                                }
+                        });}
+
+                clearChosenMaterial();
+                loadMaterials();
+                searchBtn.setOnAction(event -> searchMaterials());
+
+                // Lancer la recherche automatiquement lorsqu'on tape dans le champ
+                searchField.textProperty().addListener((observable, oldValue, newValue) -> searchMaterials());
+                AddMaterialBTN.setOnAction(this::openAddMatView);
+                nextPageBtn.setOnAction(e -> openCategoryManagement());
+
+        }
+
+        @FXML
+        private void openAddMatView(ActionEvent event) {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/materiel/AddMaterial.fxml")); // ⚠️ Vérifie bien le chemin exact
+                        Parent root = loader.load();
+
+                        // 🔹 Récupérer le contrôleur de AddmatController
+                        AddmatController addmatController = loader.getController();
+                        addmatController.setMaterialController(this); // 🔄 Passer une référence du contrôleur actuel
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Add a Material");
+                        stage.setScene(new Scene(root));
+
+                        // ✅ Ajouter un écouteur pour détecter la fermeture de la fenêtre et recharger la liste
+                        stage.setOnHidden(e -> {
+                                System.out.println("🔄 Fenêtre d'ajout fermée, rechargement des matériels...");
+                                loadMaterials(); // 🔄 Mettre à jour la liste des matériels
+                        });
+
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+        }
+
+
+
+
+
+        private void searchMaterials() {
+                String searchText = searchField.getText().trim();
+
+                // Vérifier et rétablir la connexion si nécessaire
+                if (!MyDB.getInstance().isConnected()) {
+                        System.out.println("🔄 Réouverture de la connexion pour la recherche...");
+                        MyDB.getInstance().getConnection();
+                }
+
+                // Si le champ est vide, afficher tous les matériels
+                List<Materiel> filteredMaterials = searchText.isEmpty() ?
+                        materielService.Recuperer() :
+                        materielService.searchByName(searchText);
+
+                grid.getChildren().clear(); // Nettoyer l'affichage
+
+                int column = 0;
+                int row = 0;
+
+                for (Materiel m : filteredMaterials) {
+                        VBox materialBox = createMaterialCard(m);
+                        grid.add(materialBox, column++, row);
+
+                        if (column == 5) { // 5 éléments max par ligne
+                                column = 0;
+                                row++;
+                        }
+                }
+        }
+
+
+
+
+
+
+
+
+
+        /** ✅ Charger et afficher les matériels */
+        public void loadMaterials() {
+                List<Materiel> materiels = materielService.Recuperer();
+                grid.getChildren().clear();
+                grid.setHgap(25); // Espacement horizontal entre les cartes
+                grid.setVgap(25); // Espacement vertical entre les cartes
+                grid.setPadding(new Insets(25, 25, 25, 25)); // Ajouter des marges autour de la grille
+
+                // Définir la structure du GridPane pour éviter des déformations
+                grid.getColumnConstraints().clear();
+                for (int i = 0; i < 5; i++) { // 4 colonnes max
+                        ColumnConstraints colConstraints = new ColumnConstraints();
+                        colConstraints.setPercentWidth(25); // Chaque colonne prend 25% de la largeur
+                        grid.getColumnConstraints().add(colConstraints);
+                }
+
+                grid.getRowConstraints().clear();
+                for (int i = 0; i < 5; i++) { // Prévoir 5 lignes visibles max
+                        RowConstraints rowConstraints = new RowConstraints();
+                        rowConstraints.setMinHeight(200); // Hauteur minimum des lignes
+                        grid.getRowConstraints().add(rowConstraints);
+                }
+
+                int column = 0;
+                int row = 0;
+
+                for (Materiel m : materiels) {
+                        VBox materialBox = createMaterialCard(m);
+                        materialBox.setPrefWidth(280); // Augmenter la largeur de la carte
+                        materialBox.setPrefHeight(350); // Augmenter la hauteur de la carte
+                        materialBox.setAlignment(Pos.CENTER); // Centrer le contenu
+                        materialBox.getStyleClass().add("material-card"); // Appliquer le style CSS
+
+                        // Utiliser un conteneur pour le centrage
+                        StackPane container = new StackPane(materialBox);
+                        container.setAlignment(Pos.CENTER);
+                        grid.add(container, column++, row);
+
+                        if (column == 5) { // 4 cartes par ligne
+                                column = 0;
+                                row++;
+                        }
+
+                }
+
+        }
+        /** ✅ Charger la liste des catégories dans la ComboBox */
+        private void loadCategories() {
+                // Effacer les anciennes catégories
+                categoryComboBox.getItems().clear();
+
+                // Liste des catégories (à adapter selon ta base de données)
+                List<String> categories = materielService.getCategories(); // Exemple : ["Électronique", "Bureau", "Maison"]
+
+                // Ajouter les catégories dans la ComboBox
+                categoryComboBox.getItems().addAll(categories);
+        }
+
+
+
+
+        /** ✅ Créer une carte pour chaque matériel */
+        private VBox createMaterialCard(Materiel m) {
+                VBox card = new VBox();
+                card.setPrefSize(180, 200);
+                card.getStyleClass().add("Material-item");
+
+                HBox titleBox = new HBox();
+                titleBox.setSpacing(10);
+                titleBox.setStyle("-fx-alignment: center-left; -fx-padding: 5px;");
+
+                Label nameLabel = new Label(m.getNom());
+                nameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+
+                Label priceLabel = new Label("$" + m.getPrix());
+                priceLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #2e7d32; -fx-font-weight: bold;");
+
+                titleBox.getChildren().addAll(nameLabel, priceLabel);
+
+                ImageView imageView = new ImageView();
+                imageView.setFitHeight(120);
+                imageView.setFitWidth(120);
+                File imageFile = new File(m.getImage());
+                if (imageFile.exists()) {
+                        imageView.setImage(new Image(imageFile.toURI().toString()));
+                } else {
+                        imageView.setImage(new Image("file:src/main/resources/images/default.png"));
+                }
+
+                card.getChildren().addAll(titleBox, imageView);
+                card.setOnMouseClicked(event -> setChosenMateriel(m)); // Sélectionner un matériel au clic
+
+                return card;
+        }
+
+        /** ✅ Sélectionner un matériel et afficher ses détails */
+        public void setChosenMateriel(Materiel materiel) {
+                if (materiel == null) return;
+
+                selectedMateriel = materiel; // Stocker le matériel sélectionné
+
+                // Mettre à jour les labels avec les nouvelles informations
+                materielNameLable.setText(materiel.getNom());
+                materielPriceLabel.setText("$" + materiel.getPrix());
+                quantityNameLable.setText("Quantity: " + materiel.getQuantite());
+                DescriptionLabel.setText("Description: " + materiel.getDescription());
+
+                // Charger les catégories disponibles
+                loadCategories();
+                categoryComboBox.getSelectionModel().select(materiel.getIdCategorie());
+
+                // 🔹 Désactiver la sélection de catégorie
+//                categoryComboBox.setDisable(false);
+//
+                // Charger l'image
+                if (materiel.getImage() != null && !materiel.getImage().isEmpty()) {
+                        File imageFile = new File(materiel.getImage());
+                        if (imageFile.exists()) {
+                                materielImg.setImage(new Image(imageFile.toURI().toString()));
+                        } else {
+                                materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
+                        }
+                } else {
+                        materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
+                }
+
+                // ✅ Activer les boutons
+                modifyBtn.setDisable(false);
+                deleteBtn.setDisable(false);
+                ClearBtn.setDisable(false);
+
+                // Rendre la carte visible
+                chosenMaterialCard.setVisible(true);
+                chosenMaterialCard.setManaged(true);
+        }
+
+
+
+
+
+        /** ✅ Effacer les champs, désactiver les boutons et réinitialiser la sélection */
+        @FXML
+        private void clearChosenMaterial() {
+                selectedMateriel = null; // Désélectionner
+
+                if (materielNameLable != null) materielNameLable.setText("");
+                if (materielPriceLabel != null) materielPriceLabel.setText("");
+                if (quantityNameLable != null) quantityNameLable.setText("");
+                if (DescriptionLabel != null) DescriptionLabel.setText("");
+                if (materielImg != null) materielImg.setImage(null);
+                if (categoryComboBox != null) categoryComboBox.getSelectionModel().clearSelection(); // Réinitialiser la ComboBox
+
+                // Désactiver les boutons
+                if (modifyBtn != null) modifyBtn.setDisable(true);
+                if (deleteBtn != null) deleteBtn.setDisable(true);
+                if (ClearBtn != null) ClearBtn.setDisable(true);
+
+                // Masquer la carte des détails
+                chosenMaterialCard.setVisible(false);
+                chosenMaterialCard.setManaged(false);
+
+                System.out.println("🧹 Champs et boutons réinitialisés !");
+        }
+
+
+
+
+
+
+        /** ✅ Supprimer un matériel */
+        @FXML
+        private void deleteSelectedMateriel() {
+                if (selectedMateriel == null) {
+                        showWarningDialog("⚠️ No material selected!");
+                        return;
+                }
+
+                // Demande de confirmation avant suppression
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Deletion Confirmation");
+                alert.setHeaderText("Do you really want to delete this material?");
+                alert.setContentText("This action is irreversible.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                        int idMateriel = selectedMateriel.getIdMateriel(); // Récupérer l'ID du matériel
+                        boolean deleted = materielService.Supprimer(idMateriel); // Supprimer dans la BD
+
+                        if (deleted) {
+                                showInformationDialog("✅ Material successfully deleted!");
+                                clearChosenMaterial(); // Vider les détails affichés
+                                loadMaterials(); // Rafraîchir la liste
+                        } else {
+                                showWarningDialog("❌ Deletion failed!");
+                        }
+                }
+        }
+
+        /** ✅ Afficher un message d'information */
+        private void showInformationDialog(String message) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText(null);
+                alert.setContentText(message);
+                alert.showAndWait();
+        }
+
+        /** ✅ Afficher un avertissement */
+        private void showWarningDialog(String message) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText(message);
+                alert.showAndWait();
+        }
+
+
+
+        private void openCategoryManagement() {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/materiel/CategorieGesture.fxml"));
+                        Parent root = loader.load();
+
+                        Stage stage = (Stage) grid.getScene().getWindow(); // Obtenir la fenêtre actuelle
+                        stage.setScene(new Scene(root)); // Remplacer le contenu de la fenêtre
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+        }
+        @FXML
+        private void openEditMaterialView(Materiel materiel) {
+                try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/materiel/AddMaterial.fxml"));
+                        Parent root = loader.load();
+
+                        AddmatController addmatController = loader.getController();
+                        addmatController.setMaterialController(this);
+                        addmatController.loadMaterielData(materiel); // Charger les données existantes
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Edit Material");
+                        stage.setScene(new Scene(root));
+
+                        // Fermer la fenêtre de modification et recharger la liste après
+                        stage.setOnHidden(e -> {
+                                System.out.println("🔄 Modification terminée, mise à jour de la liste...");
+                                loadMaterials();
+                        });
+
+                        stage.show();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+        }
+        public void setUser(int userId) {
+                this.userId = userId;
+                this.userRole = materielService.getUserRoleFromDB(userId); // Récupérer le rôle depuis la BD
+                configureButtonsVisibility(); // Appliquer la visibilité après avoir récupéré le rôle
+        }
+        private void configureButtonsVisibility() {
+                if ("prestataire".equalsIgnoreCase(userRole)) {
+                        // Prestataire : tous les boutons visibles
+                        AddMaterialBTN.setVisible(true);
+                        modifyBtn.setVisible(true);
+                        nextPageBtn.setVisible(true);
+                        deleteBtn.setVisible(true);
+                        RentBTN.setVisible(false); // Cacher "Rent"
+                } else if ("organisateur".equalsIgnoreCase(userRole)) {
+                        // Organisateur : seul "Rent" est visible
+                        AddMaterialBTN.setVisible(false);
+                        modifyBtn.setVisible(false);
+                        nextPageBtn.setVisible(false);
+                        deleteBtn.setVisible(false);
+                        pageNumberLabel.setVisible(false);
+                        RentBTN.setVisible(true);
+                }
+        }
+
+
+
+
+
+
+
+
+
+}

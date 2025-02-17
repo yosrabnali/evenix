@@ -1,0 +1,114 @@
+/* ====================== */
+/* Styles généraux */
+/* ====================== */
+
+.root {
+    -fx-background-color: #D4D7DB; /* Fond principal */
+    -fx-font-family: "Arial";
+}
+
+/* ====================== */
+/* Barre de recherche */
+/* ====================== */
+
+
+.search-box:focused {
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-border-color: #A1887F;
+}
+
+/* ====================== */
+/* Boutons */
+/* ====================== */
+.button {
+    -fx-background-color: #A1887F;
+    -fx-background-radius: 25px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-width: 0;
+    -fx-transition: all 0.3s ease-in-out;
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.25), 8, 0, 0, 8);
+}
+
+.button:hover {
+    -fx-background-color: #B0BEC5;
+}
+
+.button:pressed {
+    -fx-background-color: #A1887F;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* ====================== */
+/* Élément de la liste des matériels */
+/* ====================== */
+.Material-item {
+    -fx-background-color: #F5F5F5;
+    -fx-background-radius: 25;
+    -fx-padding: 15px;
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.08), 4, 0, 0, 4);
+}
+
+/* ====================== */
+/* ComboBox */
+/* ====================== */
+
+.comboBox:hover {
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-border-color: #B0BEC5;
+}
+
+/* ====================== */
+/* Cartes secondaires */
+/* ====================== */
+.free-delivery-card {
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 25;
+}
+
+.shopping-online-card {
+    -fx-background-color: #B0BEC5;
+    -fx-background-radius: 25;
+}
+
+.right-bar {
+    -fx-background-color: #A1887F;
+}
+
+.chosen-Material-card{
+    -fx-background-color: #B0BEC5;
+    -fx-background-radius: 25;
+}
+
+
+
+
+
+
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
+
+.right-bar{
+    -fx-background-color: #D3D3D3;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
