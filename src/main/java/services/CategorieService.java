@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategorieService implements IService<Categorie> {
-    private Connection cnx;
+    private static Connection cnx;
 
     public CategorieService() {
         cnx = MyDB.getInstance().getConnection();
     }
 
-    private boolean categorieExiste(String service) {
+    public static boolean categorieExiste(String service) {
         try {
             String req = "SELECT COUNT(*) FROM categorie WHERE service = ?";
             PreparedStatement ps = cnx.prepareStatement(req);

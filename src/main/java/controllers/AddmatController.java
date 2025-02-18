@@ -64,7 +64,7 @@ public class AddmatController {
     @FXML
     private void handleChooseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
+        fileChooser.setTitle("Choose image");
 
         // Filtrer les fichiers pour afficher uniquement les images
         fileChooser.getExtensionFilters().addAll(

@@ -19,7 +19,6 @@ public class main extends Application {
             // ✅ Récupérer le contrôleur après avoir chargé le fichier
             MaterialController materialController = loader.getController();
             materialController.setUser(1); // Passer l'ID utilisateur connecté
-
             // ✅ Afficher la fenêtre principale
             primaryStage.setTitle("Material Management");
             primaryStage.setScene(new Scene(root));

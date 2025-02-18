@@ -7,7 +7,6 @@ import util.MyDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import services.*;
 
 public class MaterielService implements IService<Materiel> {
     private Connection cnx;
@@ -143,49 +142,6 @@ public class MaterielService implements IService<Materiel> {
         return materiels;
     }
 
-
-    /** ✅ Récupérer la liste des catégories depuis la base de données */
-    public List<String> getCategories() {
-        List<String> categories = new ArrayList<>();
-        String query = "SELECT DISTINCT service FROM categorie"; // Sélectionne la colonne correcte
-
-        try (Connection conn = MyDB.getInstance().getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                categories.add(rs.getString("service")); // Correction ici
-            }
-
-        } catch (SQLException e) {
-            System.out.println("❌ Erreur lors du chargement des catégories : " + e.getMessage());
-        }
-
-        return categories;
-    }
-    /** ✅ Récupérer l'ID de la catégorie à partir du nom */
-    public int getCategoryId(String categoryName) {
-        String query = "SELECT idcategorie FROM categorie WHERE service = ?";
-        int idCategorie = -1;
-
-        try (Connection conn = MyDB.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-
-            pstmt.setString(1, categoryName);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                idCategorie = rs.getInt("idcategorie");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("❌ Erreur lors de la récupération de l'ID de la catégorie : " + e.getMessage());
-        }
-
-        return idCategorie;
-    }
-
-
     public List<Materiel> searchByName(String searchText) {
         List<Materiel> materiels = new ArrayList<>();
 
@@ -240,6 +196,28 @@ public class MaterielService implements IService<Materiel> {
 
         return role;
     }
+    /** ✅ Récupérer le nom de la catégorie à partir de son ID */
+    public String getCategoryName(int categoryId) {
+        String categoryName = "";
+        String query = "SELECT service FROM categorie WHERE idcategorie = ?";
+
+        try (Connection conn = MyDB.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                categoryName = rs.getString("service"); // Récupération du nom de la catégorie
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Erreur lors de la récupération du nom de la catégorie : " + e.getMessage());
+        }
+
+        return categoryName;
+    }
+
 
 
 

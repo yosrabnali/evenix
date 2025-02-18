@@ -38,9 +38,6 @@ public class CategorieGestureController {
     private TableColumn<Categorie, Void> columnaction;
 
     @FXML
-    private Button modifyBtn;
-
-    @FXML
     private Button searchBtn;
     @FXML
     private Button prevPageBtn;
@@ -52,6 +49,7 @@ public class CategorieGestureController {
 
     private final CategorieService categorieService = new CategorieService();
     private ObservableList<Categorie> categoriesList = FXCollections.observableArrayList();
+    private int userId=1;
 
     @FXML
     public void initialize() {
@@ -84,17 +82,24 @@ public class CategorieGestureController {
         String service = TXTservice.getText().trim();
 
         if (service.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Error", "The service field cannot be empty.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Le champ de service ne peut pas être vide.");
             return;
+        }
+
+        // Vérifier si la catégorie existe déjà
+        if (CategorieService.categorieExiste(service)) {
+            showAlert(Alert.AlertType.WARNING, "Duplication", "Cette catégorie existe déjà !");
+            return; // Empêcher l'ajout de la catégorie en double
         }
 
         Categorie newCategory = new Categorie(service);
         categorieService.Ajouter(newCategory);
 
-        showAlert(Alert.AlertType.INFORMATION, "Success", "Category added successfully!");
+        showAlert(Alert.AlertType.INFORMATION, "Succès", "Catégorie ajoutée avec succès !");
         TXTservice.clear();
         loadCategories(); // Rafraîchir la liste
     }
+
 
     /** ✅ Modifier une catégorie sur double-clic */
     private void handleEditCategory(Categorie category) {
@@ -189,11 +194,17 @@ public class CategorieGestureController {
     @FXML
     private void goBackToMaterials() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/materiel/Materiel-view.fxml")); // Vérifie le chemin exact
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/materiel/Materiel-view.fxml"));
             Parent root = loader.load();
 
-            Stage stage = (Stage) categoryTableview.getScene().getWindow(); // Obtenir la fenêtre actuelle
-            stage.setScene(new Scene(root)); // Changer la scène actuelle
+            // ✅ Récupérer le contrôleur après le chargement de la scène
+            MaterialController materialController = loader.getController();
+
+            // ✅ Recharger le rôle depuis la base de données et réappliquer la configuration
+            materialController.setUser(this.userId);
+
+            Stage stage = (Stage) categoryTableview.getScene().getWindow();
+            stage.setScene(new Scene(root)); // Changer la scène
             stage.show();
 
         } catch (IOException e) {
@@ -201,6 +212,7 @@ public class CategorieGestureController {
             System.out.println("❌ Impossible de retourner à la gestion des matériels !");
         }
     }
+
     @FXML
     private void handleSortCategories() {
         if (!categoriesList.isEmpty()) {

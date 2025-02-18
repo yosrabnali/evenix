@@ -6,24 +6,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import services.MaterielService;
 import util.MyDB;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+
 
 public class MaterialController {
 
@@ -61,14 +58,11 @@ public class MaterialController {
         private Label categoryLabel;
 
         @FXML
-        private ComboBox<String> categoryComboBox;
-        @FXML
         private Button searchBtn;
 
         @FXML
         private TextField searchField;
-        @FXML
-        private Label MaterialPriceLabel;
+
         @FXML
         private Button nextPageBtn;
 
@@ -77,22 +71,9 @@ public class MaterialController {
         @FXML
         private Button RentBTN;
 
-        @FXML
-        private Button prevPageBtn;
+
         private String userRole; // Rôle de l'utilisateur
         private int userId; // ID de l'utilisateur connecté
-
-
-
-
-
-
-
-
-
-
-
-
 
         private MaterielService materielService = new MaterielService();
         private Materiel selectedMateriel; // Pour stocker le matériel sélectionné
@@ -251,21 +232,6 @@ public class MaterialController {
                 }
 
         }
-        /** ✅ Charger la liste des catégories dans la ComboBox */
-        private void loadCategories() {
-                // Effacer les anciennes catégories
-                categoryComboBox.getItems().clear();
-
-                // Liste des catégories (à adapter selon ta base de données)
-                List<String> categories = materielService.getCategories(); // Exemple : ["Électronique", "Bureau", "Maison"]
-
-                // Ajouter les catégories dans la ComboBox
-                categoryComboBox.getItems().addAll(categories);
-        }
-
-
-
-
         /** ✅ Créer une carte pour chaque matériel */
         private VBox createMaterialCard(Materiel m) {
                 VBox card = new VBox();
@@ -300,52 +266,43 @@ public class MaterialController {
                 return card;
         }
 
-        /** ✅ Sélectionner un matériel et afficher ses détails */
-        public void setChosenMateriel(Materiel materiel) {
-                if (materiel == null) return;
+         public void setChosenMateriel(Materiel materiel) {
+         if (materiel == null) return;
 
-                selectedMateriel = materiel; // Stocker le matériel sélectionné
+         selectedMateriel = materiel; // Stocker le matériel sélectionné
 
-                // Mettre à jour les labels avec les nouvelles informations
-                materielNameLable.setText(materiel.getNom());
-                materielPriceLabel.setText("$" + materiel.getPrix());
-                quantityNameLable.setText("Quantity: " + materiel.getQuantite());
-                DescriptionLabel.setText("Description: " + materiel.getDescription());
+         // Mettre à jour les labels avec les nouvelles informations
+         materielNameLable.setText(materiel.getNom());
+         materielPriceLabel.setText("$" + materiel.getPrix());
+         quantityNameLable.setText("Quantity: " + materiel.getQuantite());
+         DescriptionLabel.setText("Description: " + materiel.getDescription());
 
-                // Charger les catégories disponibles
-                loadCategories();
-                categoryComboBox.getSelectionModel().select(materiel.getIdCategorie());
+         // 🔹 Afficher la catégorie dans le Label
+         categoryLabel.setText("Category: " + materielService.getCategoryName(materiel.getIdCategorie()));
 
-                // 🔹 Désactiver la sélection de catégorie
-//                categoryComboBox.setDisable(false);
-//
-                // Charger l'image
-                if (materiel.getImage() != null && !materiel.getImage().isEmpty()) {
-                        File imageFile = new File(materiel.getImage());
-                        if (imageFile.exists()) {
-                                materielImg.setImage(new Image(imageFile.toURI().toString()));
-                        } else {
-                                materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
-                        }
-                } else {
-                        materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
-                }
+         // Charger l'image
+         if (materiel.getImage() != null && !materiel.getImage().isEmpty()) {
+         File imageFile = new File(materiel.getImage());
+         if (imageFile.exists()) {
+         materielImg.setImage(new Image(imageFile.toURI().toString()));
+         } else {
+         materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
+         }
+         } else {
+         materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
+         }
 
-                // ✅ Activer les boutons
-                modifyBtn.setDisable(false);
-                deleteBtn.setDisable(false);
-                ClearBtn.setDisable(false);
+         // ✅ Activer les boutons
+         modifyBtn.setDisable(false);
+         deleteBtn.setDisable(false);
+         ClearBtn.setDisable(false);
 
-                // Rendre la carte visible
-                chosenMaterialCard.setVisible(true);
-                chosenMaterialCard.setManaged(true);
-        }
+         // Rendre la carte visible
+         chosenMaterialCard.setVisible(true);
+         chosenMaterialCard.setManaged(true);
+         }
 
-
-
-
-
-        /** ✅ Effacer les champs, désactiver les boutons et réinitialiser la sélection */
+         /** ✅ Effacer les champs, désactiver les boutons et réinitialiser la sélection */
         @FXML
         private void clearChosenMaterial() {
                 selectedMateriel = null; // Désélectionner
@@ -355,7 +312,7 @@ public class MaterialController {
                 if (quantityNameLable != null) quantityNameLable.setText("");
                 if (DescriptionLabel != null) DescriptionLabel.setText("");
                 if (materielImg != null) materielImg.setImage(null);
-                if (categoryComboBox != null) categoryComboBox.getSelectionModel().clearSelection(); // Réinitialiser la ComboBox
+                if (categoryLabel != null) categoryLabel.setText(""); // Réinitialiser la ComboBox
 
                 // Désactiver les boutons
                 if (modifyBtn != null) modifyBtn.setDisable(true);
@@ -431,6 +388,8 @@ public class MaterialController {
                         Stage stage = (Stage) grid.getScene().getWindow(); // Obtenir la fenêtre actuelle
                         stage.setScene(new Scene(root)); // Remplacer le contenu de la fenêtre
                         stage.show();
+                        configureButtonsVisibility();
+
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
@@ -465,7 +424,7 @@ public class MaterialController {
                 this.userRole = materielService.getUserRoleFromDB(userId); // Récupérer le rôle depuis la BD
                 configureButtonsVisibility(); // Appliquer la visibilité après avoir récupéré le rôle
         }
-        private void configureButtonsVisibility() {
+        public void configureButtonsVisibility() {
                 if ("prestataire".equalsIgnoreCase(userRole)) {
                         // Prestataire : tous les boutons visibles
                         AddMaterialBTN.setVisible(true);
