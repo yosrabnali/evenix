@@ -132,10 +132,14 @@ public class ReservationDetailsController {
             ServiceReservation serviceReservation = new ServiceReservation();
             Reservation r = new Reservation(new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
             serviceReservation.ajouterReservation(r);
-            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
-            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Parent parentRoot = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
+
+
+            // Retrieve the current scene from the event's source
+            Scene currentScene = ((Node) actionEvent.getSource()).getScene();
+
+            // Set the new root to the parent view
+            currentScene.setRoot(parentRoot);
         } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
@@ -147,10 +151,14 @@ public class ReservationDetailsController {
     @FXML
     private void handleCancelReservation(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
-            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            Parent parentRoot = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
+
+
+            // Retrieve the current scene from the event's source
+            Scene currentScene = ((Node) actionEvent.getSource()).getScene();
+
+            // Set the new root to the parent view
+            currentScene.setRoot(parentRoot);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

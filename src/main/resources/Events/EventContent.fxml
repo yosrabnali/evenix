@@ -28,7 +28,7 @@
                             <content>
                                 <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20"
                                           style="-fx-padding: 20;
-                                                 -fx-background-color: linear-gradient(to bottom, #ffffff, #309fc7);
+                                                 -fx-background-color: linear-gradient(to bottom, #ffffff, #b830c7);
                                                  -fx-background-image: url('images/back1.jpg');
                                                  -fx-background-radius: 10;
                                                  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.5, 0, 2);"/>
@@ -50,7 +50,7 @@
                                           pickOnBounds="true"
                                           hgap="20" vgap="20"
                                           style="-fx-padding: 20;
-                 -fx-background-color: linear-gradient(to bottom, #ffffff, #309fc7);
+                 -fx-background-color: linear-gradient(to bottom, #ffffff, #c730bf);
                  -fx-background-image: url('images/back1.jpg');
                  -fx-background-radius: 10;
                  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.5, 0, 2);"/>
