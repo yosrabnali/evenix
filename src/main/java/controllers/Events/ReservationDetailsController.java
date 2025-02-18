@@ -130,7 +130,7 @@ public class ReservationDetailsController {
         // Par exemple, rediriger l'utilisateur vers la page client (EventClient.fxml)
         try {
             ServiceReservation serviceReservation = new ServiceReservation();
-            Reservation r =new Reservation(event.getIdevent(),1234,new Date(),nbPlaces,new BigDecimal(prix),etat,"confirmee");
+            Reservation r = new Reservation(new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
             serviceReservation.ajouterReservation(r);
             Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
             Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.Events.ReservationCellController"
+      spacing="10"
+      styleClass="reservation-cell">
+    <children>
+        <ImageView fx:id="eventImageView"
+                   fitHeight="80" fitWidth="80"
+                   preserveRatio="true"/>
+        <VBox spacing="5">
+            <children>
+                <Label fx:id="lblReservationId" text="ID:"/>
+                <Label fx:id="lblDate" text="Date:"/>
+                <Label fx:id="lblNbPlaces" text="Places:"/>
+                <Label fx:id="lblPaymentMethod" text="Payment:"/>
+                <Label fx:id="lblEventName" text="Event:"/>
+            </children>
+        </VBox>
+    </children>
+</HBox>

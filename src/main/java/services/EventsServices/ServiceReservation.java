@@ -34,14 +34,12 @@ public class ServiceReservation {
 
         while (rs.next()) {
             Reservation reservation = new Reservation(
-                    rs.getInt("idReservation"),
-                    rs.getInt("idEvent"),
-                    rs.getInt("idUser"),
+                    rs.getInt("idreservation"),
                     rs.getDate("date"),
-                    rs.getInt("nbPlaces"),
-                    rs.getBigDecimal("montant"),
-                    rs.getString("modePaiement"),
-                    rs.getString("etatReservation")
+                    rs.getInt("NBplace"),
+                    rs.getBigDecimal("Montant"),
+                    rs.getString("Modepaiement"),
+                    rs.getInt("idevent")
             );
             reservations.add(reservation);
         }

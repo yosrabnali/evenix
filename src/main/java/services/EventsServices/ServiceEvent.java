@@ -67,6 +67,31 @@ public class ServiceEvent {
         }
         return events;
     }
+    public Event getEventById(int id) {
+        String req = "SELECT * FROM evenement WHERE idevent = ?";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                Event e = new Event();
+                e.setIdevent(rs.getInt("idevent"));
+                e.setDate(rs.getDate("date"));
+                e.setTitre(rs.getString("titre"));
+                e.setDescription(rs.getString("description"));
+                e.setNBplaces(rs.getInt("NBplaces"));
+                e.setPrix(rs.getDouble("prix"));
+                e.setEtat(rs.getString("etat"));
+                e.setType(rs.getString("type"));
+                e.setImage(rs.getString("image"));
+                e.setLieu(rs.getString("lieu"));
+                e.setIduser(rs.getInt("iduser"));
+                return e;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // UPDATE
     public void updateEvent(Event e) {

@@ -1,6 +1,7 @@
 package controllers.Events;
 
 import Entity.Events.Event;
+import javafx.scene.layout.AnchorPane;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,8 @@ public class EventContentController implements Initializable {
     private FlowPane flowPaneEvents; // Ce nœud doit être défini dans le FXML avec fx:id="flowPaneEvents"
 
     private ServiceEvent serviceEvent = new ServiceEvent();
-
+    @FXML
+    private FlowPane flowPaneReservation;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,4 +76,22 @@ public class EventContentController implements Initializable {
             ex.printStackTrace();
         }
     }
+    @FXML
+    private void showReservationList() {
+        System.out.println("showReservationList");
+        try {
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/ReservationList.fxml"));
+            AnchorPane card = loader.load();
+            flowPaneReservation.getChildren().clear();
+
+            flowPaneReservation.getChildren().add(card);
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
