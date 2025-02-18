@@ -1,0 +1,572 @@
+/* Style moderne pour l'application */
+
+/* Style général */
+.root {
+    -fx-background-color: #BFFF00;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Barre de menu moderne */
+HBox {
+    -fx-background-color: #3C3C3C;
+    -fx-padding: 15 30;
+    -fx-background-radius: 0 0 20 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Style moderne pour la ListView */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-pref-width: 900;
+}
+
+/* Style moderne pour les cellules d'articles */
+.article-cell {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-border-width: 0;
+    -fx-max-width: 800;
+    -fx-pref-width: 700;
+}
+
+.article-cell:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 0);
+    -fx-translate-y: -2;
+}
+
+/* Titre d'article moderne */
+.article-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C2C2C;
+}
+
+/* Image de l'article */
+.article-image {
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-fit-width: 600;
+    -fx-fit-height: 300;
+}
+
+/* Boutons modernes */
+.button {
+    -fx-background-color: #C1FF00;
+    -fx-text-fill: #3C3C3C;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-transition: all 0.2s ease;
+}
+
+.button:hover {
+    -fx-background-color: #D1FF20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 0);
+    -fx-translate-y: -1;
+}
+
+/* Section commentaires moderne */
+.comments-container {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 15;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.comment-box {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 0);
+}
+
+/* Champ de recherche moderne */
+.search-field {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 25;
+    -fx-padding: 12 25;
+    -fx-prompt-text-fill: #999999;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.search-field:focused {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(193, 255, 0, 0.2), 8, 0, 0, 0);
+}
+
+/* Bouton Like moderne */
+.like-button {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: #C1FF00;
+    -fx-background-radius: 50%;
+    -fx-min-width: 45px;
+    -fx-min-height: 45px;
+    -fx-font-size: 18px;
+    -fx-transition: all 0.2s ease;
+}
+
+.like-button:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(193, 255, 0, 0.3), 10, 0, 0, 0);
+}
+
+/* Style moderne pour les boutons de commentaire */
+.comment-edit-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3C3C3C;
+    -fx-border-color: #3C3C3C;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-padding: 5 15;
+}
+
+.comment-edit-button:hover {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: #C1FF00;
+}
+
+/* Animation pour les transitions */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+    -fx-alignment: center;
+    -fx-transition: all 0.3s ease;
+}
+
+.list-cell:filled:hover {
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+
+/* Styles généraux */
+.root {
+    -fx-background-color:#C0C0C0;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Style du conteneur principal */
+.main-container {
+    -fx-background-color: #C0C0C0;
+}
+
+/* Styles pour les articles */
+.article-container {
+    -fx-background-color: #9EC8DB;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
+    -fx-spacing: 15;
+}
+
+.article-author {
+    -fx-font-size: 16px;
+    -fx-text-fill: #666666;
+    -fx-font-style: italic;
+    -fx-padding: 0 0 15 0;
+}
+
+.article-content {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-line-spacing: 1.5;
+    -fx-padding: 10 0;
+}
+
+/* Styles pour les boutons */
+.delete-button {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: #FF5252;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+    -fx-background-color: #FF5252;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255,82,82,0.2), 8, 0, 0, 0);
+    -fx-translate-y: -1;
+}
+
+.send-button {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-background-radius: 20;
+}
+
+.send-button:hover {
+    -fx-background-color: #2C2C2C;
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #666666;
+    -fx-font-weight: bold;
+}
+
+.cancel-button:hover {
+    -fx-text-fill: #333333;
+}
+
+/* Styles pour les commentaires */
+.comments-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3C3C3C;
+    -fx-padding: 10 0 5 0;
+}
+
+.comment-author {
+    -fx-font-weight: bold;
+    -fx-text-fill: #050505;
+    -fx-font-size: 13px;
+}
+
+.comment-content {
+    -fx-text-fill: #050505;
+    -fx-font-size: 14px;
+}
+
+.no-comments-label {
+    -fx-text-fill: #65676b;
+    -fx-font-style: italic;
+    -fx-padding: 10;
+}
+
+/* Styles pour le champ de nouveau commentaire */
+.new-comment-box {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.new-comment-input {
+    -fx-background-color: #F0F0F0;
+    -fx-prompt-text-fill: #666666;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 10;
+    -fx-padding: 12;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: #1a73e8;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5;
+}
+
+.list-cell {
+    -fx-background-color: #C0C0C0;
+    -fx-padding: 10;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #3C3C3C;
+    -fx-background-radius: 5;
+}
+
+.logo-image {
+    -fx-alignment: CENTER;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, #00000033, 5, 0, 0, 0);
+}
+
+.logo-image-circle {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 0);
+    -fx-clip: "M25 0 A25 25 0 1 1 0 25 A25 25 0 1 1 25 0 Z";
+}
+
+/* Pour le texte "Blog" */
+Label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #C1FF00;
+}
+
+/* Nombre de likes */
+.likes-count {
+    -fx-text-fill: #666666;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Style pour la zone de commentaire */
+.comment-input-box {
+    -fx-background-color: #f0f2f5;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 10 15;
+    -fx-spacing: 10;
+}
+
+.comment-input {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #65676b;
+    -fx-text-fill: #050505;
+    -fx-font-size: 14px;
+    -fx-padding: 8 10;
+    -fx-pref-width: 400;
+}
+
+.comment-buttons {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.comment-cancel-button {
+    -fx-background-color: #e4e6eb;
+    -fx-text-fill: #050505;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.comment-send-button {
+    -fx-background-color: #0866ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.comment-send-button:hover {
+    -fx-background-color: #0859d9;
+}
+
+.comment-cancel-button:hover {
+    -fx-background-color: #dadde1;
+}
+
+/* Champ de modification */
+.comment-edit-field {
+    -fx-background-color: white;
+    -fx-padding: 8 12;
+    -fx-background-radius: 4;
+    -fx-border-color: #1a73e8;
+    -fx-border-radius: 4;
+}
+
+/* Boutons de confirmation */
+.comment-confirm-button {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+
+.comment-confirm-button:hover {
+    -fx-background-color: #1557b0;
+}
+
+/* Style pour le DatePicker */
+.date-picker {
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #1a73e8;
+    -fx-background-radius: 0 25 25 0;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+.date-picker .cell {
+    -fx-background-color: white;
+    -fx-text-fill: #333333;
+}
+
+.date-picker .cell:hover {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+}
+
+.date-picker .cell:focused {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+}
+
+.reset-button {
+    -fx-background-color: #e4e6eb;
+    -fx-text-fill: #050505;
+    -fx-background-radius: 25;
+    -fx-padding: 8 15;
+}
+
+.reset-button:hover {
+    -fx-background-color: #dadde1;
+}
+
+/* Style pour le bouton Ajouter Article */
+Button {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: #C1FF00;
+    -fx-font-weight: bold;
+    -fx-padding: 12 25;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Style pour le HBox du bouton Modifier */
+.modify-button-container {
+    -fx-background-color: #E0E0E0;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+}
+
+/* Style pour les champs de modification */
+.edit-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #3C3C3C;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.edit-field:focused {
+    -fx-border-color: #C1FF00;
+    -fx-border-width: 2;
+}
+
+/* Style pour la page d'ajout d'article */
+.add-article-container {
+    -fx-background-color: #C0C0C0;
+    -fx-padding: 30;
+    -fx-spacing: 25;
+}
+
+/* Titre de la page */
+.add-article-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3C3C3C;
+    -fx-effect: dropshadow(gaussian, rgba(193, 255, 0, 0.2), 5, 0, 0, 0);
+}
+
+/* Conteneur du formulaire */
+.form-container {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 30;
+    -fx-spacing: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-max-width: 800;
+}
+
+/* Style des champs de texte */
+.article-input-field {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-padding: 15;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #6C757D;
+}
+
+.article-input-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #C1FF00;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(193, 255, 0, 0.2), 5, 0, 0, 0);
+}
+
+/* Style pour la zone de contenu */
+.article-content-area {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-padding: 15;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #6C757D;
+    -fx-pref-row-count: 10;
+}
+
+.article-content-area:focused {
+    -fx-background-color: white;
+    -fx-border-color: #C1FF00;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(193, 255, 0, 0.2), 5, 0, 0, 0);
+}
+
+/* Style pour le bouton de sélection d'image */
+.select-image-button {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: #C1FF00;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-padding: 12 25;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+.select-image-button:hover {
+    -fx-background-color: #2C2C2C;
+    -fx-effect: dropshadow(gaussian, rgba(193, 255, 0, 0.3), 8, 0, 0, 0);
+    -fx-translate-y: -1;
+}
+
+/* Style pour la prévisualisation de l'image */
+.image-preview-container {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.image-preview {
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+/* Style pour les boutons d'action */
+.action-button {
+    -fx-font-size: 15px;
+    -fx-padding: 12 30;
+    -fx-background-radius: 20;
+}
+
+.add-button {
+    -fx-background-color: #C1FF00;
+    -fx-text-fill: #3C3C3C;
+}
+
+.back-button {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: #C1FF00;
+} 

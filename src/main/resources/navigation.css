@@ -1,0 +1,192 @@
+      /* Variables pour les thèmes */
+  * {
+      -fx-light-bg: #E0E0E0;
+      -fx-dark-bg: #1a1a1a;
+      -fx-accent: #C1FF00;
+      -fx-accent-hover: #F2FF49;
+  }
+
+.root {
+    -fx-background-color: -fx-light-bg;
+}
+
+.root.dark {
+    -fx-background-color: -fx-dark-bg;
+}
+
+/* Side Navigation */
+.side-nav {
+    -fx-background-color: #000000;
+    -fx-padding: 20;
+    -fx-spacing: 30;
+    -fx-pref-width: 250;
+    -fx-alignment: TOP_CENTER;
+}
+
+.logo {
+    -fx-effect: dropshadow(three-pass-box, rgba(193,255,0,0.3), 10, 0, 0, 0);
+    -fx-margin: 20 0 40 0;
+}
+
+.nav-links {
+    -fx-spacing: 15;
+    -fx-padding: 20 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.nav-link {
+    -fx-text-fill: -fx-accent;
+    -fx-font-size: 16px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 200;
+}
+
+.nav-link:hover {
+    -fx-text-fill: -fx-accent-hover;
+    -fx-background-color: #3C3C3C;
+    -fx-effect: dropshadow(three-pass-box, rgba(193,255,0,0.2), 5, 0, 0, 0);
+}
+
+.nav-link:visited {
+    -fx-text-fill: -fx-accent;
+}
+
+.dark-mode-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-accent;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-padding: 5 10;
+    -fx-background-radius: 20;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-margin-top: auto;
+}
+
+.dark-mode-toggle:selected {
+    -fx-text-fill: -fx-accent-hover;
+}
+
+.welcome-container {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+.welcome-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.welcome-subtext {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666;
+}
+
+.root.dark .welcome-text {
+    -fx-text-fill: #FFFFFF;
+}
+
+.center-logo {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.center-logo:hover {
+    -fx-opacity: 1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* Active link indicator */
+.nav-link.active {
+    -fx-background-color: #3C3C3C;
+    -fx-text-fill: -fx-accent-hover;
+    -fx-font-weight: bold;
+}
+
+.delete-button {
+    -fx-background-color: #ff4444;
+    -fx-text-fill: white;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.delete-button:hover {
+    -fx-background-color: #cc0000;
+}
+
+.delete-comment-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff4444;
+    -fx-cursor: hand;
+    -fx-padding: 2 5;
+    -fx-font-size: 14px;
+}
+
+.delete-comment-button:hover {
+    -fx-background-color: #ffeeee;
+}
+
+.comment-date {
+    -fx-text-fill: #666666;
+    -fx-font-size: 11px;
+}
+
+.comment-box {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+}
+
+.comment-author {
+    -fx-font-weight: bold;
+}
+
+.comment-content {
+    -fx-padding: 5 0 0 0;
+}
+
+.edit-comment-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2196F3;
+    -fx-cursor: hand;
+    -fx-padding: 2 5;
+    -fx-font-size: 14px;
+}
+
+.edit-comment-button:hover {
+    -fx-background-color: #E3F2FD;
+}
+
+.edit-comment-area {
+    -fx-pref-height: 80px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 5;
+}
+
+.confirm-edit-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-padding: 5 15;
+    -fx-cursor: hand;
+}
+
+.confirm-edit-button:hover {
+    -fx-background-color: #388E3C;
+}
+
+.cancel-edit-button {
+    -fx-background-color: #9E9E9E;
+    -fx-text-fill: white;
+    -fx-padding: 5 15;
+    -fx-cursor: hand;
+}
+
+.cancel-edit-button:hover {
+    -fx-background-color: #757575;
+}

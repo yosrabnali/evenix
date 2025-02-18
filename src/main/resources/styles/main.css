@@ -1,0 +1,333 @@
+/* Import des polices Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Styles de base avec le fond dégradé */
+.root {
+    -fx-background-image: url('../images/background.png');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-font-family: 'Poppins', sans-serif;
+}
+
+/* Style de la barre de navigation avec transparence */
+.side-nav {
+    -fx-background-color: rgba(44, 62, 80, 0.85);
+    -fx-padding: 20px 10px;
+    -fx-spacing: 20px;
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+/* Style des liens de navigation */
+.nav-link {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.nav-link:hover {
+    -fx-background-color: #34495e;
+}
+
+/* Style du conteneur principal avec effet de verre */
+.welcome-container, .card-container {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-background-radius: 15px;
+    -fx-padding: 30px;
+    -fx-spacing: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 0);
+    -fx-border-radius: 15px;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+}
+
+.welcome-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.welcome-subtext {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+}
+
+/* Style du bouton dark mode */
+.dark-mode-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+}
+
+.dark-mode-toggle:hover {
+    -fx-background-color: #34495e;
+}
+
+/* Style des cartes d'articles */
+.card-container {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+/* Style de la barre de recherche */
+.search-field {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: rgba(189, 195, 199, 0.5);
+    -fx-border-width: 1px;
+}
+
+.search-field:focused {
+    -fx-border-color: rgba(52, 152, 219, 0.8);
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Style des boutons d'action avec effet de verre */
+.action-button {
+    -fx-background-color: rgba(52, 152, 219, 0.9);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.action-button:hover {
+    -fx-background-color: rgba(41, 128, 185, 0.9);
+}
+
+/* Style des commentaires */
+.comments-container {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-background-radius: 5px;
+}
+
+.comment-box {
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+}
+
+/* Style du mode sombre */
+.dark-mode {
+    -fx-background-color: #1a1a1a;
+}
+
+.dark-mode .card-container {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: white;
+}
+
+.dark-mode .welcome-text {
+    -fx-text-fill: white;
+}
+
+.dark-mode .welcome-subtext {
+    -fx-text-fill: #bdc3c7;
+}
+
+.white-background {
+    -fx-background-color: #ffffff;
+}
+
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.round-layout {
+    -fx-border-radius: 50px;
+    -fx-border-color: #D7D7D7;
+    -fx-border-width: 2px;
+    -fx-background-radius: 50px;
+}
+
+/* Style pour les éléments sélectionnés */
+.selected {
+    -fx-background-color: #F3F3F3;
+}
+
+.mouse-moved:hover {
+    -fx-background-color: #E4E4E4;
+}
+
+.title {
+    -fx-font-family: 'Proxima Nova', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: #287b8d;
+}
+
+.card-text {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-text-fill: #163737;
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.card-description {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+.card-image {
+    -fx-fit-width: 100%;
+    -fx-fit-height: 150px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.0, 0, 3);
+}
+
+.card-button {
+    -fx-background-color: #dbb5a8;
+    -fx-text-fill: #163737;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.card-button:hover {
+    -fx-background-color: #a68d86;
+}
+
+.card-button:pressed {
+    -fx-background-color: #163737;
+}
+
+.sidebar-button {
+    -fx-background-color: #e0cfb4;
+    -fx-text-fill: #287b8d;
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(14, 80, 93, 1.0), 15, 0.0, 0, 0);
+    -fx-transition: all 0.5s ease-in-out;
+}
+
+.image-view:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 15, 0.0, 0, 0);
+    -fx-opacity: 1.0;
+}
+
+.vbox-centered {
+    -fx-alignment: center;
+}
+
+.question-card {
+    -fx-padding: 10px;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2px;
+    -fx-border-insets: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #287b8d;
+    -fx-background-color: #f0f0f0;
+}
+
+.question-label {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.answer-label {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 14px;
+}
+
+.answer-button {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+.table-view {
+    -fx-table-cell-border-color: transparent;
+    -fx-selection-bar: #b3d7ff;
+    -fx-selection-bar-non-focused: #c0c0c0;
+}
+
+.table-column {
+    -fx-border-color: lightgray;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-width: 0.5px;
+    -fx-padding: 10px;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #a2c4c9;
+    -fx-text-fill: white;
+}
+
+.table-cell {
+    -fx-padding: 10px;
+}
+
+/* Style du logo */
+.logo-image {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 10, 0, 0, 0);
+    -fx-opacity: 0.9;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.logo-image:hover {
+    -fx-opacity: 1;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,1), 15, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Style spécifique pour le logo dans la navbar */
+.side-nav .logo-image {
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.6), 8, 0, 0, 0);
+}
+
+/* Style spécifique pour le logo central */
+.welcome-container .logo-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 0);
+}
+
+/* Style des éléments de la liste avec fond semi-transparent */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-padding: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-margin: 5px;
+}
+
+.list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+} 
