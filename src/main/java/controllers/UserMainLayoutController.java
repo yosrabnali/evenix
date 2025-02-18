@@ -3,63 +3,47 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.BorderPane;
-import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class UserMainLayoutController {
 
-    // Référence au BorderPane principal et à la zone centrale
     @FXML
-    private BorderPane mainBorderPane;
-    @FXML
-    private Button btnComplaint;
-    @FXML
-    private Button btnhome;
+    private BorderPane mainContent;
 
     @FXML
     private VBox centerContent;
 
     @FXML
     public void initialize() {
-        // Initialisation du contenu par défaut (page d'accueil)
+        // Affichage du contenu par défaut (page d'accueil)
         showHomeContent();
-        if (false) {
-            // Hide the complaint button if the user is an admin
-            btnComplaint.setVisible(false);
-            btnComplaint.setManaged(false);
-            btnhome.setVisible(false);
-            btnhome.setManaged(false);
-
-        } else {
-            // Ensure the button is visible and managed otherwise
-            btnComplaint.setVisible(true);
-            btnComplaint.setManaged(true);
-            btnhome.setVisible(true);
-            btnhome.setManaged(true);
-
-        }
+        // Si vous avez des conditions (par exemple, masquer certaines icônes pour un admin),
+        // vous pouvez manipuler directement les ImageView ici, par exemple :
+        //homeIcon.setVisible(true);
+        // eventIcon.setVisible(true);
+        // publicationIcon.setVisible(true);
+        // complaintIcon.setVisible(true);
+        // logoutIcon.setVisible(true);
     }
 
     @FXML
-    private void handleHome(ActionEvent event) {
-        System.out.println("Home button clicked");
+    private void handleHome(MouseEvent event) {
+        System.out.println("Home icon clicked");
         showHomeContent();
     }
 
     @FXML
-    private void handleEvent(ActionEvent event) {
-        // Charge le contenu des événements (exemple avec un fichier FXML)
+    private void handleEvent(MouseEvent event) {
+        System.out.println("Event icon clicked");
         try {
-           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
             Node eventContent = loader.load();
-            // Remplace le contenu central
             centerContent.getChildren().setAll(eventContent);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -67,22 +51,30 @@ public class UserMainLayoutController {
     }
 
     @FXML
-    private void handleDiscussion(ActionEvent event) {
-        // Charge le contenu de discussion
-        VBox discussionContent = new VBox(10);
-        discussionContent.getChildren().add(new Label("Discussion Content"));
-        centerContent.getChildren().setAll(discussionContent);
+    private void handlePublication(MouseEvent event) {
+        System.out.println("Publication icon clicked");
+        VBox publicationContent = new VBox(10);
+        publicationContent.getChildren().add(new Label("Publication Content"));
+        centerContent.getChildren().setAll(publicationContent);
     }
 
     @FXML
-    private void handleComplaint(ActionEvent event) {
-        // Charge le contenu des plaintes
+    private void handleComplaint(MouseEvent event) {
+        System.out.println("Complaint icon clicked");
         VBox complaintContent = new VBox(10);
         complaintContent.getChildren().add(new Label("Complaint Content"));
         centerContent.getChildren().setAll(complaintContent);
     }
 
-    // Méthode d'affichage du contenu "Home"
+    @FXML
+    private void handleLogout(MouseEvent event) {
+        System.out.println("Logout icon clicked");
+        VBox logoutContent = new VBox(10);
+        logoutContent.getChildren().add(new Label("Vous avez été déconnecté."));
+        centerContent.getChildren().setAll(logoutContent);
+    }
+
+    // Méthode pour afficher le contenu "Home"
     private void showHomeContent() {
         VBox homeContent = new VBox(10);
         Label welcomeLabel = new Label("Bienvenue sur la page d'accueil !");

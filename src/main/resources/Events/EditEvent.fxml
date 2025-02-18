@@ -1,64 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.Events.EditEventController"
-      spacing="10" alignment="CENTER">
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controllers.Events.EditEventController"
+           styleClass="root-container">
+    <!-- ScrollPane to allow scrolling on smaller screens -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="custom-scroll-pane">
+        <content>
+            <!-- Outer StackPane centers the content both horizontally and vertically -->
+            <StackPane alignment="CENTER">
+                <!-- Main container: the form is kept compact by a max width -->
+                <VBox spacing="15" alignment="CENTER" maxWidth="400" prefWidth="400" styleClass="main-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
 
-    <!-- Define padding via nested Insets -->
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+                    <!-- Header Label -->
+                    <Label text="Edit Event Details" styleClass="header-label"/>
 
-    <Label text="Edit Event" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                    <!-- Centered form container -->
+                    <StackPane alignment="CENTER">
+                        <GridPane hgap="15" vgap="15" alignment="CENTER" styleClass="form-grid">
+                            <!-- Row 0: Event Title -->
+                            <Label text="Event Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtTitre" promptText="Enter event title"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
 
-    <GridPane hgap="10" vgap="10">
-        <Label text="Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtTitre" promptText="Event Title" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                            <!-- Row 1: Event Description -->
+                            <Label text="Event Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtDescription" promptText="Enter event description"
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
 
-        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtDescription" promptText="Event Description" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                            <!-- Row 2: Available Seats -->
+                            <Label text="Available Seats:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtNBplaces" promptText="Enter number of seats"
+                                       GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
 
-        <Label text="Number of Places:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtNBplaces" promptText="Number of Places" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                            <!-- Row 3: Ticket Price -->
+                            <Label text="Ticket Price:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtPrix" promptText="Enter ticket price"
+                                       GridPane.rowIndex="3" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
 
-        <Label text="Price:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtPrix" promptText="Price" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                            <!-- Row 4: Venue -->
+                            <Label text="Venue:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtLieu" promptText="Enter event venue"
+                                       GridPane.rowIndex="4" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
 
-        <Label text="Status:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="comboEtat" promptText="Status" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                            <!-- Row 5: Event Date -->
+                            <Label text="Event Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="datePicker"
+                                        GridPane.rowIndex="5" GridPane.columnIndex="1"
+                                        styleClass="custom-date-picker"/>
 
-        <Label text="Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="comboType" promptText="Type" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                            <!-- Row 6: Event Status -->
+                            <Label text="Event Status:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="comboEtat" promptText="Select status"
+                                      GridPane.rowIndex="6" GridPane.columnIndex="1"
+                                      styleClass="custom-combobox"/>
 
-        <Label text="Image:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-        <HBox spacing="5" GridPane.rowIndex="6" GridPane.columnIndex="1">
-            <TextField fx:id="txtImage" promptText="Image Path" HBox.hgrow="ALWAYS"/>
-            <Button text="Browse" onAction="#handleChooseImage"/>
-        </HBox>
+                            <!-- Row 7: Event Type -->
+                            <Label text="Event Type:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="comboType" promptText="Select type"
+                                      GridPane.rowIndex="7" GridPane.columnIndex="1"
+                                      styleClass="custom-combobox"/>
 
-        <Label text="Location:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-        <TextField fx:id="txtLieu" promptText="Location" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+                            <!-- Row 8: Event Image -->
+                            <Label text="Event Image:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                            <HBox spacing="5" alignment="CENTER" GridPane.rowIndex="8" GridPane.columnIndex="1">
+                                <TextField fx:id="txtImage" promptText="Select image path"
+                                           HBox.hgrow="ALWAYS" styleClass="custom-textfield"/>
+                                <Button text="Browse" onAction="#handleChooseImage" styleClass="browse-button"/>
+                            </HBox>
 
-        <Label text="Date:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="datePicker" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+                            <!-- Hidden Role Field (for testing) -->
+                            <ComboBox fx:id="comboRole" visible="false" managed="false"/>
+                        </GridPane>
+                    </StackPane>
 
-        <!-- Hidden role field (for testing) -->
-        <ComboBox fx:id="comboRole" visible="false" managed="false" />
-    </GridPane>
-
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Save" onAction="#handleSave" />
-        <Button text="Cancel" onAction="#handleCancel" />
-    </HBox>
-
-</VBox>
+                    <!-- Action Buttons -->
+                    <HBox spacing="20" alignment="CENTER" styleClass="button-container">
+                        <Button text="Save Changes" onAction="#handleSave" styleClass="save-button"/>
+                        <Button text="Cancel" onAction="#handleCancel" styleClass="cancel-button"/>
+                    </HBox>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+</StackPane>

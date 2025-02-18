@@ -4,29 +4,44 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.Events.EventCardController"
       alignment="CENTER"
-      spacing="10"
+      spacing="15"
       style="
-          -fx-background-color: #FFFFFF;
-          -fx-background-radius: 10;
-          -fx-padding: 15;
+          -fx-background-color: white;
+          -fx-background-radius: 15;
+          -fx-padding: 20;
           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.5, 0, 2);
-          ">
+          -fx-cursor: hand;
+      ">
     <children>
-        <ImageView fx:id="imageView" fitWidth="120" preserveRatio="true"/>
-        <Label fx:id="lblTitle" text="Titre" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-        <Label fx:id="lblLieu" text="Lieu" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
-        <Label fx:id="lblDate" text="Date" style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
-        <Button fx:id="btnReserve" text="Réserver" style="
-            -fx-background-color: #287b8d;
-            -fx-text-fill: white;
-            -fx-font-size: 14px;
-            -fx-background-radius: 8;
-            -fx-padding: 5 15;
-            -fx-cursor: hand;
-        "/>
+        <!-- Image de l'événement -->
+        <ImageView fx:id="imageView" fitWidth="150" preserveRatio="true"/>
+
+        <!-- Titre de l'événement -->
+        <Label fx:id="lblTitle" text="Titre de l'événement"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+
+        <!-- Lieu de l'événement -->
+        <Label fx:id="lblLieu" text="Lieu"
+               style="-fx-font-size: 16px; -fx-text-fill: #7F8C8D;"/>
+
+        <!-- Date de l'événement -->
+        <Label fx:id="lblDate" text="Date"
+               style="-fx-font-size: 16px; -fx-text-fill: #7F8C8D;"/>
+
+        <!-- Bouton Réserver avec dégradé subtil -->
+        <Button fx:id="btnReserve" text="Réserver"
+                style="
+                    -fx-background-color: linear-gradient(to right, #287b8d, #2C3E50);
+                    -fx-text-fill: white;
+                    -fx-font-size: 16px;
+                    -fx-background-radius: 10;
+                    -fx-padding: 10 20;
+                    -fx-cursor: hand;
+                "/>
     </children>
 </VBox>

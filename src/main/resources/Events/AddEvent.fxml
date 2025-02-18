@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.Events.AddEventController"
+      prefHeight="500" prefWidth="500" spacing="10" alignment="CENTER"
+      style="-fx-background-color: #F9F9F9;
+             -fx-padding: 20;
+             -fx-border-color: #DDD;
+             -fx-border-radius: 8;
+             -fx-background-radius: 8;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 2);">
 
-<VBox alignment="CENTER" prefHeight="590.0" prefWidth="679.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Events.AddEventController">
+    <!-- Titre principal -->
+    <Label text="Ajouter un Événement"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
 
-    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Ajouter un Événement" />
+    <!-- Formulaire de saisie dans une VBox avec largeur réduite -->
+    <VBox spacing="8" alignment="CENTER" prefWidth="400">
+        <TextField fx:id="txtTitre" promptText="Titre" style="-fx-padding: 6;"/>
+        <TextField fx:id="txtDescription" promptText="Description" style="-fx-padding: 6;"/>
+        <TextField fx:id="txtNBplaces" promptText="Nombre de places" style="-fx-padding: 6;"/>
+        <TextField fx:id="txtPrix" promptText="Prix" style="-fx-padding: 6;"/>
+        <TextField fx:id="txtLieu" promptText="Lieu" style="-fx-padding: 6;"/>
 
-    <!-- Champs de saisie visibles -->
-    <TextField fx:id="txtTitre" promptText="Titre" />
-    <TextField fx:id="txtDescription" promptText="Description" />
-    <TextField fx:id="txtNBplaces" promptText="Nombre de places" />
-    <TextField fx:id="txtPrix" promptText="Prix" />
-    <TextField fx:id="txtLieu" promptText="Lieu" />
+        <ComboBox fx:id="comboEtat" promptText="État de l'événement" style="-fx-padding: 6;"/>
+        <ComboBox fx:id="comboType" promptText="Type d'événement" style="-fx-padding: 6;"/>
 
-    <!-- ComboBox pour l'état de l'événement -->
-    <ComboBox fx:id="comboEtat" promptText="État de l'événement" />
+        <!-- Choix de l'image -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <TextField fx:id="txtImage" prefWidth="200" promptText="Chemin de l'image" style="-fx-padding: 6;"/>
+            <Button text="Choisir image" onAction="#handleChooseImage"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 6 15; -fx-cursor: hand;"/>
+        </HBox>
 
-    <!-- ComboBox pour le type d'événement -->
-    <ComboBox fx:id="comboType" promptText="Type d'événement" />
+        <DatePicker fx:id="datePicker" promptText="Date" style="-fx-padding: 6;"/>
+        <ComboBox fx:id="comboRole" promptText="Rôle de l'utilisateur" visible="false"/>
+    </VBox>
 
-    <!-- Zone pour choisir une image -->
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <TextField fx:id="txtImage" prefWidth="200" promptText="Chemin de l'image" />
-        <Button onAction="#handleChooseImage" text="Choisir image" />
-    </HBox>
-
-
-
-    <!-- DatePicker pour la date -->
-    <DatePicker fx:id="datePicker" promptText="Date" />
-
-    <!-- ComboBox cachée pour le rôle (Admin/User) -->
-    <ComboBox fx:id="comboRole" promptText="Rôle de l'utilisateur" visible="false" />
-
-    <HBox alignment="CENTER" spacing="10">
-        <Button onAction="#handleSave" text="Save" />
-        <Button onAction="#handleCancel" text="Cancel" />
+    <!-- Boutons d'action -->
+    <HBox alignment="CENTER" spacing="15">
+        <Button text="Save" onAction="#handleSave"
+                style="-fx-background-color: #287b8d; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20; -fx-cursor: hand;"/>
+        <Button text="Cancel" onAction="#handleCancel"
+                style="-fx-background-color: #B0B0B0; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

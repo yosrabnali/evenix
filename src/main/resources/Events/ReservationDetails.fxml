@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -12,34 +13,49 @@
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.Events.ReservationDetailsController"
       spacing="15" alignment="CENTER"
-      style="-fx-background-color: #F9F9F9; -fx-border-color: #DDD; -fx-border-radius: 8; -fx-background-radius: 8;">
+      style="-fx-background-color: #F9F9F9; -fx-border-color: #DDD; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 2);">
+
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
+
+    <!-- Titre principal -->
     <Label text="Détails de l'événement"
-           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
 
-    <Label fx:id="lblTitle" text="Titre de l'événement"
-           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #444444;"/>
-    <Label fx:id="lblDescription" text="Description de l'événement"
-           style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
-    <Label fx:id="lblDate" text="Date de l'événement"
-           style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
-    <Label fx:id="lblLieu" text="Lieu de l'événement"
-           style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+    <!-- Séparateur -->
+    <Separator style="-fx-background-color: #DDD; -fx-pref-height: 1;"/>
 
+    <!-- Informations sur l'événement -->
+    <VBox spacing="10" alignment="CENTER_LEFT">
+        <Label fx:id="lblTitle" text="Titre de l'événement"
+               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #444444;"/>
+        <Label fx:id="lblDescription" text="Description de l'événement"
+               wrapText="true"
+               style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+        <Label fx:id="lblDate" text="Date de l'événement"
+               style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+        <Label fx:id="lblLieu" text="Lieu de l'événement"
+               style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+        <Label fx:id="lblprix" text="prix de l'événement"
+               style="-fx-font-size: 14px; -fx-text-fill: #555555;"/>
+    </VBox>
+
+    <!-- Champ de saisie pour le nombre de places -->
     <TextField fx:id="txtNBplaces" promptText="Nombre de places"
-               style="-fx-pref-width: 250px; -fx-padding: 8; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+               style="-fx-pref-width: 250px; -fx-padding: 8; -fx-border-color: #CCC; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+
     <!-- ComboBox pour la méthode de paiement -->
     <ComboBox fx:id="comboEtat" promptText="Méthode de paiement"
-              style="-fx-pref-width: 250px; -fx-padding: 8; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+              style="-fx-pref-width: 250px; -fx-padding: 8; -fx-border-color: #CCC; -fx-border-radius: 4; -fx-background-radius: 4;"/>
 
-    <HBox spacing="10" alignment="CENTER">
+    <!-- Boutons d'action -->
+    <HBox spacing="15" alignment="CENTER">
         <Button fx:id="btnConfirmReservation" text="Confirmer la réservation"
                 onAction="#handleConfirmReservation"
-                style="-fx-background-color: #287b8d; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;"/>
+                style="-fx-background-color: #287b8d; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 10 25; -fx-background-radius: 5; -fx-cursor: hand;"/>
         <Button fx:id="btnCancelReservation" text="Annuler"
                 onAction="#handleCancelReservation"
-                style="-fx-background-color: #B0B0B0; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;"/>
+                style="-fx-background-color: #B0B0B0; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 10 25; -fx-background-radius: 5; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

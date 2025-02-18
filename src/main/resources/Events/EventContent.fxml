@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
 
@@ -7,9 +8,12 @@
             fx:controller="controllers.Events.EventContentController"
             hbarPolicy="ALWAYS" vbarPolicy="NEVER"
             fitToWidth="true" prefHeight="500"
-            style="-fx-background-color: transparent;">
+            style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 10;">
     <content>
-        <!-- Ce FlowPane sera rempli dynamiquement par un contrôleur d'événements ou directement ici -->
-        <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20" style="-fx-padding: 20;"/>
+        <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20"
+                  style="-fx-padding: 20;
+                         -fx-background-color: linear-gradient(to bottom, #ffffff, #f2f2f2);
+                         -fx-background-radius: 10;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.5, 0, 2);"/>
     </content>
 </ScrollPane>

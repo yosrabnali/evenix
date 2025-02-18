@@ -30,6 +30,8 @@ public class ReservationDetailsController {
     @FXML
     private Label lblLieu;
     @FXML
+    private Label lblprix;
+    @FXML
     private TextField txtNBplaces;
     @FXML
     private ComboBox<String> comboEtat;
@@ -53,6 +55,7 @@ public class ReservationDetailsController {
         lblDescription.setText("Description: "+event.getDescription());
         lblDate.setText("Date: "+event.getDate().toString());
         lblLieu.setText(event.getLieu());
+        lblprix.setText("Prix: "+event.getPrix()+"dt");
     }
 
     /**
