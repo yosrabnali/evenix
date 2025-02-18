@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/javafx/1"
+
+            fx:controller="controllers.Events.EventListController">
+
+    <children>
+        <VBox spacing="10" alignment="TOP_CENTER">
+            <!-- Titre de la page -->
+            <Label text="Liste des Événements" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 10;"/>
+
+            <!-- ScrollPane pour gérer la liste des événements -->
+            <ScrollPane fitToWidth="true" fitToHeight="true">
+                <content>
+                    <ListView fx:id="eventListView" prefWidth="700" prefHeight="500">
+                        <placeholder>
+                            <Label text="Aucun événement disponible" style="-fx-font-size: 16px; -fx-text-fill: grey;"/>
+                        </placeholder>
+                    </ListView>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </children>
+</AnchorPane>

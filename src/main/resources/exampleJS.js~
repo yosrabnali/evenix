@@ -1,0 +1,19 @@
+console.log("JavaScript is running");
+
+function generatePDF() {
+    console.log("generatePDF function is being called");
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text('Lignes de Location', 10, 10);
+
+    console.log('Starting autotable');
+    doc.autoTable({
+        head: [['ID Ligne', 'Nom Matériel', 'Quantité', 'Montant Total']],
+        body: [["1", "chaise", "100", "20"]]
+    });
+    console.log('Finished autotable');
+
+    console.log('Saving PDF');
+    doc.save('lignes_location.pdf');
+    console.log('PDF saved');
+}
