@@ -39,12 +39,32 @@ public class ReservationDetailsController {
     private Button btnConfirmReservation;
     @FXML
     private Button btnCancelReservation;
+    @FXML
+    private Label lblTicketCount;
 
+    @FXML
+    private Button btnDecrease;
+
+    @FXML
+    private Button btnIncrease;
+
+    // New label to display the total price
+    @FXML
+    private Label lblPrice;
+
+    // Current ticket count
+    private int ticketCount = 0;
+    private static final int MAX_TICKETS = 5;
+    private static final int MIN_TICKETS = 0;
+
+    // Price per ticket
+    private double priceperticket = 20;
     private Event event;
     @FXML
     public void initialize() {
         comboEtat.getItems().addAll("paypal", "mastercard", "visa");
-
+        updateTicketCountLabel();
+        updatePriceLabel();
     }
     /**
      * Cette méthode permet de recevoir l'événement à afficher.
@@ -55,9 +75,48 @@ public class ReservationDetailsController {
         lblDescription.setText("Description: "+event.getDescription());
         lblDate.setText("Date: "+event.getDate().toString());
         lblLieu.setText(event.getLieu());
-        lblprix.setText("Prix: "+event.getPrix()+"dt");
+        lblprix.setText("Prix: "+event.getPrix()+" dt");
+        priceperticket = event.getPrix();
     }
 
+    /**
+     * Handles the action for decreasing the ticket count.
+     */
+    @FXML
+    private void handleDecrease() {
+        if (ticketCount > MIN_TICKETS) {
+            ticketCount--;
+            updateTicketCountLabel();
+            updatePriceLabel();
+        }
+    }
+
+    /**
+     * Handles the action for increasing the ticket count.
+     */
+    @FXML
+    private void handleIncrease() {
+        if (ticketCount < MAX_TICKETS) {
+            ticketCount++;
+            updateTicketCountLabel();
+            updatePriceLabel();
+        }
+    }
+
+    /**
+     * Updates the ticket count label with the current number of tickets.
+     */
+    private void updateTicketCountLabel() {
+        lblTicketCount.setText(String.valueOf(ticketCount));
+    }
+
+    /**
+     * Updates the price label based on the current ticket count.
+     */
+    private void updatePriceLabel() {
+        double totalPrice = ticketCount * priceperticket;
+        lblPrice.setText("Total Price: " + totalPrice + " dt");
+    }
     /**
      * Action de confirmation de la réservation.
      */
@@ -66,7 +125,7 @@ public class ReservationDetailsController {
         // Ici, vous pouvez ajouter la logique de réservation (ex : appel à un service)
         System.out.println("Réservation confirmée pour l'événement : " + event.getTitre());
         String etat = comboEtat.getValue();
-        int nbPlaces = Integer.parseInt(txtNBplaces.getText());
+        int nbPlaces = Integer.parseInt(lblTicketCount.getText());
         Double prix = event.getPrix() * nbPlaces;
         // Par exemple, rediriger l'utilisateur vers la page client (EventClient.fxml)
         try {
