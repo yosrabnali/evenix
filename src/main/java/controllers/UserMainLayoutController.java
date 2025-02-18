@@ -45,6 +45,7 @@ public class UserMainLayoutController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
             Node eventContent = loader.load();
             centerContent.getChildren().setAll(eventContent);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
