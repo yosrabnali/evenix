@@ -64,7 +64,7 @@
 
 /* Bouton "Browse" */
 .browse-button {
-    -fx-background-color: #3498db;   /* Bleu */
+    -fx-background-color: #f3c7ac;   /* Bleu */
     -fx-text-fill: #ffffff;         /* Texte blanc */
     -fx-font-weight: bold;
     -fx-font-size: 13px;
@@ -80,7 +80,7 @@
 
 /* Bouton "Save Changes" */
 .save-button {
-    -fx-background-color: #2ecc71;  /* Vert */
+    -fx-background-color: #f3c7ac;  /* Vert */
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
@@ -91,7 +91,7 @@
 
 /* Bouton "Cancel" */
 .cancel-button {
-    -fx-background-color: #e74c3c;  /* Rouge */
+    -fx-background-color: #f3c7ac;  /* Rouge */
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
@@ -106,11 +106,11 @@
 }
 
 .save-button:hover {
-    -fx-background-color: #27ae60;
+    -fx-background-color: #f3c7ac;
 }
 
 .cancel-button:hover {
-    -fx-background-color: #c0392b;
+    -fx-background-color: #f3c7ac;
 }
 
 
@@ -118,3 +118,14 @@
     -fx-max-width: 600px;
     -fx-pref-width: 600px;
 }
+.root {
+    /* Primary blue color */
+    -fx-color: #a1d1ff;
+}
+
+/* Make the TabPane header background transparent */
+.tab-pane *.tab-header-background {
+    -fx-background-color: transparent;
+    -fx-effect: none;
+}
+

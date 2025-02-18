@@ -17,7 +17,7 @@
     <top>
         <HBox spacing="15" alignment="CENTER_LEFT"
               style="-fx-padding: 15; -fx-background-color: linear-gradient(to right, #3498db, #9b59b6);">
-            <Label text="Liste des Événements Admin"
+            <Label text="List event"
                    style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="+" fx:id="btnAddEvent" onAction="#handleAddEvent"

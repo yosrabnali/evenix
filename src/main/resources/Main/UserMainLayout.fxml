@@ -30,7 +30,7 @@
                    AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
                    AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
             <image>
-                <Image url="@../images/back.jpg"/>
+                <Image url="@../images/back2.jpg"/>
             </image>
         </ImageView>
 
@@ -57,7 +57,7 @@
                             <Circle centerX="20" centerY="20" radius="20"/>
                         </clip>
                     </ImageView>
-                    <Label fx:id="userNameTop" text="John Doe"
+                    <Label fx:id="userNameTop" text="Yosra Ben ali"
                            style="-fx-text-fill: white; -fx-font-size: 14;"/>
                 </HBox>
             </children>
@@ -97,7 +97,7 @@
                            preserveRatio="true"
                            onMouseClicked="#handlePublication" rotate="-10">
                     <image>
-                        <Image url="@../images/iconpublication.png"/>
+                        <Image url="@../images/iconpublication.jpg"/>
                     </image>
                 </ImageView>
                 <ImageView fx:id="complaintIcon"
@@ -106,7 +106,7 @@
                            preserveRatio="true"
                            onMouseClicked="#handleComplaint" rotate="-10">
                     <image>
-                        <Image url="@../images/iconcomplaint.png"/>
+                        <Image url="@../images/iconcomplaint.jpg"/>
                     </image>
                 </ImageView>
                 <Region VBox.vgrow="ALWAYS"/>
@@ -128,7 +128,9 @@
                     AnchorPane.bottomAnchor="0"
                     AnchorPane.leftAnchor="60"
                     AnchorPane.rightAnchor="10"
-                    style="-fx-background-color: #FFFFFF;
+                    style="-fx-background-image: url('@../images/back2.jpg');
+                           -fx-background-size: cover;
+                           -fx-background-position: center center;
                            -fx-padding: 20;">
             <center>
                 <VBox fx:id="centerContent" spacing="15" alignment="CENTER">
@@ -137,5 +139,6 @@
                 </VBox>
             </center>
         </BorderPane>
+
     </children>
 </AnchorPane>

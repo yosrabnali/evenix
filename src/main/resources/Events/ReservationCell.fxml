@@ -3,30 +3,66 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Label?>
-
 <?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.Events.ReservationCellController"
-      spacing="10"
-      styleClass="reservation-cell">
+      spacing="15"
+      alignment="CENTER_LEFT"
+      style="-fx-background-color: #ffffff;
+             -fx-background-radius: 8;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0.5, 0, 2);
+             -fx-padding: 15;
+             -fx-border-color: transparent transparent #30bac7 transparent;
+             -fx-border-width: 0 0 2 0;">
+
     <children>
+        <!-- Image de l'événement avec une ombre légère pour le relief -->
         <ImageView fx:id="eventImageView"
-                   fitHeight="80" fitWidth="80"
-                   preserveRatio="true"/>
-        <VBox spacing="5">
+                   fitHeight="80"
+                   fitWidth="80"
+                   preserveRatio="true"
+                   style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.5, 0, 2);"/>
+
+        <!-- Première colonne d'informations -->
+        <VBox spacing="8" alignment="CENTER_LEFT">
             <children>
-                <Label fx:id="lblReservationId" text="ID:"/>
-                <Label fx:id="lblDate" text="Date:"/>
-                <Label fx:id="lblNbPlaces" text="Places:"/>
-                <Label fx:id="lblPaymentMethod" text="Payment:"/>
-                <Label fx:id="lblEventName" text="Event:"/>
+                <Label fx:id="lblReservationId" text="ID: 12345"
+                       style="-fx-font-size: 14px; -fx-text-fill: #333333; -fx-font-weight: bold;"/>
+                <Label fx:id="lblDate" text="Date: 2025-03-10"
+                       style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                <Label fx:id="lblNbPlaces" text="Places: 3"
+                       style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
             </children>
         </VBox>
+
+        <!-- Deuxième colonne d'informations -->
+        <VBox spacing="8" alignment="CENTER_LEFT">
+            <children>
+                <Label fx:id="lblPaymentMethod" text="Payment: Credit Card"
+                       style="-fx-font-size: 13px; -fx-text-fill: #666666;"/>
+                <Label fx:id="lblEventName" text="Event: Spring Gala"
+                       style="-fx-font-size: 14px; -fx-text-fill: #333333; -fx-font-weight: bold;"/>
+            </children>
+        </VBox>
+
+        <!-- Espaceur pour pousser le bouton vers la droite -->
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <!-- Bouton de suppression avec effet interactif -->
         <Button fx:id="btnDelete"
                 text="Delete"
                 onAction="#handleDelete"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 5 10;"/>
+                style="-fx-background-color: #30bac7;
+                       -fx-text-fill: white;
+                       -fx-font-size: 13px;
+                       -fx-padding: 8 15;
+                       -fx-background-radius: 5;
+                       -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0.5, 0, 1);"/>
     </children>
 </HBox>

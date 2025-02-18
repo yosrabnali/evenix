@@ -11,7 +11,7 @@
       alignment="CENTER"
       spacing="15"
       style="
-          -fx-background-color: white;
+          -fx-background-color: #f3f3f3; /* Couleur de fond claire */
           -fx-background-radius: 15;
           -fx-padding: 20;
           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.5, 0, 2);
@@ -23,7 +23,7 @@
 
         <!-- Titre de l'événement -->
         <Label fx:id="lblTitle" text="Titre de l'événement"
-               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #287b8d; /* Couleur d'accent */"/>
 
         <!-- Lieu de l'événement -->
         <Label fx:id="lblLieu" text="Lieu"
@@ -36,7 +36,7 @@
         <!-- Bouton Réserver avec dégradé subtil -->
         <Button fx:id="btnReserve" text="Réserver"
                 style="
-                    -fx-background-color: linear-gradient(to right, #287b8d, #2C3E50);
+                    -fx-background-color: #287b8d; /* Couleur d'accent */
                     -fx-text-fill: white;
                     -fx-font-size: 16px;
                     -fx-background-radius: 10;
