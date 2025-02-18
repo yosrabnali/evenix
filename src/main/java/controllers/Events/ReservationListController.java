@@ -77,7 +77,7 @@ public class ReservationListController {
                 // Retrieve the related event details using reservation.getIdEvent()
                 Event event = eventService.getEventById(reservation.getIdEvent());
                 // Pass the reservation and event to the cell controller
-                cellController.setReservationData(reservation, event);
+                cellController.setReservationData(reservation, event, () -> getListView().getItems().remove(reservation));
                 setGraphic(cellContainer);
             }
         }

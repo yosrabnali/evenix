@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 
+<?import javafx.scene.control.Button?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.Events.ReservationCellController"
@@ -23,5 +24,9 @@
                 <Label fx:id="lblEventName" text="Event:"/>
             </children>
         </VBox>
+        <Button fx:id="btnDelete"
+                text="Delete"
+                onAction="#handleDelete"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 5 10;"/>
     </children>
 </HBox>
