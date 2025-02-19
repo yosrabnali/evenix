@@ -34,9 +34,9 @@
                 <!-- Navigation Links -->
                 <VBox styleClass="nav-links">
                     <children>
-                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Ajouter Article" userData="0" />
+                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Ajouter Publication" userData="0" />
                         <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Blog" userData="1" />
-                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Liste des articles" userData="2" />
+                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Liste des Publications " userData="2" />
                     </children>
                 </VBox>
 

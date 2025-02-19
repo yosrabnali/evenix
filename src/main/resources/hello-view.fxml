@@ -20,7 +20,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label text="Nouvel Article" styleClass="title"/>
+    <Label text="Publication" styleClass="title"/>
 
     <VBox styleClass="card-container">
         <TextField fx:id="auteurField" 

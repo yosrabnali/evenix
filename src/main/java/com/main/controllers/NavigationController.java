@@ -32,9 +32,9 @@ public class NavigationController {
     };
 
     private final String[] titles = {
-            "Ajouter Article",
+            "Ajouter Publication",
             "Blog",
-            "Liste des articles",
+            "Liste des Publications",
     };
 
     private ArticlesController ArticlesController;

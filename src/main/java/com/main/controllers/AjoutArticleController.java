@@ -160,7 +160,7 @@ public class AjoutArticleController {
         // Validation en temps réel pour la description
         contenuArea.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > 100) {
-                showErrorMessage("La description ne doit pas dépasser 20 caractères");
+                showErrorMessage("La description ne doit pas dépasser 100 caractères");
                 // Garder les 20 premiers caractères
                 contenuArea.setText(newValue.substring(0, 100));
             }

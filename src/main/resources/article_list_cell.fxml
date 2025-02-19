@@ -22,25 +22,25 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Titre et Auteur -->
+
     <VBox spacing="5">
         <Label fx:id="titre" styleClass="card-title"/>
         <Label fx:id="auteur" styleClass="card-text"/>
     </VBox>
 
-    <!-- Image de l'article -->
+
     <ImageView fx:id="imageView" 
                styleClass="card-image"
                fitHeight="250" 
                fitWidth="400" 
                preserveRatio="true"/>
 
-    <!-- Contenu -->
+
     <Label fx:id="contenu" 
            styleClass="card-text" 
            wrapText="true"/>
 
-    <!-- Section Likes -->
+
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Button fx:id="likeButton" 
                 text="❤" 
@@ -50,7 +50,7 @@
                styleClass="card-text"/>
     </HBox>
 
-    <!-- Section Commentaires -->
+
     <Label text="Commentaires" styleClass="comments-title"/>
     <VBox fx:id="commentairesBox" 
           spacing="10" 

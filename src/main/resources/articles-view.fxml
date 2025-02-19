@@ -39,7 +39,7 @@
         <Region HBox.hgrow="ALWAYS" />
         
         <HBox alignment="CENTER" spacing="15">
-            <TextField fx:id="searchField" prefWidth="300" promptText="Rechercher un article..." styleClass="search-field" />
+            <TextField fx:id="searchField" prefWidth="300" promptText="Rechercher..." styleClass="search-field" />
             <DatePicker fx:id="datePicker" promptText="Filtrer par date" styleClass="date-picker" />
             <Button onAction="#resetFilters" styleClass="action-button" text="Réinitialiser les filtres" />
         </HBox>
