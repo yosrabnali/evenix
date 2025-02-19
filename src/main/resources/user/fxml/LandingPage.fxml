@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.LandingPageController"
+            prefHeight="500.0" prefWidth="600.0">
+
+    <BorderPane prefHeight="500.0" prefWidth="600.0">
+
+        <!-- Left Section: Logo -->
+        <left>
+            <AnchorPane prefHeight="500.0" prefWidth="210.0" style="-fx-background-color: #dbb5a8;" BorderPane.alignment="CENTER">
+                <children>
+                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="30.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/logo.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </AnchorPane>
+        </left>
+
+        <!-- Center Section: Welcome Message & Buttons -->
+        <center>
+            <AnchorPane prefHeight="500.0" prefWidth="373.0" style="-fx-background-color: #287b8d;" BorderPane.alignment="CENTER">
+                <children>
+                    <VBox alignment="CENTER" spacing="20"
+                          layoutX="50.0" layoutY="100.0"
+                          prefWidth="280.0"
+                          style="-fx-background-color: rgba(255, 255, 255, 0.90); -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.3, 0, 3);">
+
+                        <Label text="Bienvenue"
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #dbb5a8;"/>
+
+                        <Label text="Gérez vos utilisateurs facilement avec notre plateforme."
+                               wrapText="true"
+                               style="-fx-font-size: 14px; -fx-text-fill: black; -fx-text-alignment: center;"/>
+
+                        <!-- Buttons -->
+                        <HBox alignment="CENTER" spacing="20">
+                            <Button text="Se connecter" fx:id="signInButton" onAction="#goToSignIn"
+                                    style="-fx-background-color: #157faa; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 10;"/>
+
+                            <Button text="S'inscrire" fx:id="signUpButton" onAction="#goToSignUp"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 10;"/>
+                        </HBox>
+                    </VBox>
+                </children>
+            </AnchorPane>
+        </center>
+    </BorderPane>
+</AnchorPane>

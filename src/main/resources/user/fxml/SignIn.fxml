@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
+    <children>
+        <BorderPane prefHeight="500.0" prefWidth="600.0">
+
+            <!-- Partie gauche : Logo + Bouton Retour -->
+            <left>
+                <AnchorPane prefHeight="500.0" prefWidth="210.0" style="-fx-background-color: #dbb5a8;" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="30.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/logo.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="backbtn" layoutX="46.0" layoutY="298.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #287b8d;" text="Back" textFill="WHITE" />
+                    </children>
+                </AnchorPane>
+            </left>
+
+            <!-- Partie centrale : Formulaire de connexion -->
+            <center>
+                <AnchorPane prefHeight="500.0" prefWidth="373.0" style="-fx-background-color: #287b8d;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label alignment="CENTER" layoutX="69.0" layoutY="2.0" prefHeight="41.0" prefWidth="250.0" text="Sign In" textFill="WHITE">
+                            <font>
+                                <Font name="Constantia Bold" size="22.0" />
+                            </font>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </Label>
+
+                        <Label layoutX="50.0" layoutY="80.0" text="Email" textFill="WHITE" />
+                        <TextField fx:id="emailTextfield" layoutX="140.0" layoutY="77.0" promptText="Email" />
+
+                        <Label layoutX="30.0" layoutY="130.0" text="Password" textFill="WHITE" />
+                        <PasswordField fx:id="passwordTextfield" layoutX="140.0" layoutY="127.0" promptText="Password" />
+
+                        <CheckBox fx:id="rememberMeCheckbox" layoutX="154.0" layoutY="184.0" onAction="#rememberMeAction" text="Remember Me" />
+
+                        <Button fx:id="loginButton" layoutX="127.0" layoutY="259.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="42.0" prefWidth="151.0" style="-fx-background-color: #dbb5a8;" text="Sign In" textFill="WHITE" />
+
+                        <Hyperlink fx:id="forgetP" layoutX="153.0" layoutY="226.0" onAction="#forgetPassword" styleClass="hyperlink" text="Forgot Password?" textFill="#1b0b0b" />
+
+                        <Label fx:id="invalidText" layoutX="50.0" layoutY="300.0" prefHeight="30.0" prefWidth="250.0" textFill="RED" />
+
+                        <Label layoutX="50.0" layoutY="342.0" text="Don't have an account?" textFill="WHITE" />
+                        <Hyperlink fx:id="goToSignupButton" layoutX="240.0" layoutY="340.0" onAction="#goToSignup" styleClass="hyperlink" text="Sign Up" textFill="#231b1b" />
+
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+
+    <stylesheets>
+        <URL value="@../../css/style1.css" />
+    </stylesheets>
+</AnchorPane>

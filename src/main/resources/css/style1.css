@@ -1,0 +1,38 @@
+.root {
+    -fx-background-color: #f5f8fa; /* Couleur de fond */
+}
+
+.button {
+    -fx-background-color: #6f7b8c; /* Couleur du bouton */
+    -fx-text-fill: #fff; /* Couleur du texte du bouton */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #5a6778; /* Assombri au survol */
+}
+
+.label {
+    -fx-text-fill: #000; /* Couleur du texte en noir */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.split-pane {
+    -fx-background-color: #eceff1; /* Couleur de fond de la split pane */
+}
+
+.pie-chart {
+    -fx-background-color: #FFFFFF; /* Couleur de fond du pie chart */
+}
+.title {
+    -fx-font-size: 24px; /* Augmenter la taille du texte */
+    -fx-font-weight: bold; /* Rendre le texte plus épais */
+    -fx-text-fill: #212121; /* Noir foncé pour une meilleure visibilité */
+    -fx-alignment: center; /* Centrer le texte */
+}

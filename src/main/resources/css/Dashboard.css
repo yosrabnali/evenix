@@ -1,0 +1,107 @@
+/* Background for the entire dashboard */
+AnchorPane {
+    -fx-background-color: linear-gradient(to right, #1E3C72, #2A5298);
+}
+
+/* Styling for the TabPane */
+TabPane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 200px;
+    -fx-tab-min-height: 40px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Tabs */
+.tab {
+    -fx-background-color: #dbb5a8;
+    -fx-text-fill: white;
+}
+
+.tab:selected {
+    -fx-background-color: #287b8d;
+    -fx-text-fill: white;
+}
+
+/* VBox Styling */
+VBox {
+    -fx-background-color: rgba(255, 255, 255, 0.90);
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.3, 0, 3);
+}
+
+/* Titles */
+Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+/* Table Styling */
+TableView {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-padding: 5px;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 12px;
+}
+
+/* Buttons */
+Button {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 18px;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+/* Delete Button */
+Button[text="Supprimer Sélection"] {
+    -fx-background-color: #F44336;
+    -fx-text-fill: white;
+}
+
+Button[text="Supprimer Sélection"]:hover {
+    -fx-background-color: #D32F2F;
+}
+
+/* Edit Button */
+Button[text="Modifier Utilisateur"] {
+    -fx-background-color: #FF9800;
+    -fx-text-fill: white;
+}
+
+Button[text="Modifier Utilisateur"]:hover {
+    -fx-background-color: #F57C00;
+}
+
+/* Add User Button */
+Button[text="Ajouter Utilisateur"],
+Button[text="Ajouter"] {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+Button[text="Ajouter Utilisateur"]:hover,
+Button[text="Ajouter"]:hover {
+    -fx-background-color: #388E3C;
+}
+
+/* Modifier Button */
+Button[text="Modifier"] {
+    -fx-background-color: #000000;
+    -fx-text-fill: white;
+}
+
+Button[text="Modifier"]:hover {
+    -fx-background-color:#FF9800;
+}
+
+
