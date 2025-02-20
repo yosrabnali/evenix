@@ -26,7 +26,8 @@
         <TextField fx:id="txtDescription" promptText="Description" styleClass="rounded-text-field"/>
         <TextField fx:id="txtNBplaces" promptText="Places" styleClass="rounded-text-field"/>
         <TextField fx:id="txtPrix" promptText="Price" styleClass="rounded-text-field"/>
-        <TextField fx:id="txtLieu" promptText="Location" styleClass="rounded-text-field"/>
+        <ComboBox fx:id="txtLieu" promptText="Location" styleClass="rounded-combo-box"/>
+
         <DatePicker fx:id="datePicker" promptText="Date"
                     style="-fx-background-color: white;
                                -fx-background-radius: 5;

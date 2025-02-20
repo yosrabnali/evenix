@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
@@ -7,7 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<!-- Grand cadre gris -->
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+<?import javafx.scene.control.DatePicker?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.Events.EventContentController"
@@ -17,7 +22,6 @@
             prefHeight="1000">
 
     <children>
-        <!-- TabPane ancré sur les 4 côtés pour occuper entièrement l'AnchorPane -->
         <TabPane fx:id="mainTabPane"
                  tabClosingPolicy="UNAVAILABLE"
                  AnchorPane.topAnchor="0.0"
@@ -27,7 +31,7 @@
                  style="-fx-background-color: transparent;">
 
             <tabs>
-                <!-- Onglet "Events" -->
+                <!-- Events Tab -->
                 <Tab>
                     <graphic>
                         <Label text="Events"
@@ -38,25 +42,83 @@
                                       -fx-padding: 10;"/>
                     </graphic>
                     <content>
-                        <ScrollPane hbarPolicy="ALWAYS"
-                                    vbarPolicy="NEVER"
-                                    fitToHeight="true"
-                                    fitToWidth="true"
-                                    style="-fx-background-color: transparent; -fx-padding: 0;">
-                            <content>
-                                <HBox fx:id="hboxEvents"
-                                      spacing="20"
-                                      style="-fx-background-color: transparent; -fx-padding: 0;"
-                                      maxWidth="Infinity"
-                                      maxHeight="Infinity">
-                                    <fx:include source="EventCard.fxml"/>
-                                </HBox>
-                            </content>
-                        </ScrollPane>
+
+                        <VBox spacing="10">
+                            <!-- Filter Section -->
+                            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+                                <ComboBox fx:id="eventCategoryComboBox" promptText="Select Category">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Concert"/>
+                                            <String fx:value="Conférence"/>
+                                            <String fx:value="Exposition"/>
+                                            <String fx:value="Atelier"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <ComboBox fx:id="lieuComboBox" promptText="Select lieu">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Ariana"/>
+                                            <String fx:value="Béja"/>
+                                            <String fx:value="Ben Arous"/>
+                                            <String fx:value="Bizerte"/>
+                                            <String fx:value="Gabès"/>
+                                            <String fx:value="Gafsa"/>
+                                            <String fx:value="Jendouba"/>
+                                            <String fx:value="Kairouan"/>
+                                            <String fx:value="Kasserine"/>
+                                            <String fx:value="Kebili"/>
+                                            <String fx:value="Kef"/>
+                                            <String fx:value="Mahdia"/>
+                                            <String fx:value="Manouba"/>
+                                            <String fx:value="Medenine"/>
+                                            <String fx:value="Monastir"/>
+                                            <String fx:value="Nabeul"/>
+                                            <String fx:value="Sfax"/>
+                                            <String fx:value="Sidi Bouzid"/>
+                                            <String fx:value="Siliana"/>
+                                            <String fx:value="Sousse"/>
+                                            <String fx:value="Tataouine"/>
+                                            <String fx:value="Tozeur"/>
+                                            <String fx:value="Tunis"/>
+                                            <String fx:value="Zaghouan"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+
+                                <DatePicker fx:id="datePicker" promptText="Select Date"
+                                            style="-fx-background-color: white;
+                                                   -fx-background-radius: 5;
+                                                   -fx-border-color: #ccc;
+                                                   -fx-border-radius: 5;
+                                                   -fx-padding: 10;"/>
+                                <Button text="Search" styleClass="rounded-text-field" onAction="#filterEvents" />
+                                <Button text="Reset" styleClass="rounded-text-field" onAction="#resetFilter" />
+                            </HBox>
+
+                            <!-- Events List -->
+                            <ScrollPane hbarPolicy="ALWAYS"
+                                        vbarPolicy="NEVER"
+                                        fitToHeight="false"
+                                        fitToWidth="true"
+                                        style="-fx-background-color: transparent; -fx-padding: 0;">
+                                <content>
+                                    <HBox fx:id="hboxEvents"
+                                          spacing="20"
+                                          style="-fx-background-color: transparent; -fx-padding: 0;"
+                                          maxWidth="Infinity"
+                                          maxHeight="Infinity">
+                                        <fx:include source="EventCard.fxml"/>
+                                    </HBox>
+                                </content>
+                            </ScrollPane>
+                        </VBox>
+
                     </content>
                 </Tab>
 
-                <!-- Onglet "Reservations" -->
+                <!-- Reservations Tab -->
                 <Tab onSelectionChanged="#showReservationList">
                     <graphic>
                         <Label text="Reservations"
@@ -73,16 +135,11 @@
                                     fitToHeight="true"
                                     style="-fx-background-color: transparent; -fx-padding: 0;">
                             <content>
-                                <!--
-                                    maxWidth et maxHeight à Infinity
-                                    permettent d'occuper tout l'espace disponible
-                                -->
                                 <HBox fx:id="hboxReservation"
                                       spacing="20"
                                       style="-fx-background-color: transparent; -fx-padding: 20;"
                                       maxWidth="Infinity"
                                       maxHeight="Infinity">
-                                    <!-- Vos cartes de réservation ici -->
                                 </HBox>
                             </content>
                         </ScrollPane>

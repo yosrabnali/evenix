@@ -37,7 +37,7 @@ public class AddEventController {
     @FXML
     private TextField txtImage;
     @FXML
-    private TextField txtLieu;
+    private ComboBox<String> txtLieu;
     @FXML
     private DatePicker datePicker;
 
@@ -52,6 +52,16 @@ public class AddEventController {
         if (comboEtat != null) {
             comboEtat.getItems().addAll("Disponible", "Complet", "Annulé");
         }
+        if (txtLieu != null) {
+            txtLieu.getItems().addAll(
+                    "Ariana", "Béja", "Ben Arous", "Bizerte", "Gabès",
+                    "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili",
+                    "Kef", "Mahdia", "Manouba", "Medenine", "Monastir",
+                    "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse",
+                    "Tataouine", "Tozeur", "Tunis", "Zaghouan"
+            );
+        }
+
     }
 
     @FXML
@@ -74,7 +84,7 @@ public class AddEventController {
             if (txtTitre.getText().isEmpty() || txtDescription.getText().isEmpty() ||
                     datePicker.getValue() == null || txtImage.getText().isEmpty() ||
                     comboEtat.getValue() == null || comboType.getValue() == null ||
-                    txtNBplaces.getText().isEmpty() || txtPrix.getText().isEmpty() || txtLieu.getText().isEmpty()) {
+                    txtNBplaces.getText().isEmpty() || txtPrix.getText().isEmpty() || txtLieu.getValue().isEmpty()) {
 
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs doivent être remplis.");
                 return;
@@ -89,7 +99,7 @@ public class AddEventController {
             String etat = comboEtat.getValue();
             String type = comboType.getValue();
             String image = txtImage.getText();
-            String lieu = txtLieu.getText();
+            String lieu = txtLieu.getValue();
 
             // Création de l'objet Event
             Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu, 1234);

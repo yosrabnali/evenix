@@ -1,6 +1,9 @@
 package controllers.Events;
 
 import Entity.Events.Event;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.StackPane;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
@@ -15,9 +18,15 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.io.IOException;
+import java.util.stream.Collectors;
+
+import static java.util.Locale.filter;
 
 public class EventContentController implements Initializable {
 
@@ -30,6 +39,24 @@ public class EventContentController implements Initializable {
     // Pour l'onglet "Reservations", vous pouvez aussi utiliser un HBox (ou conserver FlowPane si vous préférez)
     @FXML
     private HBox hboxReservation; // fx:id="hboxReservation" dans votre FXML
+    @FXML
+    private Button searchButton; // Search button
+
+    @FXML
+    private Button resetButton; // Reset button
+
+    @FXML
+    private ComboBox<String> eventCategoryComboBox;
+
+    @FXML
+    private ComboBox<String> lieuComboBox;
+
+
+    private List<Event> allEvents; // Store all events for filtering
+
+    @FXML
+    private DatePicker datePicker;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,6 +73,7 @@ public class EventContentController implements Initializable {
 
         for (Event e : events) {
             try {
+                allEvents = serviceEvent.getAllEvents();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventCard.fxml"));
                 // Charge la carte (un VBox dans ce cas)
                 StackPane card = loader.load();
@@ -97,5 +125,61 @@ public class EventContentController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+    private void displayEvents(List<Event> events) {
+        hboxEvents.getChildren().clear();
+        for (Event e : events) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventCard.fxml"));
+                StackPane card = loader.load();
+
+                EventCardController cardController = loader.getController();
+                cardController.setData(e);
+
+                hboxEvents.getChildren().add(card);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void filterEvents() {
+        String selectedCategory = eventCategoryComboBox.getValue();
+        String selectedlieu = lieuComboBox.getValue();
+
+        LocalDate selectedDate = datePicker.getValue();
+
+        List<Event> filteredEvents = allEvents.stream()
+                // Filter by category if provided
+                .filter(event -> selectedCategory == null || selectedCategory.isEmpty() ||
+                        event.getType().toString().equalsIgnoreCase(selectedCategory))
+                .filter(event -> selectedlieu == null || selectedlieu.isEmpty() ||
+                        event.getLieu().toString().equalsIgnoreCase(selectedlieu))
+                // Filter by date if provided
+                .filter(event -> {
+                    if (selectedDate == null) {
+                        return true;
+                    } else {
+                        // event.getDate() returns a java.sql.Date
+                        java.sql.Date eventDate = event.getDate();
+                        LocalDate eventLocalDate = eventDate.toLocalDate(); // Use toLocalDate() directly
+                        return eventLocalDate.equals(selectedDate);
+                    }
+                })
+                .collect(Collectors.toList());
+
+        displayEvents(filteredEvents);
+    }
+
+
+
+    /**
+     * Reset the filter and display all events again.
+     */
+    @FXML
+    private void resetFilter() {
+        eventCategoryComboBox.setValue(null);
+        displayEvents(allEvents);
     }
 }

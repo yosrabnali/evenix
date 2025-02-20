@@ -25,6 +25,9 @@ public class EventCardController {
     @FXML
     private Label lblLieu;
     @FXML
+    private Label descriptiontxt;
+
+    @FXML
     private Label lblDate;
     @FXML
     private Label lblPrice; // Label pour le prix dynamique
@@ -46,10 +49,10 @@ public class EventCardController {
         lblTitle.setText(event.getTitre());
         lblLieu.setText(event.getLieu());
         lblDate.setText(event.getDate().toString());
-
+        descriptiontxt.setText(event.getDescription());
         // Mettre à jour le prix via la propriété observable.
         // Utilisez getPrix() si votre classe Event définit le prix ainsi.
-        lblPrice.setText(String.valueOf(event.getPrix()));
+        lblPrice.setText(String.valueOf(event.getPrix())+" dt");
 
         // Chargement de l'image depuis un fichier local (ajoutez "file:" devant le chemin)
         Image image = new Image("file:" + event.getImage());
