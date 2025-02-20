@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.DatePicker?>
 <VBox alignment="CENTER" prefHeight="600" prefWidth="300" spacing="15"
       styleClass="main-container" xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Events.AddEventController">
@@ -26,11 +27,18 @@
         <TextField fx:id="txtNBplaces" promptText="Places" styleClass="rounded-text-field"/>
         <TextField fx:id="txtPrix" promptText="Price" styleClass="rounded-text-field"/>
         <TextField fx:id="txtLieu" promptText="Location" styleClass="rounded-text-field"/>
+        <DatePicker fx:id="datePicker" promptText="Date"
+                    style="-fx-background-color: white;
+                               -fx-background-radius: 5;
+                               -fx-border-color: #ccc;
+                               -fx-border-radius: 5;
+                               -fx-padding: 10;"/>
 
         <HBox spacing="12" alignment="CENTER">
             <ComboBox fx:id="comboEtat" promptText="Event Status" styleClass="rounded-combo-box"/>
             <ComboBox fx:id="comboType" promptText="Type" styleClass="rounded-combo-box"/>
         </HBox>
+
 
         <!-- Image Selection -->
         <HBox alignment="CENTER_LEFT" spacing="10">
@@ -38,7 +46,7 @@
             <Button text="Choose Image" onAction="#handleChooseImage" styleClass="image-button"/>
         </HBox>
 
-        <ImageView fx:id="materialImg" fitHeight="60.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view"/>
+
     </VBox>
 
     <!-- Action Buttons -->
