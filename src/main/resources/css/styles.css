@@ -1,37 +1,53 @@
-
-.image-view:hover {
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
-    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.6), 15, 0.5, 0, 0);
+/* Style des cartes et des ombres */
+.card {
+    -fx-background-color: transparent;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
 }
-/* Style global du conteneur principal */
+
+.card Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.card .price {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2e7d32;
+}
+
+/* Style général de l'application */
 .main-container {
-    -fx-background-color: #f8f9fa;       /* Couleur de fond très claire */
+    -fx-background-color: #f8f9fa;
     -fx-padding: 20;
 }
 
-/* Titre principal */
+/* Barre latérale */
+.left-bar {
+    -fx-background-color: white;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+/* Style des boutons et images interactives */
+.image-view:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 0, 0);
+    -fx-background-color: transparent;
+}
+
+/* Style des labels */
 .header-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;             /* Couleur de texte gris foncé/bleuté */
-    -fx-padding: 0 0 10 0;             /* Espace sous le titre */
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10 0;
 }
 
-/* Grille du formulaire */
-.form-grid {
-    -fx-background-color: #ffffff;      /* Fond blanc pour mettre en valeur le formulaire */
-    -fx-padding: 20;
-    -fx-hgap: 15;
-    -fx-vgap: 15;
-    -fx-border-color: #dcdcdc;         /* Légère bordure grise */
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-}
-
-/* TextFields personnalisés */
-.custom-textfield {
+/* Champs de saisie */
+.custom-textfield, .custom-date-picker, .custom-combobox {
     -fx-background-color: #ffffff;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -41,31 +57,10 @@
     -fx-text-fill: #495057;
 }
 
-/* DatePicker personnalisé */
-.custom-date-picker {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #ced4da;
-    -fx-padding: 8;
-    -fx-font-size: 14px;
-    -fx-text-fill: #495057;
-}
-
-/* ComboBox personnalisé */
-.custom-combobox {
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #ced4da;
-    -fx-padding: 4;
-    -fx-font-size: 14px;
-    -fx-text-fill: #495057;
-}
-
-/* Bouton "Browse" */
-.browse-button {
-    -fx-background-color: #f3c7ac;   /* Bleu */
-    -fx-text-fill: #ffffff;         /* Texte blanc */
+/* Style des boutons */
+.button {
+    -fx-background-color: #a69f9f;
+    -fx-text-fill: #225bae;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
     -fx-background-radius: 5;
@@ -73,59 +68,11 @@
     -fx-cursor: hand;
 }
 
-/* Conteneur pour les boutons du bas */
-.button-container {
-    -fx-padding: 10 0 0 0;
-}
-
-/* Bouton "Save Changes" */
-.save-button {
-    -fx-background-color: #f3c7ac;  /* Vert */
-    -fx-text-fill: #ffffff;
-    -fx-font-weight: bold;
-    -fx-font-size: 13px;
-    -fx-background-radius: 5;
+.reservation-action-buttons{
+    -fx-background-color: #3a6d9b;
+    -fx-text-fill: white;
     -fx-padding: 8 16 8 16;
-    -fx-cursor: hand;
-}
-
-/* Bouton "Cancel" */
-.cancel-button {
-    -fx-background-color: #f3c7ac;  /* Rouge */
-    -fx-text-fill: #ffffff;
-    -fx-font-weight: bold;
-    -fx-font-size: 13px;
     -fx-background-radius: 5;
-    -fx-padding: 8 16 8 16;
     -fx-cursor: hand;
+    -fx-font-size: 12px;
 }
-
-/* Ajoutez des hover effects si vous le souhaitez */
-.browse-button:hover {
-    -fx-background-color: #2980b9;
-}
-
-.save-button:hover {
-    -fx-background-color: #f3c7ac;
-}
-
-.cancel-button:hover {
-    -fx-background-color: #f3c7ac;
-}
-
-
-.form-grid {
-    -fx-max-width: 600px;
-    -fx-pref-width: 600px;
-}
-.root {
-    /* Primary blue color */
-    -fx-color: #a1d1ff;
-}
-
-/* Make the TabPane header background transparent */
-.tab-pane *.tab-header-background {
-    -fx-background-color: transparent;
-    -fx-effect: none;
-}
-

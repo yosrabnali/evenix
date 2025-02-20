@@ -1,0 +1,92 @@
+/* 🌟 Style principal de la fenêtre */
+.main-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 25px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-alignment: center;
+    -fx-border-color: #dcdcdc;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 12, 0, 0, 6);
+}
+
+/* 🎨 Titre */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* 📌 Champs de texte arrondis */
+.rounded-text-field {
+    -fx-pref-width: 500px;
+    -fx-pref-height: 42px;
+    -fx-font-size: 16px;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-border-color: #b0b0b0;
+    -fx-padding: 10px;
+}
+
+/* 🔽 ComboBox */
+.rounded-combo-box {
+    -fx-pref-width: 1000px;
+    -fx-pref-height: 100px;
+    -fx-font-size: 16px;
+    -fx-background-radius: 25px;
+    -fx-border-radius: 25px;
+    -fx-border-color: #b0b0b0;
+    -fx-padding: 10px;
+}
+
+/* 🖼️ ImageView */
+.image-view {
+    -fx-border-color: #b0b0b0;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+/* 🖼️ Bouton "Choose Image" */
+.image-button {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 16px;
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-cursor: hand;
+}
+
+.image-button:hover {
+    -fx-background-color: #217dbb;
+}
+
+/* ✅ Bouton "Save" */
+.save-button {
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 16px;
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-cursor: hand;
+}
+
+.save-button:hover {
+    -fx-background-color: #1e8449;
+}
+
+/* ❌ Bouton "Cancel" */
+.cancel-button {
+    -fx-pref-width: 120px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 16px;
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #c0392b;
+}

@@ -1,0 +1,45 @@
+/* EventCard.css */
+
+/* Style général pour le conteneur de la carte */
+.event-card-container {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Style pour l'image de l'événement */
+.event-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+/* Style pour le titre de l'événement */
+.event-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Style pour les informations de l'événement (lieu et date) */
+.event-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+}
+
+/* Style pour le bouton "Book Now" */
+.reserve-button {
+    -fx-background-color: #3a6d9b;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+/* Optionnel : effet au survol du bouton */
+.reserve-button:hover {
+    -fx-background-color: #225bae;
+}

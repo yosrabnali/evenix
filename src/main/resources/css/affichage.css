@@ -1,0 +1,112 @@
+/* Style des cartes et des ombres */
+.card {
+    -fx-background-color: white;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.card Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.card .price {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2e7d32;
+}
+
+/* Style général de l'application */
+.main-container {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 40;
+}
+
+/* Barre latérale */
+.left-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+/* Style des boutons et images interactives */
+.image-view:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 0, 0);
+    -fx-background-color: transparent;
+}
+
+/* Style des labels */
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 0 0 10 0;
+}
+
+/* Champs de saisie */
+.custom-textfield, .custom-date-picker, .custom-combobox {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #ced4da;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-text-fill: #495057;
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-color: #fafafa;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+
+
+/* Style des onglets */
+/* Fond de la zone d'en-tête des onglets en gris clair */
+/* --- Bande (barre) des onglets en blanc --- */
+/* Barre d’onglets en blanc */
+/* 1) Rendre le fond général du TabPane transparent (ou blanc) */
+/* Bande d'onglets en blanc */
+.tab-pane .tab-header-area {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+/* Ajoute un espacement entre les onglets */
+.tab-pane .tab-header-area .headers-region {
+    -fx-spacing: 10px;
+}
+
+/* Style de base des onglets (non sélectionnés) */
+.tab-pane .tab-header-area .tab {
+    -fx-background-color: #e6e6e6;      /* Bouton gris clair */
+    -fx-background-radius: 25;          /* Forme arrondie */
+    -fx-border-radius: 25;
+    -fx-padding: 5 20 5 20;             /* Plus d'espace horizontal pour contenir le texte */
+    -fx-text-fill: #333;                /* Couleur du texte */
+    -fx-font-size: 14px;                /* Taille de police */
+    -fx-font-weight: bold;              /* Texte en gras */
+    -fx-pref-height: 42;                /* Hauteur fixe du bouton */
+    /* La largeur s'ajuste automatiquement en fonction du texte et du padding */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Style pour l'onglet sélectionné */
+.tab-pane .tab-header-area .tab:selected {
+    -fx-background-color: #3a6d9b;  /* Couleur pour l’onglet actif */
+    -fx-text-fill: white;           /* Texte en blanc */
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}

@@ -40,10 +40,10 @@ public class UserMainLayoutController {
     private void handleEvent(MouseEvent event) {
         System.out.println("Event icon clicked");
         try {
-        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
+      // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
 
-          //
-              FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
+
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
             Node eventContent = loader.load();
             centerContent.getChildren().setAll(eventContent);
 
@@ -79,7 +79,7 @@ public class UserMainLayoutController {
     // Méthode pour afficher le contenu "Home"
     private void showHomeContent() {
         VBox homeContent = new VBox(10);
-        Label welcomeLabel = new Label("Bienvenue sur la page d'accueil !");
+        Label welcomeLabel = new Label("Hello good people !");
         welcomeLabel.setStyle("-fx-font-size: 24; -fx-text-fill: #333;");
         homeContent.getChildren().add(welcomeLabel);
         centerContent.getChildren().setAll(homeContent);

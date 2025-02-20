@@ -3,7 +3,6 @@ package controllers.Events;
 import Entity.Events.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -31,15 +30,10 @@ public class AddEventController {
     private TextField txtNBplaces;
     @FXML
     private TextField txtPrix;
-
-    // ComboBox pour l'état de l'événement
     @FXML
     private ComboBox<String> comboEtat;
-
-    // ComboBox pour le type d'événement
     @FXML
     private ComboBox<String> comboType;
-
     @FXML
     private TextField txtImage;
     @FXML
@@ -47,23 +41,17 @@ public class AddEventController {
     @FXML
     private DatePicker datePicker;
 
-    // ComboBox cachée pour le rôle (test uniquement)
-    @FXML
-    private ComboBox<String> comboRole;
-
-    private ServiceEvent serviceEvent = new ServiceEvent();
+    private final ServiceEvent serviceEvent = new ServiceEvent();
 
     @FXML
     public void initialize() {
-        // Initialiser la liste déroulante pour le type d'événement
-        comboType.getItems().addAll("Concert", "Conférence", "Exposition", "Atelier");
-        // Initialiser la liste déroulante pour l'état de l'événement
-        comboEtat.getItems().addAll("Disponible", "Complet", "Annulé");
-
-        // Pour le test, initialiser le comboRole avec "Admin" ou "User"
-        // Comme le champ est caché, vous pouvez définir directement la valeur
-        comboRole.getItems().addAll("Admin", "User");
-        comboRole.setValue("Admin"); // Par exemple, pour tester en tant qu'administrateur
+        // Initialiser les ComboBox
+        if (comboType != null) {
+            comboType.getItems().addAll("Concert", "Conférence", "Exposition", "Atelier");
+        }
+        if (comboEtat != null) {
+            comboEtat.getItems().addAll("Disponible", "Complet", "Annulé");
+        }
     }
 
     @FXML
@@ -73,7 +61,7 @@ public class AddEventController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-        File selectedFile = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
         if (selectedFile != null) {
             txtImage.setText(selectedFile.getAbsolutePath());
         }
@@ -81,39 +69,42 @@ public class AddEventController {
 
     @FXML
     private void handleSave(ActionEvent event) {
-
-        if (txtTitre.getText().isEmpty() || txtDescription.getText().isEmpty() || datePicker.getValue() == null || txtImage.getText().isEmpty() ) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs et l'image doivent être remplis.");
-            return;
-        }
-
         try {
-            // Conversion de la date sélectionnée en java.sql.Date
+            // Vérification des champs obligatoires
+            if (txtTitre.getText().isEmpty() || txtDescription.getText().isEmpty() ||
+                    datePicker.getValue() == null || txtImage.getText().isEmpty() ||
+                    comboEtat.getValue() == null || comboType.getValue() == null ||
+                    txtNBplaces.getText().isEmpty() || txtPrix.getText().isEmpty() || txtLieu.getText().isEmpty()) {
+
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs doivent être remplis.");
+                return;
+            }
+
+            // Récupération des valeurs
             Date date = Date.valueOf(datePicker.getValue());
             String titre = txtTitre.getText();
             String description = txtDescription.getText();
-
             double prix = Double.parseDouble(txtPrix.getText());
-            String etat = comboEtat.getValue();
             int nbPlaces = Integer.parseInt(txtNBplaces.getText());
+            String etat = comboEtat.getValue();
             String type = comboType.getValue();
-
             String image = txtImage.getText();
             String lieu = txtLieu.getText();
 
-
             // Création de l'objet Event
-            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu,1234);
+            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu, 1234);
 
-            // Insérer l'événement dans la base
+            // Insertion dans la base
             serviceEvent.addEvent(e);
 
-            // Revenir à la vue d'administration des événements
+            // Retour à l'interface précédente
             goToEventAdmin(event);
 
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur de format", "Veuillez entrer des valeurs numériques valides.");
         } catch (Exception ex) {
             ex.printStackTrace();
-            // Vous pouvez afficher un message d'erreur à l'utilisateur ici
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'ajout.");
         }
     }
 
@@ -122,15 +113,15 @@ public class AddEventController {
         goToEventAdmin(event);
     }
 
-    // Méthode de navigation pour retourner à EventAdmin.fxml
     private void goToEventAdmin(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page.");
         }
     }
 

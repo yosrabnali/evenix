@@ -1,0 +1,74 @@
+/**************************************/
+/*        Style de la carte           */
+/**************************************/
+.event-card {
+    /* Couleur de fond et bordure */
+    -fx-background-color: #f6c4af;
+    -fx-border-color: #05adc0;
+    -fx-border-radius: 10px;
+
+    /* Marges et espacements internes */
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+
+    /* Légère ombre portée */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);
+
+    /*
+       Pas de largeur/hauteur fixe,
+       pour que la carte s’adapte automatiquement
+       au contenu et à la taille de la fenêtre.
+    */
+}
+
+/**************************************/
+/*    Titre de l'événement            */
+/**************************************/
+.event-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #053075; /* Couleur de ta palette */
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+/**************************************/
+/*   Conteneur pour les boutons       */
+/**************************************/
+.button-container {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+/**************************************/
+/*       Boutons Edit et Delete       */
+/**************************************/
+.btn-edit, .btn-delete {
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+/* Bouton Edit */
+.btn-edit {
+    -fx-background-color: #05adc0; /* Couleur de ta palette */
+    -fx-text-fill: #053075;       /* Couleur de ta palette */
+}
+
+.btn-edit:hover {
+    -fx-background-color: #053075;
+    -fx-text-fill: #f6c4af;
+}
+
+/* Bouton Delete */
+.btn-delete {
+    -fx-background-color: #570082;
+    -fx-text-fill: #f6c4af;
+}
+
+.btn-delete:hover {
+    -fx-background-color: #ab90d8;
+    -fx-text-fill: #053075;
+}

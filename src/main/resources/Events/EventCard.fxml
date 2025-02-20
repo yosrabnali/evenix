@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controllers.Events.EventCardController"
-      alignment="CENTER"
-      spacing="15"
-      style="
-          -fx-background-color: #f3f3f3; /* Couleur de fond claire */
-          -fx-background-radius: 15;
-          -fx-padding: 20;
-          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.5, 0, 2);
-          -fx-cursor: hand;
-      ">
-    <children>
-        <!-- Image de l'événement -->
-        <ImageView fx:id="imageView" fitWidth="150" preserveRatio="true"/>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.Region?>
+<StackPane prefWidth="250" prefHeight="280"
+           styleClass="event-card-container"
+           xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.Events.EventCardController"
+           stylesheets="@../css/EventCard.css">
 
-        <!-- Titre de l'événement -->
-        <Label fx:id="lblTitle" text="Titre de l'événement"
-               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #287b8d; /* Couleur d'accent */"/>
+    <!-- Background image filling the card -->
+    <ImageView fx:id="imageView" fitWidth="250" fitHeight="280" preserveRatio="false" styleClass="event-image"/>
 
-        <!-- Lieu de l'événement -->
-        <Label fx:id="lblLieu" text="Lieu"
-               style="-fx-font-size: 16px; -fx-text-fill: #7F8C8D;"/>
+    <!-- Semi-transparent black overlay for contrast -->
+    <Rectangle width="250" height="280" fill="black" opacity="0.2"/>
 
-        <!-- Date de l'événement -->
-        <Label fx:id="lblDate" text="Date"
-               style="-fx-font-size: 16px; -fx-text-fill: #7F8C8D;"/>
+    <!-- Overlay content: All children appear on top of the image -->
+    <BorderPane prefWidth="250" prefHeight="280">
 
-        <!-- Bouton Réserver avec dégradé subtil -->
-        <Button fx:id="btnReserve" text="Réserver"
-                style="
-                    -fx-background-color: #287b8d; /* Couleur d'accent */
-                    -fx-text-fill: white;
-                    -fx-font-size: 16px;
-                    -fx-background-radius: 10;
-                    -fx-padding: 10 20;
-                    -fx-cursor: hand;
-                "/>
-    </children>
-</VBox>
+        <!-- Top section: Price tag aligned to the right -->
+
+
+        <!-- Center section: Main event details -->
+        <center>
+            <VBox alignment="CENTER" spacing="30">
+                <HBox alignment="TOP_RIGHT" maxWidth="-1">
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <Group>
+                        <HBox.margin>
+                            <Insets top="0" right="5" bottom="110" left="0"/>
+                        </HBox.margin>
+                    <HBox alignment="TOP_RIGHT" maxWidth="-1" style="-fx-background-color: #a69f9f; -fx-background-radius: 5;">
+
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <Label fx:id="lblPrice" text="20" style="-fx-text-fill: white;"/>
+                    </HBox>
+                </Group>
+            </HBox>
+
+                <VBox alignment="CENTER" spacing="10">
+
+                    <Label fx:id="lblTitle" text="Event Title" style="-fx-text-fill: white;" styleClass="event-title"/>
+                    <HBox alignment="CENTER" spacing="5">
+                        <Label fx:id="lblLieu" text="Location" style="-fx-text-fill: white;" styleClass="event-info"/>
+                        <Label text="•" style="-fx-text-fill: white;"/>
+                        <Label fx:id="lblDate" text="Date" style="-fx-text-fill: white;" styleClass="event-info"/>
+                    </HBox>
+                    <Button fx:id="btnReserve" text="Book Now" styleClass="reserve-button"/>
+                </VBox>
+
+
+
+            </VBox>
+        </center>
+
+    </BorderPane>
+</StackPane>

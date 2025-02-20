@@ -8,38 +8,58 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.Events.EventAdminController"
-            style="-fx-background-color: #ECF0F1;">
+            styleClass="main-container">
 
-    <!-- Header with title and add button -->
+    <!-- Lien vers la feuille de style -->
+    <stylesheets>
+        <URL value="@../css/EventAdmin.css"/>
+    </stylesheets>
+
+    <!-- Barre supérieure : Titre et bouton pour ajouter un événement -->
     <top>
-        <HBox spacing="15" alignment="CENTER_LEFT"
-              style="-fx-padding: 15; -fx-background-color: linear-gradient(to right, #3498db, #9b59b6);">
-            <Label text="List event"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+        <HBox spacing="15" alignment="CENTER_LEFT" styleClass="header-bar">
+            <Label text="List event" styleClass="title-label"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="+" fx:id="btnAddEvent" onAction="#handleAddEvent"
-                    style="-fx-font-size: 22px; -fx-text-fill: white; -fx-background-color: #27ae60; -fx-background-radius: 5; -fx-padding: 8 20; -fx-cursor: hand;"/>
+            <Button text="+" fx:id="btnAddEvent" onAction="#handleAddEvent" styleClass="add-button"/>
         </HBox>
     </top>
 
-    <!-- Center area: Responsive and centered event list -->
+    <!-- Zone centrale : contient un ScrollPane et un FlowPane pour les cartes -->
     <center>
         <StackPane alignment="CENTER">
-            <!-- ScrollPane ensures content remains accessible on smaller screens -->
-            <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: transparent;">
+            <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="event-scroll-pane">
                 <content>
-                    <!-- FlowPane for displaying events; its wrapping width can be adjusted -->
-                    <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20"
-                              style="-fx-padding: 20;
-                                     -fx-background-color: #F7F7F7;
-                                     -fx-background-radius: 10;
-                                     -fx-border-color: #DDD;
-                                     -fx-border-radius: 10;
-                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 2);"
-                              prefWrapLength="600"/>
+                    <FlowPane fx:id="flowPaneEvents" hgap="20" vgap="20" styleClass="event-container" prefWrapLength="900">
+
+                        <!-- Exemple de carte "en dur" (démo).
+                             Dans ton usage réel, tu peux la supprimer et
+                             laisser ton contrôleur générer les cartes. -->
+                        <children>
+                            <VBox spacing="10" styleClass="event-card">
+                                <children>
+                                    <!-- Image (exemple) -->
+                                    <Label text="(Image placeholder)" style="-fx-font-size: 12; -fx-text-fill: gray;"/>
+
+                                    <!-- Titre de l'événement -->
+                                    <Label text="Sample Title" styleClass="event-title"/>
+
+                                    <!-- Boutons Edit / Delete -->
+                                    <HBox spacing="10" styleClass="button-container">
+                                        <children>
+                                            <Button text="Edit" styleClass="btn-edit"/>
+                                            <Button text="Delete" styleClass="btn-delete"/>
+                                        </children>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </children>
+
+                    </FlowPane>
                 </content>
             </ScrollPane>
         </StackPane>

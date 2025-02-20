@@ -22,7 +22,7 @@
             <!-- Outer StackPane centers the content both horizontally and vertically -->
             <StackPane alignment="CENTER">
                 <!-- Main container: the form is kept compact by a max width -->
-                <VBox spacing="15" alignment="CENTER" maxWidth="400" prefWidth="400" styleClass="main-container">
+                <VBox spacing="15" alignment="CENTER" maxWidth="1280" prefWidth="720" styleClass="main-container">
                     <padding>
                         <Insets top="20" right="20" bottom="20" left="20"/>
                     </padding>

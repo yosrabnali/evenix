@@ -13,12 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -28,12 +24,12 @@ import java.util.ResourceBundle;
 public class EventAdminController implements Initializable {
 
     @FXML
-    private FlowPane flowPaneEvents; // Container to display events
+    private FlowPane flowPaneEvents; // Conteneur pour afficher les événements
 
     @FXML
     private Button btnAddEvent;
 
-    private ServiceEvent serviceEvent = new ServiceEvent();
+    private final ServiceEvent serviceEvent = new ServiceEvent();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -41,113 +37,91 @@ public class EventAdminController implements Initializable {
     }
 
     private void loadEvents() {
-        // Retrieve the list of events from the service
+        // Récupérer la liste des événements
         List<Event> events = serviceEvent.getAllEvents();
-        // Clear the current content of the FlowPane
-        flowPaneEvents.getChildren().clear();
+        flowPaneEvents.getChildren().clear(); // Nettoyer le contenu du FlowPane
 
-        // For each event, create a "card" (using a VBox)
         for (Event e : events) {
-            VBox card = new VBox(5); // 5px spacing between elements
-            card.setStyle("-fx-border-color: gray; -fx-padding: 5; -fx-alignment: center;");
+            VBox card = new VBox(10);
+            card.getStyleClass().add("event-card"); // Ajout d'une classe CSS
 
-            // Create a label for the event title
             Label lblTitle = new Label(e.getTitre());
+            lblTitle.getStyleClass().add("event-title");
 
-            // Get the image path from the event (ensure it returns a valid path)
-            String imagePath = e.getImage();
-            // Create an Image object using the path (prepend "file:" for local files)
-            Image image = new Image("file:" + imagePath, 100, 100, true, true);
-            ImageView imageView = new ImageView(image);
+            ImageView imageView = new ImageView();
+            imageView.setFitWidth(100);
+            imageView.setFitHeight(100);
+            imageView.setPreserveRatio(true);
 
-            // Create the Edit button
+            // Vérification et chargement de l'image
+            if (e.getImage() != null && !e.getImage().isEmpty()) {
+                String imagePath = "file:" + e.getImage();
+                Image image = new Image(imagePath, 100, 100, true, true);
+                imageView.setImage(image);
+            }
+
             Button btnEdit = new Button("Edit");
-            btnEdit.setOnAction(evn -> {
-                // Navigate to the EditEventController and pass the event
-                navigateToEditEventController(e);
-            });
+            btnEdit.getStyleClass().add("btn-edit");
+            btnEdit.setOnAction(ev -> navigateToEditEventController(e));
 
-            // Create the Delete button with confirmation
             Button btnDelete = new Button("Delete");
-            btnDelete.setOnAction(evn -> {
-                Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmAlert.setTitle("Delete Confirmation");
-                confirmAlert.setHeaderText("Delete Event");
-                confirmAlert.setContentText("Are you sure you want to delete this event?");
+            btnDelete.getStyleClass().add("btn-delete");
+            btnDelete.setOnAction(ev -> deleteEvent(e));
 
-                Optional<ButtonType> result = confirmAlert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    // Delete the event (make sure your Event model has getIdevent() method or adjust accordingly)
-                    serviceEvent.deleteEvent(e.getIdevent());
-
-                    // Show a confirmation message
-                    Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-                    infoAlert.setTitle("Deleted");
-                    infoAlert.setHeaderText(null);
-                    infoAlert.setContentText("Event deleted successfully!");
-                    infoAlert.showAndWait();
-
-                    // Reload the events to reflect deletion
-                    loadEvents();
-                }
-            });
-
-            // Add the ImageView, title label, and buttons to the card
             card.getChildren().addAll(imageView, lblTitle, btnEdit, btnDelete);
-            // Add the card to the FlowPane
             flowPaneEvents.getChildren().add(card);
         }
     }
 
-    /**
-     * Navigates to the EditEventController, passing the event to be edited.
-     * Ensure that /Events/EditEvent.fxml is correctly placed in your resources.
-     */
-    private void navigateToEditEventController(Event event) {
-        try {
-            // Load the FXML for the Edit Event screen
+    private void deleteEvent(Event event) {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Delete Confirmation");
+        confirmAlert.setHeaderText("Delete Event");
+        confirmAlert.setContentText("Are you sure you want to delete this event?");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EditEvent.fxml"));
-            Parent newContent = loader.load();
-            // Remplace le contenu actuel du conteneur par le nouveau contenu
-            flowPaneEvents.getChildren().setAll(newContent);
-
-            // Récupère le contrôleur et lui passe l'événement
-            EditEventController controller = loader.getController();
-            controller.setEvent(event);
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Navigation Error");
-            errorAlert.setHeaderText("Could not load the edit event screen.");
-            errorAlert.setContentText(ex.getMessage());
-            errorAlert.showAndWait();
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            serviceEvent.deleteEvent(event.getIdevent());
+            Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+            infoAlert.setTitle("Deleted");
+            infoAlert.setHeaderText(null);
+            infoAlert.setContentText("Event deleted successfully!");
+            infoAlert.showAndWait();
+            loadEvents(); // Recharger les événements après suppression
         }
     }
 
-    /**
-     * Called when the "+" button is clicked to add a new event.
-     */
-    @FXML
-    private VBox centerContent;  // Assurez-vous que ce champ est bien injecté depuis votre FXML.
+    private void navigateToEditEventController(Event event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EditEvent.fxml"));
+            Parent newContent = loader.load();
+            flowPaneEvents.getChildren().setAll(newContent);
+
+            EditEventController controller = loader.getController();
+            controller.setEvent(event);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load the edit event screen.");
+        }
+    }
 
     @FXML
     private void handleAddEvent(ActionEvent event) {
         try {
-            // Charge le FXML de l'écran d'ajout d'événement
             Parent newContent = FXMLLoader.load(getClass().getResource("/Events/AddEvent.fxml"));
-            // Remplace le contenu actuel du conteneur par le nouveau contenu
             flowPaneEvents.getChildren().setAll(newContent);
         } catch (IOException ex) {
             ex.printStackTrace();
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Navigation Error");
-            errorAlert.setHeaderText("Could not load the add event screen.");
-            errorAlert.setContentText(ex.getMessage());
-            errorAlert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load the add event screen.");
         }
     }
 
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

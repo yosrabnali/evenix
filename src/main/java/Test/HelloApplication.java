@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
             // Vous pouvez aussi choisir une autre vue, comme EventAdmin.fxml, selon votre cas.
             //Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));
 
-            Scene scene = new Scene(root, 800, 600);
+            Scene scene = new Scene(root, 1300, 700);
 
 
             primaryStage.setTitle("Mon Application d'Événements");
