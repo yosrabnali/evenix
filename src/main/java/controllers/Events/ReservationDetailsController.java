@@ -2,15 +2,15 @@ package controllers.Events;
 
 import Entity.Events.Event;
 import Entity.Events.Reservation;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import services.EventsServices.ServiceReservation;
@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
+import javafx.scene.control.ScrollPane;
 
 public class ReservationDetailsController {
     @FXML
@@ -52,6 +53,11 @@ public class ReservationDetailsController {
     @FXML
     private Label lblPrice;
 
+    @FXML
+    private ImageView coverImage;
+
+    @FXML
+    private ScrollPane scrollPane;
     // Current ticket count
     private int ticketCount = 0;
     private static final int MAX_TICKETS = 5;
@@ -65,6 +71,10 @@ public class ReservationDetailsController {
         comboEtat.getItems().addAll("paypal", "mastercard", "visa");
         updateTicketCountLabel();
         updatePriceLabel();
+        Platform.runLater(() -> {
+            scrollPane.setHvalue(0.0);
+            scrollPane.setVvalue(0.0);
+        });
     }
     /**
      * Cette méthode permet de recevoir l'événement à afficher.
@@ -77,6 +87,8 @@ public class ReservationDetailsController {
         lblLieu.setText(event.getLieu());
         lblprix.setText("Prix: "+event.getPrix()+" dt");
         priceperticket = event.getPrix();
+        Image image = new Image("file:" + event.getImage());
+        coverImage.setImage(image);
     }
 
     /**

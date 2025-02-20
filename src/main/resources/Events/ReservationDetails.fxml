@@ -15,7 +15,7 @@
 <?import javafx.scene.image.ImageView?>
 <StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Events.ReservationDetailsController">
     <children>
-        <ScrollPane fitToWidth="true" fitToHeight="true">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true">
             <content>
                 <!-- Inner StackPane to center the content -->
                 <StackPane alignment="CENTER">
@@ -31,9 +31,7 @@
                                     <ImageView fx:id="coverImage" fitHeight="200.0" fitWidth="700.0" preserveRatio="false"
                                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        <image>
-                                            <Image url="@../images/event2.jpg" />
-                                        </image>
+
                                     </ImageView>
                                 </children>
                             </AnchorPane>
