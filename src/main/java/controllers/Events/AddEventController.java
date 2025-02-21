@@ -1,13 +1,10 @@
 package controllers.Events;
 
 import Entity.Events.Event;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -18,6 +15,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class AddEventController {
     @FXML
@@ -61,6 +59,16 @@ public class AddEventController {
                     "Tataouine", "Tozeur", "Tunis", "Zaghouan"
             );
         }
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #eeeeee;");
+                }
+            }
+        });
 
     }
 

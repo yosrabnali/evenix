@@ -3,6 +3,7 @@ package controllers.Events;
 import Entity.Events.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.StackPane;
 import services.EventsServices.ServiceEvent;
@@ -65,10 +66,22 @@ public class EventContentController implements Initializable {
         } else {
             loadEvents();
         }
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #eeeeee;");
+                }
+            }
+        });
+
     }
 
     private void loadEvents() {
         List<Event> events = serviceEvent.getAllEvents();
+
         hboxEvents.getChildren().clear();
 
         for (Event e : events) {

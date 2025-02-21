@@ -3,8 +3,12 @@ package services.EventsServices;
 import Entity.Events.Event;
 import Util.MyDB;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceEvent {
 
@@ -42,15 +46,15 @@ public class ServiceEvent {
     // READ (All)
     public List<Event> getAllEvents() {
         List<Event> events = new ArrayList<>();
-        // Sélection de tous les champs de la table "evenement"
         String req = "SELECT * FROM evenement";
+
         try (Statement st = cnx.createStatement();
              ResultSet rs = st.executeQuery(req)) {
 
             while (rs.next()) {
                 Event e = new Event();
-                e.setIdevent(rs.getInt("idevent"));     // PK
-                e.setDate(rs.getDate("date"));          // java.sql.Date
+                e.setIdevent(rs.getInt("idevent"));
+                e.setDate(rs.getDate("date")); // java.sql.Date
                 e.setTitre(rs.getString("titre"));
                 e.setDescription(rs.getString("description"));
                 e.setNBplaces(rs.getInt("NBplaces"));
@@ -65,7 +69,22 @@ public class ServiceEvent {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return events;
+
+        // Filter out events whose date is before today.
+        List<Event> futureEvents = events.stream()
+                .filter(event -> {
+                    if (event.getDate() == null) {
+                        return false;
+                    }
+                    LocalDate eventDate = event.getDate().toLocalDate();
+                    return !eventDate.isBefore(LocalDate.now());
+                })
+                .collect(Collectors.toList());
+
+        // Sort events in descending order (most recent dates first)
+        futureEvents.sort(Comparator.comparing(Event::getDate).reversed());
+
+        return futureEvents;
     }
     public Event getEventById(int id) {
         String req = "SELECT * FROM evenement WHERE idevent = ?";
