@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -67,6 +68,11 @@
                             </VBox.margin>
 
                             <children>
+                        <ImageView fx:id="ClearBtn" fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/annuler.png" />
+                           </image>
+                        </ImageView>
                                 <HBox prefHeight="70.0" prefWidth="314.0">
                                     <children>
                                         <Label fx:id="materielNameLable" prefHeight="44.0" prefWidth="218.0" text="Name">
@@ -98,7 +104,7 @@
                                         <Insets top="20.0" />
                                     </VBox.margin>
                                 </ImageView>
-                        <ImageView fx:id="QRimg" fitHeight="57.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="QRimg" fitHeight="75.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" />
                         <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                            <children>
                               <Separator prefHeight="0.0" prefWidth="118.0" />
@@ -131,33 +137,21 @@
                         <VBox prefHeight="62.0" prefWidth="334.0" />
                         <HBox prefHeight="66.0" prefWidth="334.0">
                            <children>
-                              <HBox prefHeight="36.0" prefWidth="98.0" />
+                              <HBox prefHeight="36.0" prefWidth="128.0" />
                               <HBox prefHeight="36.0" prefWidth="44.0">
                                  <children>
-                                    <ImageView fx:id="deleteBtn" fitHeight="36.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="deleteBtn" fitHeight="36.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/Icons/bouton-supprimer.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="49.0" prefWidth="42.0">
-                                 <children>
-                                    <ImageView fx:id="RentBTN" fitHeight="36.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/Icons/ajouter-au-panier.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children></HBox>
-                              <HBox prefHeight="36.0" prefWidth="116.0">
-                                 <children>
-                                    <ImageView fx:id="ClearBtn" fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/Icons/annuler.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </HBox>
+                              <ImageView fx:id="RentBTN" fitHeight="36.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/ajouter-au-panier.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                             </children>
@@ -242,17 +236,17 @@
                                     <Image url="@../images/Icons/chatbot.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="excelimg" fitHeight="36.0" fitWidth="31.0" layoutX="147.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="excelimg" fitHeight="36.0" fitWidth="31.0" layoutX="147.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/Icons/check_16625951.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="exportimg" fitHeight="36.0" fitWidth="32.0" layoutX="89.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="exportimg" fitHeight="36.0" fitWidth="32.0" layoutX="89.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/Icons/check_16625951.png" />
+                                    <Image url="@../images/Icons/telecharger%20(1).png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="AddMaterialBTN" layoutX="724.0" layoutY="9.0" mnemonicParsing="false" onAction="#openAddMatView" prefHeight="36.0" prefWidth="116.0" styleClass="search-button" stylesheets="@../css/style.css" text="Add Material" textFill="#828282" />
+                              <Button fx:id="AddMaterialBTN" layoutX="703.0" layoutY="9.0" mnemonicParsing="false" onAction="#openAddMatView" prefHeight="36.0" prefWidth="137.0" styleClass="search-button" stylesheets="@../css/style.css" text="Add Material" textFill="#828282" />
                                       <Button fx:id="modifyBtn" layoutX="708.0" layoutY="56.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="132.0" styleClass="search-button" stylesheets="@../css/style.css" text="Modify Material" textFill="#828282" />
                               <Label fx:id="IAchat" layoutX="24.0" layoutY="62.0" prefHeight="15.0" prefWidth="52.0" text="IA Chat" textFill="#515d8f">
                                  <font>
@@ -269,6 +263,7 @@
                                     <Font name="Cambria" size="12.0" />
                                  </font>
                               </Label>
+                              <ComboBox fx:id="triComboBox" layoutX="495.0" layoutY="8.0" prefHeight="38.0" prefWidth="192.0" promptText="Sort by price" styleClass="combo-box" stylesheets="@../css/style.css" />
                            </children></Pane>
                             </children>
                             <VBox.margin>

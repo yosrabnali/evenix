@@ -133,4 +133,37 @@
     -fx-translate-y: -5px;
 }
 
+.combo-box {
+    -fx-background-color: #828282; /* Same as sidebar */
+    -fx-border-color: #828282; /* Slightly darker shade */
+    -fx-border-radius: 25px; /* Rounded corners */
+    -fx-background-radius: 25px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white; /* White text for contrast */
+}
 
+.combo-box .arrow {
+    -fx-background-color: white; /* White dropdown arrow */
+}
+
+.combo-box:hover {
+    -fx-background-color: #B0BEC5; /* Slightly darker on hover */
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #828282; /* Same as sidebar */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color:#B0BEC5; /* Darker on hover */
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: #828282; /* Even darker when selected */
+    -fx-text-fill: white;
+}

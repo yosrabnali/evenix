@@ -26,6 +26,7 @@ import util.MyDB;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,6 +116,8 @@ public class MaterialController {
         private Label exportTXT;
         @FXML
         private Label importTXT;
+        @FXML
+        private ComboBox<String> triComboBox;
 
 
         private String userRole; // Rôle de l'utilisateur
@@ -136,6 +139,7 @@ public class MaterialController {
                 exportimg.setOnMouseClicked(e ->handleExportExcel());
                 grid.setStyle("-fx-background-color: #f5f5f5; -fx-padding: 20px;");
                 chosenMaterialCard.getStyleClass().add("chosen-Material-Card");
+
 
                 // Cacher la carte de détail au début
                 chosenMaterialCard.setVisible(false);
@@ -205,7 +209,11 @@ public class MaterialController {
 
 
 
+                triComboBox.getItems().addAll("Ascending Price", "Descending Price");
+                triComboBox.setOnAction(event -> trierParPrix());
 
+                // Charger les matériels au démarrage
+                loadMaterials();
         }
 
         private void startRotationEvery2Seconds() {
@@ -249,6 +257,20 @@ public class MaterialController {
                 }
         }
 
+        @FXML
+        private void trierParPrix() {
+                if (triComboBox.getValue() != null) {
+                        List<Materiel> materiels = materielService.Recuperer(); // Récupérer les matériels depuis la BD
+
+                        if (triComboBox.getValue().equals("Ascending Price")) {
+                                materiels.sort(Comparator.comparingDouble(Materiel::getPrix));
+                        } else if (triComboBox.getValue().equals("Descending Price")) {
+                                materiels.sort(Comparator.comparingDouble(Materiel::getPrix).reversed());
+                        }
+
+                        afficherMateriels(materiels); // Mettre à jour l'affichage
+                }
+        }
 
 
 
@@ -282,14 +304,26 @@ public class MaterialController {
                         }
                 }
         }
+        /** ✅ Afficher les matériels dans le GridPane après tri */
+        private void afficherMateriels(List<Materiel> materiels) {
+                grid.getChildren().clear(); // Nettoyer l'affichage
+                grid.setHgap(25); // Espacement horizontal entre les cartes
+                grid.setVgap(25); // Espacement vertical entre les cartes
+                grid.setPadding(new Insets(25, 25, 25, 25)); // Ajouter des marges autour de la grille
 
+                int column = 0;
+                int row = 0;
 
+                for (Materiel m : materiels) {
+                        VBox materialBox = createMaterialCard(m);
+                        grid.add(materialBox, column++, row);
 
-
-
-
-
-
+                        if (column == 5) { // 5 éléments max par ligne
+                                column = 0;
+                                row++;
+                        }
+                }
+        }
 
         /** ✅ Charger et afficher les matériels */
         public void loadMaterials() {

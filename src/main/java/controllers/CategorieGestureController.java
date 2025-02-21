@@ -48,11 +48,28 @@ public class CategorieGestureController {
     @FXML
     private TextField searchField;
     @FXML
-    private Button btnSort;
+    private ImageView btnSort;
     @FXML
     private ImageView evenix1;
     @FXML
     private Label evenixTXT1;
+    @FXML
+    private Label sort;
+
+    @FXML
+    private ImageView achaticon;
+    @FXML
+    private ImageView eventicon;
+    @FXML
+    private ImageView homeicon;
+    @FXML
+    private ImageView logouticon;
+    @FXML
+    private ImageView pubicon;
+    @FXML
+    private ImageView recicon;
+
+
 
     private final CategorieService categorieService = new CategorieService();
     private ObservableList<Categorie> categoriesList = FXCollections.observableArrayList();
@@ -63,11 +80,22 @@ public class CategorieGestureController {
         loadCategories();
         startRotationEvery2Seconds();
         animateTextFade();
+        //animation
+        startRotationEvery2Seconds();
+        ////////////////////////////////////////
+        ImageAnimation.animateTextFade(sort, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
+        ImageAnimation.addHoverEffect(pubicon);
+        ImageAnimation.addHoverEffect(homeicon);
+        ImageAnimation.addHoverEffect(eventicon);
+        ImageAnimation.addHoverEffect(recicon);
+        ImageAnimation.addHoverEffect(achaticon);
+        ImageAnimation.addHoverEffect(logouticon);
+        ImageAnimation.addHoverEffect(btnSort);
 
         AddBTN.setOnAction(this::handleAddCategory);
         columnservice.setCellValueFactory(new PropertyValueFactory<>("service"));
         prevPageBtn.setOnAction(e -> goBackToMaterials());
-        btnSort.setOnAction(e -> handleSortCategories());
+        btnSort.setOnMouseClicked(e -> handleSortCategories());
 
         // 🔥 Assigner la colonne des actions
         setupDeleteButton();
