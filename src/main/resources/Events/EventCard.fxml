@@ -62,6 +62,9 @@
                         <Label fx:id="lblDate" text="Date" style="-fx-text-fill: white;" styleClass="event-info"/>
                     </HBox>
                     <Button fx:id="btnReserve" text="Book Now" styleClass="reserve-button"/>
+                    <Button fx:id="btncompleted" text="completed" styleClass="completed-button"/>
+                    <Button fx:id="btncanceled" text="canceled" styleClass="canceled-button"/>
+
                 </VBox>
 
 

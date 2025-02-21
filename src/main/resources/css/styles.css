@@ -59,8 +59,8 @@
 
 /* Style des boutons */
 .button {
-    -fx-background-color: #a69f9f;
-    -fx-text-fill: #225bae;
+    -fx-background-color: #a0b2c0;
+    -fx-text-fill: #ffff;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
     -fx-background-radius: 5;
@@ -69,7 +69,7 @@
 }
 
 .reservation-action-buttons{
-    -fx-background-color: #3a6d9b;
+    -fx-background-color: #e4e7ec;
     -fx-text-fill: white;
     -fx-padding: 8 16 8 16;
     -fx-background-radius: 5;

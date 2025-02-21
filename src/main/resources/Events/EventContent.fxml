@@ -46,19 +46,20 @@
                         <VBox spacing="10">
                             <!-- Filter Section -->
                             <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
-                                <ComboBox fx:id="eventCategoryComboBox" promptText="Select Category">
+                                <ComboBox styleClass="rounded-combo-field" fx:id="eventCategoryComboBox" promptText="Select Category">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Film"/>
+                                            <String fx:value="Festival "/>
+                                            <String fx:value="theatre"/>
+                                            <String fx:value="Ceremony "/>
                                             <String fx:value="Concert"/>
-                                            <String fx:value="Conférence"/>
-                                            <String fx:value="Exposition"/>
-                                            <String fx:value="Atelier"/>
                                         </FXCollections>
                                     </items>
                                 </ComboBox>
-                                <ComboBox fx:id="lieuComboBox" promptText="Select lieu">
+                                <ComboBox styleClass="rounded-combo-field" fx:id="lieuComboBox" promptText="Select location">
                                     <items>
-                                        <FXCollections fx:factory="observableArrayList">
+                                        <FXCollections  fx:factory="observableArrayList">
                                             <String fx:value="Ariana"/>
                                             <String fx:value="Béja"/>
                                             <String fx:value="Ben Arous"/>
@@ -88,9 +89,10 @@
                                 </ComboBox>
 
                                 <DatePicker fx:id="datePicker" promptText="Select Date"
-                                            style="-fx-background-color: white;
+                                            style="-fx-background-color: #e4e7ec;
                                                    -fx-background-radius: 5;
                                                    -fx-border-color: #ccc;
+                                                   -fx-text-fill: #2E2E2E;
                                                    -fx-border-radius: 5;
                                                    -fx-padding: 10;"/>
                                 <Button text="Search" styleClass="rounded-text-field" onAction="#filterEvents" />

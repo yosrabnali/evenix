@@ -31,7 +31,15 @@
 
 /* Style pour le bouton "Book Now" */
 .reserve-button {
-    -fx-background-color: #3a6d9b;
+    -fx-background-color: #a0b2c0;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+.canceled-button {
+    -fx-background-color: #808080;
     -fx-text-fill: white;
     -fx-padding: 8 16 8 16;
     -fx-background-radius: 5;
@@ -39,7 +47,15 @@
     -fx-font-size: 12px;
 }
 
+.completed-button {
+    -fx-background-color: #bd0808;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
 /* Optionnel : effet au survol du bouton */
 .reserve-button:hover {
-    -fx-background-color: #225bae;
+    -fx-background-color: #a0b2c0;
 }

@@ -112,13 +112,47 @@
     -fx-faint-focus-color: transparent;
 }
 .rounded-text-field {
-    -fx-text-fill: #090909;           /* Texte en blanc */
-
+    -fx-text-fill: #070707;           /* Couleur du texte */
+    -fx-background-color: #ccc6c6;
+    -fx-border-color: #ccc6c6;
+    -fx-font-family: 'Corbel';
     -fx-pref-width: 100px;
     -fx-pref-height: 22px;
+    -fx-font-weight: normal;          /* Assure que le texte n'est pas en gras */
     -fx-font-size: 16px;
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
-    -fx-border-color: #ccc6c6;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #a0b2c0;
     -fx-padding: 10px;
+}
+
+/* Appliquez cette classe à votre ComboBox via styleClass="rounded-combo-field" */
+.rounded-combo-field {
+    -fx-text-fill: #000000;
+    font-family: 'Corbel';
+    font-weight: normal;
+    -fx-background-color: #ccc6c6;    /* Couleur de fond basée sur #A0B2C0 */
+    -fx-border-color: #ccc6c6;        /* Bordure légèrement plus foncée */
+    -fx-border-width: 1;
+    -fx-border-radius: 15;            /* Coins arrondis pour la bordure */
+    -fx-background-radius: 15;        /* Coins arrondis pour le fond */
+    -fx-padding: 5 10 5 10;           /* Espacement interne */
+    -fx-font-size: 16px;              /* Taille de police */
+    -fx-text-fill: #2E2E2E;           /* Couleur du texte */
+}
+
+/* Personnalisation du bouton de la flèche */
+.rounded-combo-field .arrow-button {
+    -fx-background-color: transparent;
+}
+
+/* Style de la flèche */
+.rounded-combo-field .arrow {
+    -fx-background-color: #8CA0B2;
+    -fx-background-radius: 10;
+}
+
+/* Effet lors du focus */
+.rounded-combo-field:focused {
+    -fx-border-color: #6B7A8C;
 }

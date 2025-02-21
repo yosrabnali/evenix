@@ -47,7 +47,7 @@ public class AddEventController {
     public void initialize() {
         // Initialiser les ComboBox
         if (comboType != null) {
-            comboType.getItems().addAll("Concert", "Conférence", "Exposition", "Atelier");
+            comboType.getItems().addAll("Film", "Festival", "Theatre", "Ceremony","Concert");
         }
         if (comboEtat != null) {
             comboEtat.getItems().addAll("Disponible", "Complet", "Annulé");

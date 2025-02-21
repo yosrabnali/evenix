@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Events.ReservationDetailsController">
+<StackPane stylesheets="@../css/Reservationdetails.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Events.ReservationDetailsController">
     <children>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true">
+        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
             <content>
                 <!-- Inner StackPane to center the content -->
                 <StackPane alignment="CENTER">
                     <children>
-                        <VBox alignment="CENTER" maxWidth="800" spacing="20" styleClass="reservation-details-container">
+                        <!-- Conteneur principal sans boîte arrondie -->
+                        <VBox alignment="CENTER_LEFT" maxWidth="800" spacing="20">
                             <padding>
                                 <Insets bottom="30" left="30" right="30" top="30" />
                             </padding>
@@ -28,33 +21,30 @@
                             <!-- Cover image container with fixed height -->
                             <AnchorPane minHeight="250" prefHeight="250">
                                 <children>
-                                    <ImageView fx:id="coverImage" fitHeight="200.0" fitWidth="700.0" preserveRatio="false"
-                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-
-                                    </ImageView>
+                                    <ImageView fx:id="coverImage" fitHeight="200.0" fitWidth="700.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                 </children>
                             </AnchorPane>
 
-                            <!-- Main title -->
+                            <!-- Main title reste centré -->
                             <Label alignment="CENTER" styleClass="reservation-title" text="Event details" />
 
                             <!-- Separator -->
                             <Separator styleClass="reservation-separator" />
 
-                            <!-- Scrollable and centered event information -->
-                            <VBox alignment="CENTER" spacing="12" styleClass="reservation-info">
+                            <!-- Informations de l'événement alignées à gauche -->
+                            <VBox alignment="CENTER_LEFT" spacing="12" styleClass="reservation-info">
                                 <children>
                                     <Label fx:id="lblTitle" styleClass="reservation-info-title" text="Titre de l'événement" />
                                     <Label fx:id="lblDescription" styleClass="reservation-info-description" text="Description de l'événement" wrapText="true" />
+                           <Pane prefHeight="200.0" prefWidth="660.0" />
                                     <Label fx:id="lblDate" styleClass="reservation-info-date" text="Date" />
                                     <Label fx:id="lblLieu" styleClass="reservation-info-location" text="Location" />
                                     <Label fx:id="lblprix" styleClass="reservation-info-price" text="Price of tickets" />
                                 </children>
                             </VBox>
 
-                            <!-- Ticket selection -->
-                            <HBox alignment="CENTER" spacing="15" styleClass="reservation-ticket-selection">
+                            <!-- Sélection des tickets alignée à gauche -->
+                            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="reservation-ticket-selection">
                                 <children>
                                     <Button fx:id="btnDecrease" onAction="#handleDecrease" styleClass="ticket-decrease-button" text="–" />
                                     <Label fx:id="lblTicketCount" styleClass="ticket-count-label" text="0" />
@@ -62,14 +52,14 @@
                                 </children>
                             </HBox>
 
-                            <!-- Total price display -->
+                            <!-- Affichage du prix total -->
                             <Label fx:id="lblPrice" styleClass="reservation-total-price" text="Total Price: $0" />
 
-                            <!-- Payment method selection -->
+                            <!-- Sélection du mode de paiement -->
                             <ComboBox fx:id="comboEtat" promptText="Payment method" styleClass="reservation-payment-method" />
 
-                            <!-- Action buttons -->
-                            <HBox alignment="CENTER" spacing="20" styleClass="reservation-action-buttons">
+                            <!-- Boutons d'action alignés à gauche -->
+                            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="reservation-action-buttons">
                                 <children>
                                     <Button fx:id="btnConfirmReservation" onAction="#handleConfirmReservation" styleClass="reservation-confirm-button" text="Confirm the booking" />
                                     <Button fx:id="btnCancelReservation" onAction="#handleCancelReservation" styleClass="reservation-cancel-button" text="Cancel" />

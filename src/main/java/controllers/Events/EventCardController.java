@@ -33,6 +33,10 @@ public class EventCardController {
     private Label lblPrice; // Label pour le prix dynamique
     @FXML
     private Button btnReserve;
+    @FXML
+    private Button btncompleted;
+    @FXML
+    private Button btncanceled;
 
     private Event event;
 
@@ -46,6 +50,28 @@ public class EventCardController {
      */
     public void setData(Event event) {
         this.event = event;
+
+        btnReserve.setVisible(false);
+        btnReserve.setManaged(false);
+        btncompleted.setVisible(false);
+        btncompleted.setManaged(false);
+        btncanceled.setVisible(false);
+        btncanceled.setManaged(false);
+        System.out.println("-----------------------------------");
+
+        System.out.println(event.getEtat());
+        if ("Disponible".equals(event.getEtat())) {
+            btnReserve.setVisible(true);
+            btnReserve.setManaged(true);
+        } else if ("Annulé".equals(event.getEtat())) {
+            btncanceled.setVisible(true);
+            btncanceled.setManaged(true);
+        } else if ("Complet".equals(event.getEtat())) {
+            btncompleted.setVisible(true);
+            btncompleted.setManaged(true);
+        }
+
+
         lblTitle.setText(event.getTitre());
         lblLieu.setText(event.getLieu());
         lblDate.setText(event.getDate().toString());
