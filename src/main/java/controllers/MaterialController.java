@@ -1,6 +1,11 @@
 package controllers;
 
+import QRcode.QRCodeGenerator;
+import QRcode.QRScanner;
+import chatbot.Chatbot;
 import entities.Materiel;
+import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +17,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import services.ExcelExporter;
+import services.ExcelImporter;
 import services.MaterielService;
 import util.MyDB;
 
@@ -20,6 +28,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import javafx.util.Duration;
+
 
 
 public class MaterialController {
@@ -46,10 +57,12 @@ public class MaterialController {
         private Button modifyBtn;
 
         @FXML
-        private Button ClearBtn;
+        private ImageView ClearBtn;
 
         @FXML
-        private Button deleteBtn,AddMaterialBTN;
+        private ImageView deleteBtn;
+        @FXML
+        private Button AddMaterialBTN;
 
         @FXML
         private Label DescriptionLabel;
@@ -69,7 +82,39 @@ public class MaterialController {
         @FXML
         private Label pageNumberLabel;
         @FXML
-        private Button RentBTN;
+        private ImageView RentBTN;
+        @FXML
+        private ImageView evenix;
+        @FXML
+        private Label evenixTXT;
+        @FXML
+        private ImageView successImage;
+        @FXML
+        private ImageView IAimage;
+        @FXML
+        private ImageView QRimg;
+        @FXML
+        private ImageView excelimg;
+        @FXML
+        private ImageView exportimg;
+        @FXML
+        private Label IAchat;
+        @FXML
+        private ImageView achaticon;
+        @FXML
+        private ImageView eventicon;
+        @FXML
+        private ImageView homeicon;
+        @FXML
+        private ImageView logouticon;
+        @FXML
+        private ImageView pubicon;
+        @FXML
+        private ImageView recicon;
+        @FXML
+        private Label exportTXT;
+        @FXML
+        private Label importTXT;
 
 
         private String userRole; // Rôle de l'utilisateur
@@ -78,9 +123,17 @@ public class MaterialController {
         private MaterielService materielService = new MaterielService();
         private Materiel selectedMateriel; // Pour stocker le matériel sélectionné
 
+        Chatbot chatbot = new  Chatbot(); // Initialiser la classe Chatbot
+        @FXML
+        private void handleChatbotClick() {
+                // Appeler la méthode pour afficher le chatbot
+                chatbot.showChatbot();
+        }
         @FXML
         public void initialize() {
-
+                IAimage.setOnMouseClicked(e -> handleChatbotClick());
+                excelimg.setOnMouseClicked(e -> handleImportExcel());
+                exportimg.setOnMouseClicked(e ->handleExportExcel());
                 grid.setStyle("-fx-background-color: #f5f5f5; -fx-padding: 20px;");
                 chosenMaterialCard.getStyleClass().add("chosen-Material-Card");
 
@@ -88,13 +141,15 @@ public class MaterialController {
                 chosenMaterialCard.setVisible(false);
                 chosenMaterialCard.setManaged(false);
 
+
+
                 if (deleteBtn != null) {
-                        deleteBtn.setOnAction(event -> deleteSelectedMateriel());
+                        deleteBtn.setOnMouseClicked(event -> deleteSelectedMateriel());
                 }
 
 
                 if (ClearBtn != null) {
-                        ClearBtn.setOnAction(event -> clearChosenMaterial());
+                        ClearBtn.setOnMouseClicked(event -> clearChosenMaterial());
 
 
                 }
@@ -102,20 +157,70 @@ public class MaterialController {
                         modifyBtn.setOnAction(event -> {
                                 if (selectedMateriel != null) {
                                         openEditMaterialView(selectedMateriel);
-                                } else {
+                                }
+                                else {
                                         showWarningDialog("⚠ No material selected!");
                                 }
                         });}
+
 
                 clearChosenMaterial();
                 loadMaterials();
                 searchBtn.setOnAction(event -> searchMaterials());
 
+
                 // Lancer la recherche automatiquement lorsqu'on tape dans le champ
                 searchField.textProperty().addListener((observable, oldValue, newValue) -> searchMaterials());
                 AddMaterialBTN.setOnAction(this::openAddMatView);
                 nextPageBtn.setOnAction(e -> openCategoryManagement());
+                RentBTN.setOnMouseClicked(event -> {
+                        if (selectedMateriel != null) {
+                                showLivraisonPopup(selectedMateriel.getIdMateriel(), selectedMateriel.getQuantite());
+                        } else {
+                                showWarningDialog("⚠ Aucun matériel sélectionné !");
+                        }
 
+                });
+                //animation
+                startRotationEvery2Seconds();
+                ImageAnimation.animateTextFade(evenixTXT, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
+                ImageAnimation.animateTextFade(IAchat, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
+                ImageAnimation.animateTextFade(importTXT, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
+                ImageAnimation.animateTextFade(exportTXT, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
+                ////////////////////////////////////////
+                ImageAnimation.addHoverEffect(IAimage);
+                ImageAnimation.addHoverEffect(excelimg);
+                ImageAnimation.addHoverEffect(exportimg);
+                ImageAnimation.addHoverEffect(pubicon);
+                ImageAnimation.addHoverEffect(homeicon);
+                ImageAnimation.addHoverEffect(eventicon);
+                ImageAnimation.addHoverEffect(recicon);
+                ImageAnimation.addHoverEffect(achaticon);
+                ImageAnimation.addHoverEffect(ClearBtn);
+                ImageAnimation.addHoverEffect(deleteBtn);
+                ImageAnimation.addHoverEffect(RentBTN);
+                ImageAnimation.addHoverEffect(logouticon);
+
+
+
+
+
+
+        }
+
+        private void startRotationEvery2Seconds() {
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.seconds(2), event -> rotateImage()) // Exécute la rotation chaque 2 secondes
+                );
+                timeline.setCycleCount(Timeline.INDEFINITE); // Répète indéfiniment
+                timeline.play();
+        }
+
+        private void rotateImage() {
+                RotateTransition rotate = new RotateTransition(Duration.seconds(0.5), evenix); // Rotation en 0.5 sec
+                rotate.setByAngle(360);
+                rotate.setInterpolator(Interpolator.LINEAR);
+                rotate.play();
         }
 
         @FXML
@@ -213,6 +318,8 @@ public class MaterialController {
                 int row = 0;
 
                 for (Materiel m : materiels) {
+
+
                         VBox materialBox = createMaterialCard(m);
                         materialBox.setPrefWidth(280); // Augmenter la largeur de la carte
                         materialBox.setPrefHeight(350); // Augmenter la hauteur de la carte
@@ -266,43 +373,63 @@ public class MaterialController {
                 return card;
         }
 
-         public void setChosenMateriel(Materiel materiel) {
-         if (materiel == null) return;
+        public void setChosenMateriel(Materiel materiel) {
+                if (materiel == null) return;
 
-         selectedMateriel = materiel; // Stocker le matériel sélectionné
+                selectedMateriel = materiel; // Stocker le matériel sélectionné
+                // Mettre à jour les labels avec les nouvelles informations
+                materielNameLable.setText(materiel.getNom());
+                materielPriceLabel.setText("$" + materiel.getPrix());
+                quantityNameLable.setText("Quantity: " + materiel.getQuantite());
+                DescriptionLabel.setText("Description: " + materiel.getDescription());
 
-         // Mettre à jour les labels avec les nouvelles informations
-         materielNameLable.setText(materiel.getNom());
-         materielPriceLabel.setText("$" + materiel.getPrix());
-         quantityNameLable.setText("Quantity: " + materiel.getQuantite());
-         DescriptionLabel.setText("Description: " + materiel.getDescription());
+                // 🔹 Afficher la catégorie dans le Label
+                categoryLabel.setText("Category: " + materielService.getCategoryName(materiel.getIdCategorie()));
 
-         // 🔹 Afficher la catégorie dans le Label
-         categoryLabel.setText("Category: " + materielService.getCategoryName(materiel.getIdCategorie()));
+                // Charger l'image
+                if (materiel.getImage() != null && !materiel.getImage().isEmpty()) {
+                        File imageFile = new File(materiel.getImage());
+                        if (imageFile.exists()) {
+                                materielImg.setImage(new Image(imageFile.toURI().toString()));
+                        } else {
+                                materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
+                        }
+                } else {
+                        materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
+                }
+                // ✅ Vérifier les données avant affichage
+                String nom = materiel.getNom() != null ? materiel.getNom() : "Inconnu";
+                String prix = String.valueOf(materiel.getPrix());
+                String description = materiel.getDescription() != null ? materiel.getDescription() : "Non spécifiée";
+                String categorie = materielService.getCategoryName(materiel.getIdCategorie()) != null ? materielService.getCategoryName(materiel.getIdCategorie()) : "Non spécifiée";
 
-         // Charger l'image
-         if (materiel.getImage() != null && !materiel.getImage().isEmpty()) {
-         File imageFile = new File(materiel.getImage());
-         if (imageFile.exists()) {
-         materielImg.setImage(new Image(imageFile.toURI().toString()));
-         } else {
-         materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
-         }
-         } else {
-         materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
-         }
+                // ✅ Création d’un texte bien formaté pour le QR Code
+                String qrData = "🔹 ID: " + materiel.getIdMateriel() +
+                        "\n📌 Name: " + nom +
+                        "\n💰 Price: " + prix + " DT" +
+                        "\n🏷 Description: " + description +
+                        "\n📂 Category: " + categorie;
 
-         // ✅ Activer les boutons
-         modifyBtn.setDisable(false);
-         deleteBtn.setDisable(false);
-         ClearBtn.setDisable(false);
+                System.out.println("🔹 QR Code généré avec les données suivantes : \n" + qrData); // Debug pour voir si les données sont bien envoyées
 
-         // Rendre la carte visible
-         chosenMaterialCard.setVisible(true);
-         chosenMaterialCard.setManaged(true);
-         }
+                // ✅ Affichage du QR Code
+                QRimg.setImage(QRCodeGenerator.generateQRCode(qrData, 150, 150));
 
-         /** ✅ Effacer les champs, désactiver les boutons et réinitialiser la sélection */
+
+                // ✅ Activer les boutons
+                modifyBtn.setDisable(false);
+                deleteBtn.setDisable(false);
+                ClearBtn.setDisable(false);
+                // Rendre la carte visible
+                chosenMaterialCard.setVisible(true);
+                chosenMaterialCard.setManaged(true);
+        }
+
+
+
+
+
+        /** ✅ Effacer les champs, désactiver les boutons et réinitialiser la sélection */
         @FXML
         private void clearChosenMaterial() {
                 selectedMateriel = null; // Désélectionner
@@ -440,7 +567,69 @@ public class MaterialController {
                         deleteBtn.setVisible(false);
                         pageNumberLabel.setVisible(false);
                         RentBTN.setVisible(true);
+                        importTXT.setVisible(false);
+                        excelimg.setVisible(false);
                 }
+        }
+
+
+        @FXML
+        public void showLivraisonPopup(int idMateriel, int maxQte) {
+                Platform.runLater(() -> {
+                        Stage popupStage = new Stage();
+                        popupStage.initOwner(RentBTN.getScene().getWindow());
+                        popupStage.initModality(Modality.APPLICATION_MODAL);
+                        popupStage.setTitle("Confirmer la livraison");
+
+                        Label label = new Label("Entrez la quantité (max: " + maxQte + ") :");
+                        TextField qteField = new TextField();
+                        Button confirmButton = new Button("OK");
+                        VBox layout = new VBox(10, label, qteField, confirmButton);
+                        layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
+
+                        confirmButton.setOnAction(e -> {
+                                try {
+                                        int qte = Integer.parseInt(qteField.getText());
+                                        if (qte > 0 && qte <= maxQte) {
+                                                materielService.ajouterLivraison(idMateriel, qte);
+
+                                                if (!MyDB.getInstance().isConnected()) {
+                                                        System.out.println("🔄 Réouverture de la connexion...");
+                                                        materielService = new MaterielService(); // Réinitialiser la connexion
+                                                }
+
+                                                materielService.diminuerQuantiteMateriel(idMateriel, qte);
+
+                                                layout.getChildren().clear();
+
+                                                // Fermer la popup après 1 seconde
+                                                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                                                delay.setOnFinished(event -> popupStage.close());
+                                                delay.play();
+                                        } else {
+                                                label.setText("Quantité invalide !");
+                                        }
+                                } catch (NumberFormatException ex) {
+                                        label.setText("Veuillez entrer un nombre valide !");
+                                }
+                        });
+
+                        popupStage.setScene(new Scene(layout, 300, 200));
+                        popupStage.showAndWait();
+                });
+        }
+
+
+
+        @FXML
+        private void handleImportExcel() {
+                ExcelImporter importer = new ExcelImporter();
+                importer.importFromExcel(new Stage());
+        }
+        @FXML
+        private void handleExportExcel() {
+                ExcelExporter exporter = new ExcelExporter();
+                exporter.exportToExcel(new Stage());
         }
 
 
@@ -451,4 +640,20 @@ public class MaterialController {
 
 
 
-}
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

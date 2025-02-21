@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Categorie;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,7 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import services.CategorieService;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseButton;
@@ -46,6 +49,10 @@ public class CategorieGestureController {
     private TextField searchField;
     @FXML
     private Button btnSort;
+    @FXML
+    private ImageView evenix1;
+    @FXML
+    private Label evenixTXT1;
 
     private final CategorieService categorieService = new CategorieService();
     private ObservableList<Categorie> categoriesList = FXCollections.observableArrayList();
@@ -54,6 +61,8 @@ public class CategorieGestureController {
     @FXML
     public void initialize() {
         loadCategories();
+        startRotationEvery2Seconds();
+        animateTextFade();
 
         AddBTN.setOnAction(this::handleAddCategory);
         columnservice.setCellValueFactory(new PropertyValueFactory<>("service"));
@@ -75,6 +84,28 @@ public class CategorieGestureController {
                 }
             }
         });
+    }
+    private void startRotationEvery2Seconds() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(2), event -> rotateImage()) // Exécute la rotation chaque 2 secondes
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE); // Répète indéfiniment
+        timeline.play();
+    }
+
+    private void rotateImage() {
+        RotateTransition rotate = new RotateTransition(Duration.seconds(0.5), evenix1); // Rotation en 0.5 sec
+        rotate.setByAngle(360);
+        rotate.setInterpolator(Interpolator.LINEAR);
+        rotate.play();
+    }
+    private void animateTextFade() {
+        FadeTransition fade = new FadeTransition(Duration.seconds(1.5), evenixTXT1);
+        fade.setFromValue(1.0); // Opacité 100%
+        fade.setToValue(0.3); // Opacité 30%
+        fade.setCycleCount(FadeTransition.INDEFINITE);
+        fade.setAutoReverse(true);
+        fade.play();
     }
 
     /** ✅ Ajouter une catégorie */

@@ -106,12 +106,12 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="396.0" prefHeight="82.0" prefWidth="920.0">
          <children>
-            <ImageView fitHeight="72.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="evenix1" fitHeight="72.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/Evenix.png" />
                </image>
             </ImageView>
-            <Label prefHeight="29.0" prefWidth="88.0" text="EVENIX" textFill="#878787">
+            <Label fx:id="evenixTXT1" prefHeight="29.0" prefWidth="88.0" text="EVENIX" textFill="#878787">
                <font>
                   <Font name="Cambria Bold" size="18.0" />
                </font>

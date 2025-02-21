@@ -218,11 +218,85 @@ public class MaterielService implements IService<Materiel> {
         return categoryName;
     }
 
+    public void ajouterLivraison(int idMateriel, int qte) {
+        try {
+            Connection connection = null;
+            if (connection == null || connection.isClosed()) {
+                connection = MyDB.getInstance().getConnection(); // Récupérer la connexion si elle est fermée
+            }
+
+            String query = "INSERT INTO livraison (reponselivraison, qte, idmateriel) VALUES (?, ?, ?)";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, "Validée");
+            stmt.setInt(2, qte);
+            stmt.setInt(3, idMateriel);
+
+            stmt.executeUpdate();
+            stmt.close();
+
+            System.out.println("✅ Livraison ajoutée avec succès !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
+    public void diminuerQuantiteMateriel(int idMateriel, int qte) {
+        try {
+            Connection connection = null;
+            if (connection == null || connection.isClosed()) {
+                connection = MyDB.getInstance().getConnection(); // Récupérer la connexion si elle est fermée
+            }
+            String sql = "UPDATE materiel SET quantite = quantite - ? WHERE idmateriel = ?";
+            try {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, qte);
+                ps.setInt(2, idMateriel);
+                ps.executeUpdate();
+                System.out.println("✅ Quantité mise à jour avec succès !");
+            } catch (SQLException e) {
+                System.out.println("❌ Erreur lors de la mise à jour de la quantité : " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Materiel getMaterielById(int idMateriel) {
+        String sql = "SELECT * FROM materiel WHERE idmateriel = ?";
+        try {
+            Connection conn = MyDB.getInstance().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, idMateriel);
+            ResultSet rs = ps.executeQuery();
 
+            if (rs.next()) {
+                return new  Materiel(
 
-
-
+                        rs.getInt("idmateriel"),
+                        rs.getString("nom"),
+                        rs.getString("description"),
+                        rs.getDouble("prix"),
+                        rs.getString("image"),
+                        rs.getInt("quantite"),
+                        rs.getInt("idcategorie"),
+                        rs.getInt("iduser")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Erreur lors de la récupération du matériel : " + e.getMessage());
+        }
+        return null;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

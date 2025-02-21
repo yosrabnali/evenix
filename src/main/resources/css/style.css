@@ -112,3 +112,25 @@
     -fx-background-color: rgba(255,255,255,0.3);
     -fx-background-radius: 30;
 }
+@keyframes rotate {
+    from {
+        -fx-rotate: 0deg;
+    }
+    to {
+        -fx-rotate: 360deg;
+    }
+}
+
+.rotating-image {
+    -fx-transition: all 2s linear;
+    -fx-rotate: 360;
+}
+.image-hover {
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.image-hover:hover {
+    -fx-translate-y: -5px;
+}
+
+
