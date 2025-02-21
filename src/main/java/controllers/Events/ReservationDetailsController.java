@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import services.EventsServices.ServiceEvent;
 import services.EventsServices.ServiceReservation;
 
 import java.io.IOException;
@@ -134,6 +135,13 @@ public class ReservationDetailsController {
      */
     @FXML
     private void handleConfirmReservation(ActionEvent actionEvent) {
+
+
+        if (Integer.parseInt(lblTicketCount.getText()) > event.getNBplaces()) {
+
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Nombre de ticket saisie indisponible");
+            return;
+        }
         // Ici, vous pouvez ajouter la logique de réservation (ex : appel à un service)
         System.out.println("Réservation confirmée pour l'événement : " + event.getTitre());
         String etat = comboEtat.getValue();
@@ -144,6 +152,13 @@ public class ReservationDetailsController {
             ServiceReservation serviceReservation = new ServiceReservation();
             Reservation r = new Reservation(new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
             serviceReservation.ajouterReservation(r);
+            ServiceEvent serviceEvent = new ServiceEvent();
+            int newnbplaces = event.getNBplaces() - Integer.parseInt(lblTicketCount.getText());
+
+            if(newnbplaces == 0) {
+                serviceEvent.updateEventEtat("Complet", event.getIdevent());
+            }
+            serviceEvent.updateEvent(newnbplaces, event.getIdevent());
             Parent parentRoot = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
 
 
@@ -155,6 +170,7 @@ public class ReservationDetailsController {
         } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
+
     }
 
     /**
@@ -174,5 +190,13 @@ public class ReservationDetailsController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

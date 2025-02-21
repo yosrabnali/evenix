@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import services.EventsServices.ServiceEvent;
 import services.EventsServices.ServiceReservation;
 
 import java.sql.SQLException;
@@ -29,8 +30,11 @@ public class ReservationCellController {
     private Reservation reservation;
     private ServiceReservation serviceReservation;
     private Runnable refreshCallback;
+    private Event event;
+
     public void setReservationData(Reservation reservation, Event event, Runnable refreshCallback) {
         this.reservation = reservation;
+        this.event = event;
         this.refreshCallback = refreshCallback; // Store the refresh callback
 
         lblReservationId.setText("ID: " + reservation.getIdReservation());
@@ -63,6 +67,13 @@ public class ReservationCellController {
                 try {
                     serviceReservation = new ServiceReservation();
                     serviceReservation.supprimerReservation(reservation.getIdReservation());
+                    ServiceEvent serviceEvent = new ServiceEvent();
+                    int newnbplaces = event.getNBplaces() + reservation.getNbPlaces();
+
+                    if(newnbplaces > 0) {
+                        serviceEvent.updateEventEtat("Disponible", event.getIdevent());
+                    }
+                    serviceEvent.updateEvent(newnbplaces, event.getIdevent());
 
                     if (refreshCallback != null) {
                         refreshCallback.run(); // Refresh the list after deletion

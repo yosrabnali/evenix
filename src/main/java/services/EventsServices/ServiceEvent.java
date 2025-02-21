@@ -115,6 +115,28 @@ public class ServiceEvent {
             ex.printStackTrace();
         }
     }
+    public void updateEvent(int nbplaces, int eventid) {
+        String req = "UPDATE evenement SET NBplaces=? WHERE idevent=?";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setInt(1, nbplaces);
+            pst.setInt(2, eventid);
+            pst.executeUpdate();
+            System.out.println("NBplaces mis à jour avec succès !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void updateEventEtat(String etat, int eventid) {
+        String req = "UPDATE evenement SET etat=? WHERE idevent=?";
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setString(1, etat);
+            pst.setInt(2, eventid);
+            pst.executeUpdate();
+            System.out.println("Etat mis à jour avec succès !");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     // DELETE
     public void deleteEvent(int idevent) {
