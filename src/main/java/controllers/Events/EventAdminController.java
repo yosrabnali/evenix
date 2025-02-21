@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import services.EventsServices.ServiceEvent;
 import javafx.fxml.FXML;
@@ -35,45 +36,31 @@ public class EventAdminController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadEvents();
     }
-
     private void loadEvents() {
-        // Récupérer la liste des événements
         List<Event> events = serviceEvent.getAllEvents();
-        flowPaneEvents.getChildren().clear(); // Nettoyer le contenu du FlowPane
+
+        flowPaneEvents.getChildren().clear();
 
         for (Event e : events) {
-            VBox card = new VBox(10);
-            card.getStyleClass().add("event-card"); // Ajout d'une classe CSS
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventCardAdmin.fxml"));
+                // Charge la carte (un VBox dans ce cas)
+                StackPane card = loader.load();
 
-            Label lblTitle = new Label(e.getTitre());
-            lblTitle.getStyleClass().add("event-title");
+                // Récupère le contrôleur de la carte et initialise ses données
+                EventCardAdminController cardController = loader.getController();
+                cardController.setData(e);
+                cardController.setParentController(this);
 
-            ImageView imageView = new ImageView();
-            imageView.setFitWidth(100);
-            imageView.setFitHeight(100);
-            imageView.setPreserveRatio(true);
-
-            // Vérification et chargement de l'image
-            if (e.getImage() != null && !e.getImage().isEmpty()) {
-                String imagePath = "file:" + e.getImage();
-                Image image = new Image(imagePath, 100, 100, true, true);
-                imageView.setImage(image);
+                // Ajoute la carte au HBox pour un affichage horizontal
+                flowPaneEvents.getChildren().add(card);
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-
-            Button btnEdit = new Button("Edit");
-            btnEdit.getStyleClass().add("btn-edit");
-            btnEdit.setOnAction(ev -> navigateToEditEventController(e));
-
-            Button btnDelete = new Button("Delete");
-            btnDelete.getStyleClass().add("btn-delete");
-            btnDelete.setOnAction(ev -> deleteEvent(e));
-
-            card.getChildren().addAll(imageView, lblTitle, btnEdit, btnDelete);
-            flowPaneEvents.getChildren().add(card);
         }
     }
 
-    private void deleteEvent(Event event) {
+     void deleteEvent(Event event) {
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Delete Confirmation");
         confirmAlert.setHeaderText("Delete Event");
@@ -91,20 +78,6 @@ public class EventAdminController implements Initializable {
         }
     }
 
-    private void navigateToEditEventController(Event event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EditEvent.fxml"));
-            Parent newContent = loader.load();
-            flowPaneEvents.getChildren().setAll(newContent);
-
-            EditEventController controller = loader.getController();
-            controller.setEvent(event);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load the edit event screen.");
-        }
-    }
 
     @FXML
     private void handleAddEvent(ActionEvent event) {
