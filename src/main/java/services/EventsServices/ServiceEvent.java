@@ -82,7 +82,7 @@ public class ServiceEvent {
                 .collect(Collectors.toList());
 
         // Sort events in descending order (most recent dates first)
-        futureEvents.sort(Comparator.comparing(Event::getDate).reversed());
+        futureEvents.sort(Comparator.comparing(Event::getDate));
 
         return futureEvents;
     }

@@ -1,10 +1,12 @@
 package services.EventsServices;
 
+import Entity.Events.Event;
 import Entity.Events.Reservation;
 import Util.MyDB;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ServiceReservation {
@@ -43,6 +45,8 @@ public class ServiceReservation {
             );
             reservations.add(reservation);
         }
+        reservations.sort(Comparator.comparing(Reservation::getDate).reversed());
+
         return reservations;
     }
 
