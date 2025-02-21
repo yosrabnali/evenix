@@ -43,7 +43,7 @@ public class ReservationListController {
 
     private void loadReservations() {
         try {
-            List<Reservation> reservations = reservationService.afficherReservations();
+            List<Reservation> reservations = reservationService.afficherReservationsByUser(1234);
             System.out.println("affichage reservation");
             System.out.println(reservations);
             reservationListView.getItems().setAll(reservations);

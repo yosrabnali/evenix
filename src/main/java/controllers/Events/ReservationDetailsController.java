@@ -150,7 +150,7 @@ public class ReservationDetailsController {
         // Par exemple, rediriger l'utilisateur vers la page client (EventClient.fxml)
         try {
             ServiceReservation serviceReservation = new ServiceReservation();
-            Reservation r = new Reservation(new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
+            Reservation r = new Reservation(1234,new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
             serviceReservation.ajouterReservation(r);
             ServiceEvent serviceEvent = new ServiceEvent();
             int newnbplaces = event.getNBplaces() - Integer.parseInt(lblTicketCount.getText());

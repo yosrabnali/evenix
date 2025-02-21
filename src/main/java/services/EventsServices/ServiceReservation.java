@@ -28,11 +28,12 @@ public class ServiceReservation {
     }
 
 
-    public List<Reservation> afficherReservations() throws SQLException {
+    public List<Reservation> afficherReservationsByUser(int idUser) throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
-        String req = "SELECT * FROM reservation";
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(req);
+        String req = "SELECT * FROM reservation WHERE iduser = ?";
+        PreparedStatement pst = con.prepareStatement(req);
+        pst.setInt(1, idUser);
+        ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
             Reservation reservation = new Reservation(
@@ -46,9 +47,9 @@ public class ServiceReservation {
             reservations.add(reservation);
         }
         reservations.sort(Comparator.comparing(Reservation::getDate).reversed());
-
         return reservations;
     }
+
 
     public void supprimerReservation(int id) throws SQLException {
         String req = "DELETE FROM reservation WHERE idReservation = ?";

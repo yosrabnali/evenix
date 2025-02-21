@@ -13,22 +13,23 @@ public class Reservation {
     private String modePaiement;
     private String etatReservation;
 
-    public Reservation(int idReservation, Date date, int nbPlaces, BigDecimal montant, String modePaiement, int idEvent) {
-        this.idReservation = idReservation;
-        this.date = date;
-        this.nbPlaces = nbPlaces;
-        this.montant = montant;
-        this.modePaiement = modePaiement;
-        this.idEvent = idEvent;
-    }
+//    public Reservation(int idReservation, Date date, int nbPlaces, BigDecimal montant, String modePaiement, int idEvent) {
+//        this.idReservation = idReservation;
+//        this.date = date;
+//        this.nbPlaces = nbPlaces;
+//        this.montant = montant;
+//        this.modePaiement = modePaiement;
+//        this.idEvent = idEvent;
+//    }
 
     // Constructor without idReservation (used when inserting new reservations)
-    public Reservation(Date date, int nbPlaces, BigDecimal montant, String modePaiement, int idEvent) {
+    public Reservation(int idUser, Date date, int nbPlaces, BigDecimal montant, String modePaiement, int idEvent) {
         this.date = date;
         this.nbPlaces = nbPlaces;
         this.montant = montant;
         this.modePaiement = modePaiement;
         this.idEvent = idEvent;
+        this.idUser = idUser;
     }
     // Getters & Setters
     public int getIdReservation() { return idReservation; }
