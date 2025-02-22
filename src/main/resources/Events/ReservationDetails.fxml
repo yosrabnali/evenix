@@ -167,6 +167,8 @@
                                         </children>
                                     </StackPane>
                                 </children>
+<!--                                this is the map-->
+
                                 <VBox fx:id="vbox" maxWidth="300" minHeight="300">
 
                                 </VBox>

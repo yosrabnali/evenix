@@ -64,6 +64,8 @@ public class ReservationDetailsController  {
     @FXML
     private ScrollPane scrollPane;
 
+    @FXML
+    private VBox vbox;
 
     // Current ticket count
     private int ticketCount = 0;
@@ -73,8 +75,7 @@ public class ReservationDetailsController  {
     // Price per ticket
     private double priceperticket = 20;
     private Event event;
-    @FXML
-    private VBox vbox;
+
     private MapPoint mapCenter;
     private MapView mapView;
     private CustomMapLayer customLayer;
