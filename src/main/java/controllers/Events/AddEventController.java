@@ -39,6 +39,11 @@ public class AddEventController {
     @FXML
     private DatePicker datePicker;
 
+    @FXML
+    private TextField txtlatitude;
+    @FXML
+    private TextField txtlongitude;
+
     private final ServiceEvent serviceEvent = new ServiceEvent();
 
     @FXML
@@ -108,9 +113,11 @@ public class AddEventController {
             String type = comboType.getValue();
             String image = txtImage.getText();
             String lieu = txtLieu.getValue();
+            double latitude = Double.parseDouble(txtlatitude.getText());
+            double longitude = Double.parseDouble(txtlongitude.getText());
 
             // Création de l'objet Event
-            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu, 1234);
+            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu, 1234,latitude, longitude);
 
             // Insertion dans la base
             serviceEvent.addEvent(e);

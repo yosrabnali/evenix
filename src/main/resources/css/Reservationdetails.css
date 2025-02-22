@@ -81,7 +81,7 @@
 }
 .blue-rounded-background {
     /* Dégradé diagonal bleu -> turquoise */
-    -fx-background-color: linear-gradient(to bottom right, #63a4ff, #83eaf1);
+    -fx-background-color: linear-gradient(to bottom right, #a0b2c0, #83eaf1);
     -fx-background-radius: 16;
     -fx-padding: 10;
 }

@@ -1,5 +1,4 @@
 module projectAPI {
-    requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
 
@@ -7,9 +6,9 @@ module projectAPI {
     requires com.gluonhq.charm.glisten;
 
     // Gluon Attach modules
-    requires com.gluonhq.attach.util;
     requires com.gluonhq.attach.display;
-    requires com.gluonhq.attach.storage;
+    requires com.gluonhq.maps;
+    requires java.desktop;
 
     // Export and open controllers
     exports controllers;

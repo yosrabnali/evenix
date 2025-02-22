@@ -23,8 +23,8 @@ public class ServiceEvent {
     public void addEvent(Event e) {
         // Table "evenement" et colonnes : idevent (auto-incr), date, titre, description, NBplaces, prix,
         // etat, type, image, lieu, iduser
-        String req = "INSERT INTO evenement (date, titre, description, NBplaces, prix, etat, type, image, lieu, iduser) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO evenement (date, titre, description, NBplaces, prix, etat, type, image, lieu, iduser,latitude,longitude) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
             pst.setDate(1, e.getDate());          // java.sql.Date
             pst.setString(2, e.getTitre());
@@ -36,6 +36,8 @@ public class ServiceEvent {
             pst.setString(8, e.getImage());
             pst.setString(9, e.getLieu());
             pst.setInt(10, e.getIduser());
+            pst.setDouble(11, e.getLatitude());
+            pst.setDouble(12, e.getLongitude());
             pst.executeUpdate();
             System.out.println("Event ajouté avec succès !");
         } catch (SQLException ex) {
@@ -64,6 +66,8 @@ public class ServiceEvent {
                 e.setImage(rs.getString("image"));
                 e.setLieu(rs.getString("lieu"));
                 e.setIduser(rs.getInt("iduser"));
+                e.setLatitude(rs.getDouble("latitude"));
+                e.setLongitude(rs.getDouble("longitude"));
                 events.add(e);
             }
         } catch (SQLException ex) {

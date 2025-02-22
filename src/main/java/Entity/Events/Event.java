@@ -15,31 +15,37 @@ public class Event {
     private String lieu;
     private int iduser;
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    private double latitude;
+    private double longitude;
+
+
     // --- Constructeurs ---
 
     // Constructeur vide
     public Event() {
     }
 
-    // Constructeur complet (avec idevent)
-    public Event(int idevent, Date date, String titre, String description, int NBplaces,
-                 double prix, String etat, String type, String image, String lieu, int iduser) {
-        this.idevent = idevent;
-        this.date = date;
-        this.titre = titre;
-        this.description = description;
-        this.NBplaces = NBplaces;
-        this.prix = prix;
-        this.etat = etat;
-        this.type = type;
-        this.image = image;
-        this.lieu = lieu;
-        this.iduser = iduser;
-    }
+
 
     // Constructeur sans idevent (pour l'insertion)
     public Event(Date date, String titre, String description, int NBplaces,
-                 double prix, String etat, String type, String image, String lieu, int iduser) {
+                 double prix, String etat, String type, String image, String lieu, int iduser, double latitude, double longitude ) {
         this.date = date;
         this.titre = titre;
         this.description = description;
@@ -50,6 +56,8 @@ public class Event {
         this.image = image;
         this.lieu = lieu;
         this.iduser = iduser;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // --- Getters et Setters ---
@@ -142,6 +150,7 @@ public class Event {
         this.iduser = iduser;
     }
 
+
     @Override
     public String toString() {
         return "Event{" +
@@ -158,4 +167,5 @@ public class Event {
                 ", iduser=" + iduser +
                 '}';
     }
+
 }

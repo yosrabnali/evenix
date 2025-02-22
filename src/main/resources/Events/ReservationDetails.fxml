@@ -17,6 +17,8 @@
             <content>
                 <StackPane alignment="CENTER">
                     <children>
+
+
                         <VBox alignment="CENTER"
                               maxWidth="800"
                               spacing="20"
@@ -40,7 +42,7 @@
                             </AnchorPane>
 
                             <!-- (2) Rectangle bleu aligné à gauche -->
-                            <HBox alignment="CENTER_LEFT">
+                            <HBox alignment="CENTER_LEFT" spacing="150" >
                                 <children>
                                     <StackPane alignment="TOP_LEFT"
                                                maxWidth="450"
@@ -138,6 +140,7 @@
                                                                            -fx-padding: 0;
                                                                            -fx-font-weight: bold;"/>
                                                         </children>
+
                                                     </HBox>
 
                                                     <!-- Prix total (18px) -->
@@ -164,6 +167,9 @@
                                         </children>
                                     </StackPane>
                                 </children>
+                                <VBox fx:id="vbox" maxWidth="300" minHeight="300">
+
+                                </VBox>
                             </HBox>
 
                             <!-- (3) Boutons d'action en bas -->

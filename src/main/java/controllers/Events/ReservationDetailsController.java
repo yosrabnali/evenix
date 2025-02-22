@@ -2,6 +2,9 @@ package controllers.Events;
 
 import Entity.Events.Event;
 import Entity.Events.Reservation;
+import com.gluonhq.maps.MapLayer;
+import com.gluonhq.maps.MapPoint;
+import com.gluonhq.maps.MapView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import services.EventsServices.ServiceEvent;
@@ -22,7 +26,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import javafx.scene.control.ScrollPane;
 
-public class ReservationDetailsController {
+public class ReservationDetailsController  {
     @FXML
     private Label lblTitle;
     @FXML
@@ -59,6 +63,8 @@ public class ReservationDetailsController {
 
     @FXML
     private ScrollPane scrollPane;
+
+
     // Current ticket count
     private int ticketCount = 0;
     private static final int MAX_TICKETS = 5;
@@ -68,14 +74,58 @@ public class ReservationDetailsController {
     private double priceperticket = 20;
     private Event event;
     @FXML
+    private VBox vbox;
+    private MapPoint mapCenter;
+    private MapView mapView;
+    private CustomMapLayer customLayer;
+
+    private final MapPoint eiffelPoint = new MapPoint(48.8583701,2.2944813);
+    public void setMapCenter(MapPoint mapCenter) {
+        this.mapCenter = mapCenter;
+        if (mapView != null) {
+            // Update the center of the map view
+            mapView.setCenter(mapCenter);
+            mapView.flyTo(0, mapCenter, 0.1);
+
+            // Clear existing layers and add a new custom marker layer.
+            if (customLayer != null) {
+                mapView.removeLayer(customLayer);
+            }
+            customLayer = new CustomMapLayer(mapCenter.getLatitude(), mapCenter.getLongitude());
+            mapView.addLayer(customLayer);
+        }
+    }
+    private MapView createMapView() {
+        mapView = new MapView();
+
+        // If mapCenter hasn't been set, use a default value.
+        if (mapCenter == null) {
+            mapCenter = eiffelPoint;
+        }
+
+        mapView.setCenter(mapCenter);
+        mapView.setZoom(15);
+        mapView.setPrefSize(300, 300);
+        mapView.flyTo(0, mapCenter, 0.1);
+
+        // Add a custom marker layer to the map.
+        CustomMapLayer customLayer = new CustomMapLayer(mapCenter.getLatitude(), mapCenter.getLongitude());
+        mapView.addLayer(customLayer);
+
+        return mapView;
+    }
+
+
+    @FXML
     public void initialize() {
+//        setMapCenter(new MapPoint(36.806389, 10.181667));
+
+        MapView createdMapView = createMapView();
+        vbox.getChildren().add(createdMapView);
+
         comboEtat.getItems().addAll("paypal", "mastercard", "visa");
         updateTicketCountLabel();
         updatePriceLabel();
-        Platform.runLater(() -> {
-            scrollPane.setHvalue(0.0);
-            scrollPane.setVvalue(0.0);
-        });
     }
     /**
      * Cette méthode permet de recevoir l'événement à afficher.
@@ -90,6 +140,7 @@ public class ReservationDetailsController {
         priceperticket = event.getPrix();
         Image image = new Image("file:" + event.getImage());
         coverImage.setImage(image);
+        setMapCenter(new MapPoint(event.getLatitude(), event.getLongitude()));
     }
 
     /**
