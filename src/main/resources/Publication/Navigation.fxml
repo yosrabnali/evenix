@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+
+<BorderPane fx:id="mainContainer" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8"
+            fx:controller="com.main.controllers.NavigationController" styleClass="root">
+    
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+
+    <left>
+        <VBox styleClass="side-nav">
+            <children>
+                <!-- Logo -->
+                <ImageView fitHeight="60" fitWidth="60" styleClass="logo-image">
+                    <image>
+                        <Image url="@../images/x.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="20" />
+                    </VBox.margin>
+                </ImageView>
+
+                <!-- Navigation Links -->
+                <VBox styleClass="nav-links">
+                    <children>
+                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Ajouter Publication" userData="0" />
+                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Blog" userData="1" />
+                        <Hyperlink onAction="#navigateTo" styleClass="nav-link" text="Liste des Publications " userData="2" />
+                    </children>
+                </VBox>
+
+                <!-- Dark Mode Toggle -->
+                <ToggleButton fx:id="darkModeToggle" onAction="#toggleDarkMode" styleClass="dark-mode-toggle" text="🌙" />
+            </children>
+            <padding>
+                <Insets top="20" right="10" bottom="20" left="10" />
+            </padding>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20" styleClass="welcome-container">
+            <children>
+                <ImageView fitHeight="120" fitWidth="120" styleClass="logo-image" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/x.png" />
+                    </image>
+                </ImageView>
+                <Label styleClass="welcome-text" text="Bienvenue dans votre application" />
+                <Label styleClass="welcome-subtext" text="Utilisez le menu à gauche pour naviguer" />
+            </children>
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>

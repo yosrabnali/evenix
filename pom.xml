@@ -52,7 +52,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.main.Test.main</mainClass>
+                    <mainClass>com.com.main.Test.main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
