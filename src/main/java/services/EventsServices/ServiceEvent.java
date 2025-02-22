@@ -107,6 +107,7 @@ public class ServiceEvent {
                 e.setType(rs.getString("type"));
                 e.setImage(rs.getString("image"));
                 e.setLieu(rs.getString("lieu"));
+
                 e.setIduser(rs.getInt("iduser"));
                 return e;
             }
@@ -119,7 +120,7 @@ public class ServiceEvent {
     // UPDATE
     public void updateEvent(Event e) {
         String req = "UPDATE evenement SET date=?, titre=?, description=?, NBplaces=?, prix=?, "
-                + "etat=?, type=?, image=?, lieu=?, iduser=? WHERE idevent=?";
+                + "etat=?, type=?, image=?, lieu=?, iduser=?, latitude=?, longitude=? WHERE idevent=?";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
             pst.setDate(1, e.getDate());
             pst.setString(2, e.getTitre());
@@ -131,13 +132,17 @@ public class ServiceEvent {
             pst.setString(8, e.getImage());
             pst.setString(9, e.getLieu());
             pst.setInt(10, e.getIduser());
-            pst.setInt(11, e.getIdevent());
+            pst.setDouble(11, e.getLatitude());
+            pst.setDouble(12, e.getLongitude());
+            pst.setInt(13, e.getIdevent()); // Fix: set the event ID for the WHERE clause
+
             pst.executeUpdate();
             System.out.println("Event mis à jour avec succès !");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
+
     public void updateEvent(int nbplaces, int eventid) {
         String req = "UPDATE evenement SET NBplaces=? WHERE idevent=?";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {

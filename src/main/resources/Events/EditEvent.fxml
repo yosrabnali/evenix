@@ -88,6 +88,16 @@
                                            HBox.hgrow="ALWAYS" styleClass="custom-textfield"/>
                                 <Button text="Browse" onAction="#handleChooseImage" styleClass="browse-button"/>
                             </HBox>
+                            <Label text="Event Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label text="Enter latitude:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+
+                            <TextField fx:id="txtlatitude" promptText="Enter the latitude"
+                                       GridPane.rowIndex="9" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+                            <Label text="Enter longitude:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtlongitude" promptText="Enter the longitude"
+                                       GridPane.rowIndex="10" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
 
                             <!-- Hidden Role Field (for testing) -->
                             <ComboBox fx:id="comboRole" visible="false" managed="false"/>

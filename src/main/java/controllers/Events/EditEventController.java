@@ -47,6 +47,10 @@ public class EditEventController {
     private ComboBox<String> comboRole;
 
     private ServiceEvent serviceEvent = new ServiceEvent();
+    @FXML
+    private TextField txtlatitude;
+    @FXML
+    private TextField txtlongitude;
 
     // The event to be edited
     private Event eventToEdit;
@@ -77,6 +81,8 @@ public class EditEventController {
         comboType.setValue(event.getType());
         txtImage.setText(event.getImage());
         txtLieu.setText(event.getLieu());
+        txtlatitude.setText(String.valueOf(event.getLatitude()));
+        txtlongitude.setText(String.valueOf(event.getLongitude()));
         // Convert java.sql.Date to LocalDate for the DatePicker
         if (event.getDate() != null) {
             datePicker.setValue(event.getDate().toLocalDate());
@@ -109,6 +115,8 @@ public class EditEventController {
             String type = comboType.getValue();
             String image = txtImage.getText();
             String lieu = txtLieu.getText();
+            double latitude = Double.parseDouble(txtlatitude.getText());
+            double longitude = Double.parseDouble(txtlongitude.getText());
 
             // Update the eventToEdit object with new values
             eventToEdit.setDate(date);
@@ -120,6 +128,8 @@ public class EditEventController {
             eventToEdit.setType(type);
             eventToEdit.setImage(image);
             eventToEdit.setLieu(lieu);
+            eventToEdit.setLatitude(latitude);
+            eventToEdit.setLongitude(longitude);
 
             // Update the event in the database
             serviceEvent.updateEvent(eventToEdit);
