@@ -49,15 +49,17 @@ public class CommentaireService implements IService<Commentaire> {
     }
 
     @Override
-    public void supprimer(Commentaire commentaire) {
+    public boolean supprimer(Commentaire commentaire) {
         String req = "DELETE FROM commentaire WHERE id=?";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setLong(1, commentaire.getId());
             pst.executeUpdate();
             System.out.println("Commentaire supprimé avec succès");
+            return true;
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression du commentaire: " + e.getMessage());
+            return false;
         }
     }
 

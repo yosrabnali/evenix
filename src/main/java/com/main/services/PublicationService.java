@@ -70,7 +70,7 @@ public class PublicationService implements IService<Article> {
     }
 
     @Override
-    public void supprimer(Article article) throws SQLException {
+    public boolean supprimer(Article article)  {
         try {
             // D'abord supprimer tous les commentaires associés
             String deleteCommentsQuery = "DELETE FROM commentaire WHERE article_id = ?";
@@ -91,9 +91,10 @@ public class PublicationService implements IService<Article> {
             deleteArticle.executeUpdate();
 
             System.out.println("Article et ses dépendances supprimés avec succès");
+            return true;
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression de l'article: " + e.getMessage());
-            throw e;
+            return false;
         }
     }
 

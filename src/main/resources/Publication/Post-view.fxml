@@ -131,15 +131,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
-                              <HBox prefHeight="49.0" prefWidth="119.0">
-                                 <children>
-                                    <Button fx:id="RentBTN" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" styleClass="search-button" stylesheets="@../css/style.css" text="Rent" textFill="#828282">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
+                              <HBox prefHeight="49.0" prefWidth="119.0" />
                               <Button fx:id="ClearBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="128.0" styleClass="search-button" stylesheets="@../css/style.css" text="Clear" textFill="#828282">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -193,9 +185,9 @@
                             <children>
                                 <Pane prefHeight="100.0" prefWidth="577.0">
                            </Pane>
-                        <HBox prefHeight="100.0" prefWidth="148.0">
+                        <HBox prefHeight="33.0" prefWidth="134.0">
                            <children>
-                              <Button fx:id="AddMaterialBTN" mnemonicParsing="false" onAction="#openAddMatView" prefHeight="46.0" prefWidth="120.0" styleClass="search-button" stylesheets="@../css/style.css" text="Add Material" textFill="#828282" />
+                              <Button fx:id="AddMaterialBTN" mnemonicParsing="false" onAction="#openAddMatView" prefHeight="46.0" prefWidth="120.0" styleClass="search-button" stylesheets="@../css/style.css" text="Add Post" textFill="#828282" />
                            </children>
                         </HBox>
                                 <Button fx:id="modifyBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="140.0" styleClass="search-button" stylesheets="@../css/style.css" text="Modify Material" textFill="#828282" />

@@ -36,7 +36,7 @@ public class LikeService implements IService<Like> {
     }
 
     @Override
-    public void supprimer(Like like) {
+    public boolean supprimer(Like like) {
         String req = "DELETE FROM `Like` WHERE article_id = ? AND user_id = ?";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
@@ -44,8 +44,10 @@ public class LikeService implements IService<Like> {
             pst.setLong(2, like.getUserId());
             pst.executeUpdate();
             System.out.println("Like supprimé avec succès");
+            return true;
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression du like: " + e.getMessage());
+            return false;
         }
     }
 

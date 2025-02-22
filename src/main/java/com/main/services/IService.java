@@ -7,7 +7,7 @@ public interface IService<T> {
 
     void ajouter(T t) throws SQLException;
     void modifier(T t) throws SQLException;
-    void supprimer(T t) throws SQLException;
+    boolean supprimer(T t) throws SQLException;
     List<T> rechercher() throws SQLException;
 
 }
