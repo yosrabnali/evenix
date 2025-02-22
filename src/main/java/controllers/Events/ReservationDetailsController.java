@@ -82,11 +82,11 @@ public class ReservationDetailsController {
      */
     public void setEvent(Event event) {
         this.event = event;
-        lblTitle.setText("Titre : "+ event.getTitre());
-        lblDescription.setText("Description: "+event.getDescription());
-        lblDate.setText("Date: "+event.getDate().toString());
-        lblLieu.setText(event.getLieu());
-        lblprix.setText("Prix: "+event.getPrix()+" dt");
+        lblTitle.setText("Title:    "+ event.getTitre());
+        lblDate.setText("Date:     "+event.getDate().toString());
+        lblDescription.setText("Address:    "+event.getDescription());
+        lblLieu.setText("Location:    "+event.getLieu());
+        lblprix.setText("Price:   "+event.getPrix()+" dt");
         priceperticket = event.getPrix();
         Image image = new Image("file:" + event.getImage());
         coverImage.setImage(image);
@@ -128,7 +128,7 @@ public class ReservationDetailsController {
      */
     private void updatePriceLabel() {
         double totalPrice = ticketCount * priceperticket;
-        lblPrice.setText("Total Price: " + totalPrice + " dt");
+        lblPrice.setText("Total Price:   " + totalPrice + " dt");
     }
     /**
      * Action de confirmation de la réservation.

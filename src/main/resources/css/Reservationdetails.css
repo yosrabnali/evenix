@@ -1,119 +1,88 @@
-/* Suppression de la boîte arrondie :
-   La classe "reservation-details-container" n'est plus utilisée
-   pour envelopper l'ensemble du contenu. */
-
-/* Titre de la section */
-.reservation-title {
-    -fx-font-family: "Corbel";
-    -fx-font-size: 100px;-
-    -fx-text-fill: #303030;
-    -fx-alignment: center;
+/* Le conteneur racine pour ajuster éventuellement la marge globale */
+.root-container {
+    /* Optionnel : aucune couleur, c'est juste pour gérer le spacing général */
 }
 
-/* Séparateur */
-.reservation-separator {
-    -fx-background-color: #A0B2C0;
-    -fx-pref-height: 2px;
-    -fx-max-width: 100%;
-}
+/* Le conteneur bleu arrondi qui englobe tous les détails, sauf l'image */
 
-/* Zone d'information sur l'événement */
-.reservation-info {
-    -fx-alignment: center-left;
+
+/* Conteneur interne qui tient le texte : titre, description, etc. */
+.details-container {
     -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
 }
 
-/* Titre de l'événement */
+/* Style du titre de l'événement */
 .reservation-info-title {
-    -fx-font-family: "Corbel";
-    -fx-font-size: 20px;
-    -fx-text-fill: #303030;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF; /* texte en blanc sur fond bleu */
 }
 
-/* Description de l'événement */
-.reservation-info-description {
-    -fx-font-family: "Corbel Light";
-    -fx-font-size: 14px;
-    -fx-text-fill: #303030;
-    -fx-wrap-text: true;
-}
-
-/* Informations complémentaires (date, lieu, prix) */
+/* Styles des autres labels (description, date, lieu, prix) */
+.reservation-info-description,
 .reservation-info-date,
 .reservation-info-location,
 .reservation-info-price {
-    -fx-font-family: "Corbel";
     -fx-font-size: 14px;
-    -fx-text-fill: #303030;
+    -fx-text-fill: #FFFFFF;
 }
 
-/* Sélection des tickets */
-.reservation-ticket-selection {
-    -fx-alignment: center-left;
-    -fx-spacing: 15;
-}
-
-/* Boutons de diminution et d'augmentation des tickets */
+/* Boutons + et – (tickets) */
 .ticket-decrease-button,
 .ticket-increase-button {
-    -fx-background-color: #A0B2C0;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Corbel";
-    -fx-font-size: 18px;
-    -fx-background-radius: 10;
-    -fx-min-width: 40;
-    -fx-min-height: 40;
-}
-
-/* Label du nombre de tickets */
-.ticket-count-label {
-    -fx-font-family: "Corbel";
-    -fx-font-size: 18px;
-    -fx-text-fill: #303030;
-}
-
-/* Affichage du prix total */
-.reservation-total-price {
-    -fx-font-family: "Corbel";
-    -fx-font-size: 16px;
-    -fx-text-fill: #303030;
-    -fx-padding: 10 0 10 0;
-}
-
-/* ComboBox de sélection du mode de paiement */
-.reservation-payment-method {
-    -fx-font-family: "Corbel";
-    -fx-font-size: 14px;
     -fx-background-color: #FFFFFF;
-    -fx-border-color: #A0B2C0;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+    -fx-text-fill: #1E90FF;
+    -fx-font-size: 16px;
+    -fx-background-radius: 10;
+    -fx-padding: 5 10;
+}
+
+/* Label pour l'affichage du nombre de tickets */
+.ticket-count-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Label du prix total */
+.reservation-total-price {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 0 0 0; /* Optionnel */
+}
+
+/* Menu déroulant (méthode de paiement) */
+.reservation-payment-method {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
     -fx-padding: 5;
-}
-
-/* Boutons d'action */
-.reservation-action-buttons {
-    -fx-alignment: center-left;
-    -fx-spacing: 20;
-}
-
-/* Bouton de confirmation */
-.reservation-confirm-button {
-    -fx-background-color: #303030;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Corbel";
-    -fx-font-size: 16px;
     -fx-background-radius: 10;
-    -fx-padding: 10 20;
 }
 
-/* Bouton d'annulation */
+/* Boutons d'action (Confirm / Cancel) */
+.reservation-confirm-button,
 .reservation-cancel-button {
-    -fx-background-color: #A0B2C0;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Corbel";
-    -fx-font-size: 16px;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E90FF;
+    -fx-font-weight: bold;
     -fx-background-radius: 10;
     -fx-padding: 10 20;
+    -fx-cursor: hand;
 }
+
+.reservation-confirm-button:hover {
+    -fx-background-color: #f0f0f0; /* Survol */
+}
+
+.reservation-cancel-button:hover {
+    -fx-background-color: #ff6961; /* Survol rouge clair */
+    -fx-text-fill: #FFFFFF;
+}
+.blue-rounded-background {
+    /* Dégradé diagonal bleu -> turquoise */
+    -fx-background-color: linear-gradient(to bottom right, #63a4ff, #83eaf1);
+    -fx-background-radius: 16;
+    -fx-padding: 10;
+}
+

@@ -2,67 +2,195 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane stylesheets="@../css/Reservationdetails.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Events.ReservationDetailsController">
+<StackPane xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controllers.Events.ReservationDetailsController"
+           alignment="CENTER"
+           stylesheets="@../css/Reservationdetails.css">
+
     <children>
         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
             <content>
-                <!-- Inner StackPane to center the content -->
                 <StackPane alignment="CENTER">
                     <children>
-                        <!-- Conteneur principal sans boîte arrondie -->
-                        <VBox alignment="CENTER_LEFT" maxWidth="800" spacing="20">
+                        <VBox alignment="CENTER"
+                              maxWidth="800"
+                              spacing="20"
+                              styleClass="root-container">
                             <padding>
-                                <Insets bottom="30" left="30" right="30" top="30" />
+                                <Insets top="30" right="30" bottom="30" left="30"/>
                             </padding>
 
-                            <!-- Cover image container with fixed height -->
+                            <!-- (1) Image en haut (inchangée) -->
                             <AnchorPane minHeight="250" prefHeight="250">
                                 <children>
-                                    <ImageView fx:id="coverImage" fitHeight="200.0" fitWidth="700.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ImageView fx:id="coverImage"
+                                               fitHeight="200"
+                                               fitWidth="700"
+                                               preserveRatio="false"
+                                               AnchorPane.topAnchor="0"
+                                               AnchorPane.bottomAnchor="0"
+                                               AnchorPane.leftAnchor="0"
+                                               AnchorPane.rightAnchor="0"/>
                                 </children>
                             </AnchorPane>
 
-                            <!-- Main title reste centré -->
-                            <Label alignment="CENTER" styleClass="reservation-title" text="Event details" />
-
-                            <!-- Separator -->
-                            <Separator styleClass="reservation-separator" />
-
-                            <!-- Informations de l'événement alignées à gauche -->
-                            <VBox alignment="CENTER_LEFT" spacing="12" styleClass="reservation-info">
+                            <!-- (2) Rectangle bleu aligné à gauche -->
+                            <HBox alignment="CENTER_LEFT">
                                 <children>
-                                    <Label fx:id="lblTitle" styleClass="reservation-info-title" text="Titre de l'événement" />
-                                    <Label fx:id="lblDescription" styleClass="reservation-info-description" text="Description de l'événement" wrapText="true" />
-                           <Pane prefHeight="200.0" prefWidth="660.0" />
-                                    <Label fx:id="lblDate" styleClass="reservation-info-date" text="Date" />
-                                    <Label fx:id="lblLieu" styleClass="reservation-info-location" text="Location" />
-                                    <Label fx:id="lblprix" styleClass="reservation-info-price" text="Price of tickets" />
-                                </children>
-                            </VBox>
+                                    <StackPane alignment="TOP_LEFT"
+                                               maxWidth="450"
+                                               styleClass="blue-rounded-background">
+                                        <effect>
+                                            <DropShadow radius="12"
+                                                        offsetX="0"
+                                                        offsetY="6"
+                                                        color="#00000044"/>
+                                        </effect>
+                                        <children>
+                                            <!-- Conteneur vertical interne -->
+                                            <VBox alignment="CENTER"
+                                                  spacing="18">
+                                                <padding>
+                                                    <Insets top="20" right="30" bottom="20" left="30"/>
+                                                </padding>
+                                                <children>
+                                                    <!-- Titre (plus grand, Corbel, gras) -->
+                                                    <Label fx:id="lblTitle"
+                                                           text="Title: example"
+                                                           wrapText="true"
+                                                           style="-fx-font-family: 'Corbel';
+                                                                  -fx-font-size: 22px;
+                                                                  -fx-font-weight: bold;
+                                                                  -fx-text-fill: #2c3e50;"/>
+                                                    <Label fx:id="lblDate"
+                                                           text="Date: 2025-03-01"
+                                                           wrapText="true"
+                                                           style="-fx-font-family: 'Corbel Light';
+                                                                  -fx-font-size: 18px;
+                                                                  -fx-text-fill: #2c3e50;"/>
 
-                            <!-- Sélection des tickets alignée à gauche -->
-                            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="reservation-ticket-selection">
-                                <children>
-                                    <Button fx:id="btnDecrease" onAction="#handleDecrease" styleClass="ticket-decrease-button" text="–" />
-                                    <Label fx:id="lblTicketCount" styleClass="ticket-count-label" text="0" />
-                                    <Button fx:id="btnIncrease" onAction="#handleIncrease" styleClass="ticket-increase-button" text="+" />
+
+                                                    <!-- Description -->
+                                                    <Label fx:id="lblDescription"
+                                                           text="Description: ..."
+                                                           wrapText="true"
+                                                           style="-fx-font-family: 'Corbel Light';
+                                                                  -fx-font-size: 18px;
+                                                                  -fx-text-fill: #2c3e50;"/>
+
+                                                    <!-- Date -->
+
+                                                    <!-- Lieu -->
+                                                    <Label fx:id="lblLieu"
+                                                           text="Location: ... "
+                                                           wrapText="true"
+                                                           style="-fx-font-family: 'Corbel Light';
+                                                                  -fx-font-size: 18px;
+                                                                  -fx-text-fill: #2c3e50;"/>
+
+                                                    <!-- Prix unitaire -->
+                                                    <Label fx:id="lblprix"
+                                                           text="Price: 20 dt"
+                                                           wrapText="true"
+                                                           style="-fx-font-family: 'Corbel Light';
+                                                                  -fx-font-size: 18px;
+                                                                  -fx-text-fill: #2c3e50;"/>
+
+                                                    <!-- (2.B) "Pick your seats": - 0 + (même ligne, sans cadre autour des boutons) -->
+                                                    <HBox alignment="CENTER" spacing="14">
+                                                        <children>
+                                                            <Label text="your seats: "
+                                                                   style="-fx-font-family: 'Corbel';
+                                                                          -fx-font-size: 18px;
+                                                                          -fx-font-weight: 600;
+                                                                          -fx-text-fill: #2c3e50;"/>
+                                                            <Button fx:id="btnDecrease"
+                                                                    onAction="#handleDecrease"
+                                                                    text="–"
+                                                                    style="-fx-font-family: 'Corbel';
+                                                                           -fx-font-size: 16px;
+                                                                           -fx-background-color: transparent;
+                                                                           -fx-border-color: transparent;
+                                                                           -fx-text-fill: #2c3e50;
+                                                                           -fx-cursor: hand;
+                                                                           -fx-padding: 0;
+                                                                           -fx-font-weight: bold;"/>
+                                                            <Label fx:id="lblTicketCount"
+                                                                   text="0"
+                                                                   style="-fx-font-family: 'Corbel';
+                                                                          -fx-font-size: 16px;
+                                                                          -fx-font-weight: bold;
+                                                                          -fx-text-fill: #2c3e50;"/>
+                                                            <Button fx:id="btnIncrease"
+                                                                    onAction="#handleIncrease"
+                                                                    text="+"
+                                                                    style="-fx-font-family: 'Corbel';
+                                                                           -fx-font-size: 16px;
+                                                                           -fx-background-color: transparent;
+                                                                           -fx-border-color: transparent;
+                                                                           -fx-text-fill: #2c3e50;
+                                                                           -fx-cursor: hand;
+                                                                           -fx-padding: 0;
+                                                                           -fx-font-weight: bold;"/>
+                                                        </children>
+                                                    </HBox>
+
+                                                    <!-- Prix total (18px) -->
+                                                    <Label fx:id="lblPrice"
+                                                           text="Total Price: 0 dt"
+                                                           wrapText="true"
+                                                           style="-fx-font-family: 'Corbel';
+                                                                  -fx-font-size: 18px;
+                                                                  -fx-font-weight: bold;
+                                                                  -fx-text-fill: #2c3e50;"/>
+
+                                                    <!-- ComboBox gris arrondi -->
+                                                    <ComboBox fx:id="comboEtat"
+                                                              promptText="Select Payment Method"
+                                                              style="-fx-font-family: 'Corbel Light';
+                                                                     -fx-font-size: 16px;
+                                                                     -fx-background-color: #eeeeee;
+                                                                     -fx-background-radius: 12;
+                                                                     -fx-border-radius: 12;
+                                                                     -fx-padding: 4;
+                                                                     -fx-text-fill: #2c3e50;"/>
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </StackPane>
                                 </children>
                             </HBox>
 
-                            <!-- Affichage du prix total -->
-                            <Label fx:id="lblPrice" styleClass="reservation-total-price" text="Total Price: $0" />
-
-                            <!-- Sélection du mode de paiement -->
-                            <ComboBox fx:id="comboEtat" promptText="Payment method" styleClass="reservation-payment-method" />
-
-                            <!-- Boutons d'action alignés à gauche -->
-                            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="reservation-action-buttons">
+                            <!-- (3) Boutons d'action en bas -->
+                            <HBox alignment="CENTER_LEFT"
+                                  spacing="20"
+                                  styleClass="reservation-action-buttons">
                                 <children>
-                                    <Button fx:id="btnConfirmReservation" onAction="#handleConfirmReservation" styleClass="reservation-confirm-button" text="Confirm the booking" />
-                                    <Button fx:id="btnCancelReservation" onAction="#handleCancelReservation" styleClass="reservation-cancel-button" text="Cancel" />
+                                    <Button fx:id="btnConfirmReservation"
+                                            onAction="#handleConfirmReservation"
+                                            styleClass="reservation-confirm-button"
+                                            text="Confirm Booking"
+                                            style="-fx-font-family: 'Corbel';
+                                                   -fx-font-size: 16px;
+                                                   -fx-font-weight: bold;
+                                                   -fx-background-radius: 10;
+                                                   -fx-text-fill: #ffffff;
+                                                   -fx-background-color: #2ecc71;"/>
+                                    <Button fx:id="btnCancelReservation"
+                                            onAction="#handleCancelReservation"
+                                            styleClass="reservation-cancel-button"
+                                            text="Cancel"
+                                            style="-fx-font-family: 'Corbel';
+                                                   -fx-font-size: 16px;
+                                                   -fx-font-weight: bold;
+                                                   -fx-background-radius: 10;
+                                                   -fx-text-fill: #ffffff;
+                                                   -fx-background-color: #e74c3c;"/>
                                 </children>
                             </HBox>
                         </VBox>
