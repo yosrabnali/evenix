@@ -212,6 +212,7 @@ public class ReservationDetailsController  {
             webEngine.locationProperty().addListener((obs, oldUrl, newUrl) -> {
                 if (newUrl.contains("success")) {
                     paymentWebView.setVisible(false);
+                    reserveTicket();
 
                     showAlert(Alert.AlertType.CONFIRMATION, "congragulations", "payment successful");
 
@@ -222,7 +223,6 @@ public class ReservationDetailsController  {
 
                 }
             });
-            reserveTicket();
 
         } catch (Exception e) {
             e.printStackTrace();
