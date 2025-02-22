@@ -13,31 +13,24 @@ public class main extends Application {
     public void start(Stage primaryStage) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/materiel-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/Post-view.fxml"));
             //Scene scene = new Scene(fxmlLoader.load(), 800, 600);
 
             Parent root = loader.load(); // Charger le fichier FXML
 
             // ✅ Récupérer le contrôleur après avoir chargé le fichier
            PostController materialController = loader.getController();
-            //materialController.setUser(1); // Passer l'ID utilisateur connecté
+            //PostController.setUser(1); // Passer l'ID utilisateur connecté
             // ✅ Afficher la fenêtre principale
             primaryStage.setTitle("Post Management");
             primaryStage.setScene(new Scene(root));
-            primaryStage.show();;
+            primaryStage.show();
         } catch (Exception e) {
-            System.out.println("Erreur lors du démarrage de l'application : ");
             e.printStackTrace();
+            System.out.println("Erreur lors du démarrage de l'application : ");
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            launch(args);
-        } catch (Exception e) {
-            System.out.println("Erreur fatale lors du lancement : ");
-            e.printStackTrace();
-        }
-    }
+    public static void main(String[] args) {launch(args);}
 
 }

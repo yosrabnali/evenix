@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="361.0" prefWidth="232.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.AddPostController">
+   <children>
+      <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text=" Manage Post " />
+      <VBox fx:id="chosenPostCard" alignment="CENTER" prefHeight="535.0" prefWidth="100.0" spacing="10.0" stylesheets="@../css/style.css">
+         <children>
+            <TextField fx:id="auteurField" promptText="Auteur" styleClass="card-text" />
+            <TextField fx:id="titreField" promptText="Titre" styleClass="card-text" />
+            <VBox prefHeight="226.0" prefWidth="312.0" spacing="15" styleClass="image-preview-container">
+               <children>
+                  <Button onAction="#onSelectImageClick" styleClass="select-image-button" text="Sélectionner une image" />
+                  <ImageView fx:id="imagePreview" fitHeight="200" fitWidth="300" preserveRatio="true" styleClass="image-preview" />
+               </children>
+            </VBox>
+            <TextArea fx:id="contenuArea" prefHeight="148.0" prefWidth="334.0" promptText="Contenu de l'article" styleClass="article-content-area" />
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </VBox>
+      <HBox alignment="CENTER" spacing="10">
+         <children>
+            <Button onAction="#handleSave" styleClass="save-button" stylesheets="@../../../../../../Desktop/evenix-MaterialGesture/src/main/resources/css/addmaterial.css" text="Save" />
+            <Button cancelButton="true" onAction="#handleCancel" styleClass="cancel-button" stylesheets="@../../../../../../Desktop/evenix-MaterialGesture/src/main/resources/css/addmaterial.css" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

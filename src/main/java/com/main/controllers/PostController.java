@@ -57,7 +57,7 @@ public class PostController {
     @FXML
     void openAddMatView(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/Post-item.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/AddPost-item.fxml"));
             Parent root = loader.load();
             AddPostController addpostController = loader.getController();
             addpostController.setPostController(this);
