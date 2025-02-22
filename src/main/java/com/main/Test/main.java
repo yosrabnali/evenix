@@ -19,7 +19,7 @@ public class main extends Application {
             Parent root = loader.load(); // Charger le fichier FXML
 
             // ✅ Récupérer le contrôleur après avoir chargé le fichier
-           PostController materialController = loader.getController();
+            //PostController materialController = loader.getController();
             //PostController.setUser(1); // Passer l'ID utilisateur connecté
             // ✅ Afficher la fenêtre principale
             primaryStage.setTitle("Post Management");
