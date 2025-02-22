@@ -1,6 +1,7 @@
 module projectAPI {
     requires javafx.fxml;
     requires java.sql;
+    requires javafx.web;
 
     // Gluon Charm Glisten UI
     requires com.gluonhq.charm.glisten;
@@ -9,6 +10,7 @@ module projectAPI {
     requires com.gluonhq.attach.display;
     requires com.gluonhq.maps;
     requires java.desktop;
+    requires stripe.java;
 
     // Export and open controllers
     exports controllers;

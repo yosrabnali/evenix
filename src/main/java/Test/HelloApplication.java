@@ -1,5 +1,6 @@
 package Test;
 
+import com.stripe.Stripe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,7 @@ public class HelloApplication extends Application {
         try {
             // Ici, on charge la vue de démarrage.
             // Par exemple, si vous voulez démarrer avec la vue client :
+            Stripe.apiKey = "sk_test_51QvLfvGsAYKuXtjYOX5AAjuuuhqSUo8Uv3uYNEemkCbozPL7JyuTOvftxkSIXP0bnAeXGLUpBmzDSGLpvAlttWCQ00r7oxsfcT";
 
            Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
 

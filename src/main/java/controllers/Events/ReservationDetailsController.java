@@ -1,10 +1,12 @@
 package controllers.Events;
-
+import com.stripe.model.checkout.Session;
+import com.stripe.param.checkout.SessionCreateParams;
 import Entity.Events.Event;
 import Entity.Events.Reservation;
 import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
 import com.gluonhq.maps.MapView;
+import com.stripe.model.PaymentIntent;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,8 +17,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import services.EventsServices.PaymentService;
 import services.EventsServices.ServiceEvent;
 import services.EventsServices.ServiceReservation;
 
@@ -27,6 +32,10 @@ import java.util.Date;
 import javafx.scene.control.ScrollPane;
 
 public class ReservationDetailsController  {
+
+    @FXML
+    private WebView paymentWebView;
+
     @FXML
     private Label lblTitle;
     @FXML
@@ -66,6 +75,7 @@ public class ReservationDetailsController  {
 
     @FXML
     private VBox vbox;
+    private PaymentService paymentService;
 
     // Current ticket count
     private int ticketCount = 0;
@@ -123,6 +133,7 @@ public class ReservationDetailsController  {
 
         MapView createdMapView = createMapView();
         vbox.getChildren().add(createdMapView);
+        paymentService = new PaymentService();
 
         comboEtat.getItems().addAll("paypal", "mastercard", "visa");
         updateTicketCountLabel();
@@ -187,7 +198,40 @@ public class ReservationDetailsController  {
      */
     @FXML
     private void handleConfirmReservation(ActionEvent actionEvent) {
+        try {
+            // Create a Checkout Session instead of a PaymentIntent
+        int nbPlaces = Integer.parseInt(lblTicketCount.getText());
+        Double prix = event.getPrix() * nbPlaces;
+            Session session = paymentService.createCheckoutSession(prix*100, "usd", event.getIdevent(), event.getTitre());
+            String paymentUrl = session.getUrl();
 
+            WebEngine webEngine = paymentWebView.getEngine();
+            webEngine.load(paymentUrl);
+            paymentWebView.setVisible(true);
+            // Add a listener for URL changes
+            webEngine.locationProperty().addListener((obs, oldUrl, newUrl) -> {
+                if (newUrl.contains("success")) {
+                    paymentWebView.setVisible(false);
+
+                    showAlert(Alert.AlertType.CONFIRMATION, "congragulations", "payment successful");
+
+
+                } else if (newUrl.contains("cancel")) {
+                    paymentWebView.setVisible(false);
+                    showAlert(Alert.AlertType.ERROR, "error", "payment failed");
+
+                }
+            });
+            reserveTicket();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions appropriately
+        }
+
+
+    }
+    private void reserveTicket() {
 
         if (Integer.parseInt(lblTicketCount.getText()) > event.getNBplaces()) {
 
@@ -211,20 +255,12 @@ public class ReservationDetailsController  {
                 serviceEvent.updateEventEtat("Complet", event.getIdevent());
             }
             serviceEvent.updateEvent(newnbplaces, event.getIdevent());
-            Parent parentRoot = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
 
 
-            // Retrieve the current scene from the event's source
-            Scene currentScene = ((Node) actionEvent.getSource()).getScene();
-
-            // Set the new root to the parent view
-            currentScene.setRoot(parentRoot);
-        } catch (IOException | SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
     }
-
     /**
      * Annule la réservation et retourne à la page client.
      */

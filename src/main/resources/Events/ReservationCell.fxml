@@ -24,7 +24,7 @@
         <!-- Première colonne d'informations -->
         <VBox spacing="8" alignment="CENTER_LEFT" styleClass="reservation-info">
             <children>
-                <Label fx:id="lblReservationId" text="ID: 12345" styleClass="reservation-id"/>
+
                 <Label fx:id="lblDate" text="Date: 2025-03-10" styleClass="reservation-date"/>
                 <Label fx:id="lblNbPlaces" text="Places: 3" styleClass="reservation-places"/>
             </children>

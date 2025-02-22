@@ -16,8 +16,6 @@ import java.sql.SQLException;
 public class ReservationCellController {
 
     @FXML
-    private Label lblReservationId;
-    @FXML
     private Label lblDate;
     @FXML
     private Label lblNbPlaces;
@@ -37,7 +35,6 @@ public class ReservationCellController {
         this.event = event;
         this.refreshCallback = refreshCallback; // Store the refresh callback
 
-        lblReservationId.setText("ID: " + reservation.getIdReservation());
         lblDate.setText("Date: " + reservation.getDate().toString());
         lblNbPlaces.setText("Places: " + reservation.getNbPlaces());
         lblPaymentMethod.setText("Payment: " + reservation.getModePaiement());

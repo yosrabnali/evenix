@@ -17,13 +17,15 @@ public class ServiceReservation {
     }
 
     public void ajouterReservation(Reservation reservation) throws SQLException {
-        String req = "INSERT INTO reservation (date, NBplace, Montant, Modepaiement, idevent) VALUES (?, ?, ?, ?, ?)";
+        String req = "INSERT INTO reservation (date, NBplace, Montant, Modepaiement, idevent, iduser) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setDate(1, new java.sql.Date(reservation.getDate().getTime()));
         pre.setInt(2, reservation.getNbPlaces());
         pre.setBigDecimal(3, reservation.getMontant());
         pre.setString(4, reservation.getModePaiement());
         pre.setInt(5, reservation.getIdEvent());
+        pre.setInt(6, reservation.getIdUser());
+
         pre.executeUpdate();
     }
 
