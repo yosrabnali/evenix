@@ -33,10 +33,12 @@ public class Chatbot {
         chatBox = new VBox(10);
         chatBox.setPadding(new Insets(10));
         chatBox.setStyle("-fx-background-color: white; -fx-border-color: #ccc;");
+        chatBox.setPrefWidth(400);
 
         ScrollPane scrollPane = new ScrollPane(chatBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(300);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Ajout d'une barre de défilement horizontale
 
         // Zone de saisie utilisateur
         userInput = new TextField();
@@ -69,19 +71,12 @@ public class Chatbot {
     private void sendMessage() {
         String userMessage = userInput.getText().trim();
         if (!userMessage.isEmpty()) {
-            Label userLabel = new Label("👤 Vous : " + userMessage);
-            userLabel.setStyle("-fx-background-color: #DCF8C6; -fx-padding: 5px; -fx-border-radius: 5px;");
-            HBox userContainer = new HBox(userLabel);
-            userContainer.setAlignment(Pos.BASELINE_RIGHT);
-            chatBox.getChildren().add(userContainer);
+            addMessage(userMessage, true);
             userInput.clear();
 
-            // Animation de réponse
-            Label botLabel = new Label("🤖 Chatbot : ...");
-            botLabel.setStyle("-fx-background-color: #E0E0E0; -fx-padding: 5px; -fx-border-radius: 5px;");
-            HBox botContainer = new HBox(botLabel);
-            botContainer.setAlignment(Pos.BASELINE_LEFT);
-            chatBox.getChildren().add(botContainer);
+            // Animation de réponse avec "..."
+            Label botLabel = createMessageLabel("🤖 Chatbot : ...", false);
+            chatBox.getChildren().add(botLabel);
 
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> {
@@ -95,6 +90,30 @@ public class Chatbot {
             });
             pause.play();
         }
+    }
+
+    // Ajout des messages avec prise en charge des longs textes
+    private void addMessage(String message, boolean isUser) {
+        Label messageLabel = createMessageLabel((isUser ? "👤 Vous : " : "🤖 Chatbot : ") + message, isUser);
+
+        ScrollPane messageScrollPane = new ScrollPane(messageLabel);
+        messageScrollPane.setFitToWidth(true);
+        messageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Ajoute le défilement horizontal si nécessaire
+
+        HBox messageContainer = new HBox(messageScrollPane);
+        messageContainer.setAlignment(isUser ? Pos.BASELINE_RIGHT : Pos.BASELINE_LEFT);
+
+        chatBox.getChildren().add(messageContainer);
+    }
+
+    // Création des labels de messages
+    private Label createMessageLabel(String text, boolean isUser) {
+        Label label = new Label(text);
+        label.setWrapText(true);
+        label.setMaxWidth(300); // Permet un affichage optimal du texte
+        label.setPadding(new Insets(5));
+        label.setStyle("-fx-background-color: " + (isUser ? "#DCF8C6" : "#E0E0E0") + "; -fx-border-radius: 5px; -fx-padding: 5px;");
+        return label;
     }
 
     // Affichage du chatbot
