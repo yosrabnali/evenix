@@ -59,17 +59,19 @@ public class UserMainLayoutController {
         publicationContent.getChildren().add(new Label("Publication Content"));
         centerContent.getChildren().setAll(publicationContent);
     }
-
     @FXML
-    private void handleComplaint(MouseEvent event) {
-        System.out.println("Complaint icon clicked");
-        VBox complaintContent = new VBox(10);
-        complaintContent.getChildren().add(new Label("Complaint Content"));
-        centerContent.getChildren().setAll(complaintContent);
+    private void handleLocation(MouseEvent event) {
+        System.out.println("Location icon clicked");
+        System.out.println("Rent icon clicked (Loading LocationAdmin.fxml)");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Location/LocationAdmin.fxml")); // Assuming LocationAdmin.fxml is in the Location folder
+            Node locationAdminContent = loader.load();
+            centerContent.getChildren().setAll(locationAdminContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately (e.g., show an error dialog)
+        }
     }
-
-
-
     @FXML
     private void handleLogout(MouseEvent event) {
         System.out.println("Logout icon clicked");
