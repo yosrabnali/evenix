@@ -120,9 +120,9 @@ public class MaterialController {
         private ComboBox<String> triComboBox;
 
 
+
         private String userRole; // Rôle de l'utilisateur
         private int userId; // ID de l'utilisateur connecté
-
         private MaterielService materielService = new MaterielService();
         private Materiel selectedMateriel; // Pour stocker le matériel sélectionné
 
@@ -204,6 +204,13 @@ public class MaterialController {
                 ImageAnimation.addHoverEffect(deleteBtn);
                 ImageAnimation.addHoverEffect(RentBTN);
                 ImageAnimation.addHoverEffect(logouticon);
+                ////////////////////////////////
+                ImageAnimation.addTooltip(homeicon, "Home");
+                ImageAnimation.addTooltip(eventicon, "Events");
+                ImageAnimation.addTooltip(logouticon, "Logout");
+                ImageAnimation.addTooltip(pubicon, "Publications");
+                ImageAnimation.addTooltip(recicon, "Reclamation");
+                ImageAnimation.addTooltip(achaticon, "Buy");
 
 
 
@@ -215,7 +222,6 @@ public class MaterialController {
                 // Charger les matériels au démarrage
                 loadMaterials();
         }
-
         private void startRotationEvery2Seconds() {
                 Timeline timeline = new Timeline(
                         new KeyFrame(Duration.seconds(2), event -> rotateImage()) // Exécute la rotation chaque 2 secondes
@@ -365,6 +371,7 @@ public class MaterialController {
                         container.setAlignment(Pos.CENTER);
                         grid.add(container, column++, row);
 
+
                         if (column == 5) { // 4 cartes par ligne
                                 column = 0;
                                 row++;
@@ -403,7 +410,7 @@ public class MaterialController {
 
                 card.getChildren().addAll(titleBox, imageView);
                 card.setOnMouseClicked(event -> setChosenMateriel(m)); // Sélectionner un matériel au clic
-
+                ImageAnimation.addHoverEffect(card);
                 return card;
         }
 
@@ -438,8 +445,7 @@ public class MaterialController {
                 String categorie = materielService.getCategoryName(materiel.getIdCategorie()) != null ? materielService.getCategoryName(materiel.getIdCategorie()) : "Non spécifiée";
 
                 // ✅ Création d’un texte bien formaté pour le QR Code
-                String qrData = "🔹 ID: " + materiel.getIdMateriel() +
-                        "\n📌 Name: " + nom +
+                String qrData = "\n📌 Name: " + nom +
                         "\n💰 Price: " + prix + " DT" +
                         "\n🏷 Description: " + description +
                         "\n📂 Category: " + categorie;

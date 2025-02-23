@@ -167,3 +167,83 @@
     -fx-background-color: #828282; /* Even darker when selected */
     -fx-text-fill: white;
 }
+/* ====================== */
+/* TableView General Style */
+/* ====================== */
+.table-view {
+    -fx-background-color: #F5F5F5; /* Light background */
+    -fx-border-color: #A1887F; /* Match sidebar color */
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* ====================== */
+/* TableView General Style */
+/* ====================== */
+.table-view {
+    -fx-background-color: #F5F5F5; /* Soft White */
+    -fx-border-color: #828282; /* Primary Gray */
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* ====================== */
+/* TableView Header Style */
+/* ====================== */
+.table-view .column-header-background {
+    -fx-background-color: #5E5E5E; /* Dark Gray */
+    -fx-border-radius: 10px 10px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* ====================== */
+/* TableView Row Style */
+/* ====================== */
+.table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0;
+    -fx-padding: 5px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #B0B0B0; /* Light Gray for alternating rows */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #607D8B; /* Accent Blue */
+    -fx-text-fill: white;
+}
+
+/* ====================== */
+/* TableView ScrollBar */
+/* ====================== */
+.scroll-bar {
+    -fx-background-color: #E0E0E0;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #828282;
+    -fx-border-radius: 10px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #5E5E5E; /* Dark Gray */
+}
+
+/* ====================== */
+/* Hover Effect */
+/* ====================== */
+.table-row-cell:hover {
+    -fx-background-color: #A1887F; /* Muted Brown */
+    -fx-text-fill: black;
+}

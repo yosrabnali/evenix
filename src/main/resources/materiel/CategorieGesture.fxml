@@ -104,7 +104,7 @@
             </Pane>
          </children>
       </VBox>
-      <TableView fx:id="categoryTableview" layoutX="409.0" layoutY="142.0" prefHeight="642.0" prefWidth="920.0">
+      <TableView fx:id="categoryTableview" layoutX="409.0" layoutY="142.0" prefHeight="642.0" prefWidth="920.0" styleClass="table-view" stylesheets="@../css/style.css">
         <columns>
           <TableColumn fx:id="columnservice" prefWidth="423.1999816894531" text="Service" />
           <TableColumn fx:id="columnaction" minWidth="0.0" prefWidth="398.4000244140625" text="Action" />

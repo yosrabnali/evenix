@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.maven.apache.org/xsd/maven-4.0.0.xsd"
+>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tn.esprit</groupId>
@@ -11,11 +12,33 @@
     <properties>
         <maven.compiler.source>23</maven.compiler.source>
         <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.release>23</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-
+    <repositories>
+        <repository>
+            <id>gluon-releases</id>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
     <dependencies>
+        <!-- JavaFX -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>17.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>17.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>17.0.6</version>
+        </dependency>
+
         <!-- Gluon Charm Glisten -->
         <dependency>
             <groupId>com.gluonhq</groupId>
@@ -23,7 +46,7 @@
             <version>6.0.6</version>
         </dependency>
 
-        <!-- Gluon Attach Util (nécessaire pour Charm Glisten) -->
+        <!-- Gluon Attach Util -->
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
             <artifactId>util</artifactId>
@@ -37,65 +60,94 @@
             <version>8.0.33</version>
         </dependency>
 
-        <!-- JavaFX Dependencies -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>17.0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>17.0.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-media</artifactId>
-            <version>23.0.1</version>
-        </dependency>
+        <!-- JSON Processing -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20231013</version>
         </dependency>
-        <!-- Dépendances pour Dialogflow -->
+
+        <!-- Google Cloud Dialogflow -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-dialogflow</artifactId>
-            <version>2.4.0</version> <!-- Vérifie la version la plus récente -->
+            <version>4.57.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.grpc</groupId>
+                    <artifactId>grpc-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!-- Google Authentication -->
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
-            <version>0.27.0</version> <!-- Utilise la dernière version stable -->
+            <version>1.17.0</version>
         </dependency>
 
+
+        <!-- Google API Client -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.32.2</version>
+        </dependency>
 
         <dependency>
-            <groupId>com.google.api</groupId>
-            <artifactId>gax</artifactId>
-            <version>2.8.1</version>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-oauth2-http</artifactId>
+            <version>1.17.0</version>
         </dependency>
         <dependency>
-            <groupId>com.google.api</groupId>
-            <artifactId>gax-grpc</artifactId>
-            <version>2.8.1</version>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud</artifactId>
+            <version>0.47.0-alpha</version>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>4.28.0</version> <!-- Mets à jour avec la dernière version stable -->
+        </dependency>
+        <!-- gRPC (Versions compatibles) -->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>1.68.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>1.67.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>1.67.1</version>
         </dependency>
 
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.18.0</version>
+        </dependency>
 
+        <!-- SLF4J (Simple Logger) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
 
-            <dependency><!-- not part of the BOM -->
-                <groupId>com.google.api-client</groupId>
-                <artifactId>google-api-client</artifactId>
-                <version>1.32.2</version>
-            </dependency>
-        <!-- ZXing pour la lecture des QR codes -->
+        <!-- QR Code Scanner -->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
@@ -113,29 +165,32 @@
             <artifactId>webcam-capture</artifactId>
             <version>0.3.12</version>
         </dependency>
-        <!-- excel -->
+
+        <!-- Apache POI pour Excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.3</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.18.0</version>
+            <groupId>com.google.appengine.tools</groupId>
+            <artifactId>appengine-gcs-client</artifactId>
+            <version>0.8.3</version>
         </dependency>
 
-
-
-
+        <!-- Bibliothèque Commons pour les listes -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.0.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-glisten</artifactId>
+            <version>6.1.0</version>
+        </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>gluon-releases</id>
-            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
@@ -149,10 +204,12 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
+
+            <!-- Maven Enforcer Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>enforce</id>

@@ -4,7 +4,9 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -60,5 +62,20 @@ public class ImageAnimation {
         fade.setAutoReverse(true);
         fade.play();
     }
+    static void addHoverEffect(Node node) {
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.2), node);
+        scaleUp.setToX(1.05);
+        scaleUp.setToY(1.05);
 
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.2), node);
+        scaleDown.setToX(1);
+        scaleDown.setToY(1);
+
+        node.setOnMouseEntered(e -> scaleUp.play());
+        node.setOnMouseExited(e -> scaleDown.play());
+    }
+    static void addTooltip(ImageView imageView, String text) {
+        Tooltip tooltip = new Tooltip(text);
+        Tooltip.install(imageView, tooltip);
+    }
 }
