@@ -18,9 +18,6 @@ module projectAPI {
     exports controllers;
     opens controllers to javafx.fxml;
 
-    exports controllers.Events;
-    opens controllers.Events to javafx.fxml;
-
 
 
 
