@@ -17,13 +17,14 @@ public class ServiceLocation {
 
     // Ajouter une location
     public boolean add(Location location) {
-        String query = "INSERT INTO location (idUser, datedebut, datefin) VALUES (?, ?, ?)";
+        String query = "INSERT INTO location (idUser, datedebut, datefin, statut) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = con.prepareStatement(query)) {
             pst.setInt(1, location.getIdUser());
             pst.setDate(2, Date.valueOf(location.getDatedebut()));
             pst.setDate(3, Date.valueOf(location.getDatefin()));
+            pst.setString(4, location.getStatus());  //Pass the status (which you must test)
             int rowsAffected = pst.executeUpdate();
-            return rowsAffected > 0;  // Return true if at least one row was affected
+            return rowsAffected > 0;
         } catch (SQLException e) {
             System.err.println("Erreur lors de l'ajout de la location : " + e.getMessage());
             return false;
@@ -33,7 +34,7 @@ public class ServiceLocation {
     // Récupérer toutes les locations
     public List<Location> getAll() {
         List<Location> locations = new ArrayList<>();
-        String query = "SELECT * FROM location";
+        String query = "SELECT idlocation, idUser, datedebut, datefin, statut FROM location";
         try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
                 // Check for null values before calling toLocalDate()
@@ -45,10 +46,13 @@ public class ServiceLocation {
 
                 Location location = new Location(
                         rs.getInt("idlocation"),
-                        rs.getInt("idUser"), // Get idUser from result set
-                        datedebut,  // Use LocalDate values
-                        datefin      // Use LocalDate values
+                        rs.getInt("idUser"),
+                        datedebut,
+                        datefin  // Use LocalDate values
                 );
+                // Set the field with RS data
+                location.setStatus(rs.getString("statut"));
+
                 locations.add(location);
             }
         } catch (SQLException e) {
@@ -59,14 +63,15 @@ public class ServiceLocation {
 
     // Modifier une location
     public boolean update(Location location) {
-        String query = "UPDATE location SET idUser = ?, datedebut = ?, datefin = ? WHERE idlocation = ?";
+        String query = "UPDATE location SET idUser = ?, datedebut = ?, datefin = ?, statut = ? WHERE idlocation = ?";
         try (PreparedStatement pst = con.prepareStatement(query)) {
             pst.setInt(1, location.getIdUser());
             pst.setDate(2, Date.valueOf(location.getDatedebut()));
             pst.setDate(3, Date.valueOf(location.getDatefin()));
-            pst.setInt(4, location.getIdlocation());
+            pst.setString(4, location.getStatus());  //Pass the status.
+            pst.setInt(5, location.getIdlocation()); // Set the parameter
             int rowsAffected = pst.executeUpdate();
-            return rowsAffected > 0;  // Return true if at least one row was affected
+            return rowsAffected > 0;
         } catch (SQLException e) {
             System.err.println("Erreur lors de la modification de la location : " + e.getMessage());
             return false;
@@ -79,7 +84,7 @@ public class ServiceLocation {
         try (PreparedStatement pst = con.prepareStatement(query)) {
             pst.setInt(1, location.getIdlocation());
             int rowsAffected = pst.executeUpdate();
-            return rowsAffected > 0;  // Return true if at least one row was affected
+            return rowsAffected > 0;
         } catch (SQLException e) {
             System.err.println("Erreur lors de la suppression de la location : " + e.getMessage());
             return false;

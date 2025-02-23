@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -13,47 +14,56 @@
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.Locations.LocationsController">
 
-    <!-- TableView pour afficher les locations -->
-    <TableView fx:id="tableView" prefHeight="318.0" prefWidth="492.0" AnchorPane.leftAnchor="10.0"
-               AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <columns>
-            <TableColumn fx:id="colId" prefWidth="50.0" text="ID"/>
-            <TableColumn fx:id="colDateDebut" prefWidth="150.0" text="Date Début"/>
-            <TableColumn fx:id="colDateFin" prefWidth="150.0" text="Date Fin"/>
-        </columns>
-    </TableView>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+            <!-- ComboBox pour filtrer par status -->
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <padding>
+                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                </padding>
+                <Label text="Filtrer par status:"/>
+                <ComboBox fx:id="statusFilterComboBox" prefWidth="150.0" promptText="Status" />
+            </HBox>
 
-    <!-- Formulaire pour ajouter/modifier une location -->
-    <VBox spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="330.0">
-        <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-        </padding>
+            <!-- TableView pour afficher les locations -->
+            <TableView fx:id="tableView" prefHeight="318.0" prefWidth="492.0">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                    <TableColumn fx:id="colDateDebut" prefWidth="150.0" text="Date Début" />
+                    <TableColumn fx:id="colDateFin" prefWidth="150.0" text="Date Fin" />
+                    <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
+                </columns>
+            </TableView>
 
-        <!-- Date Début et Date Fin -->
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
-            <Label text="Date Début:"/>
-            <DatePicker fx:id="dateDebutPicker"/>
+            <!-- Formulaire pour ajouter/modifier une location -->
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
 
-            <Label text="Date Fin:"/>  <!-- Added spacing here -->
-            <DatePicker fx:id="dateFinPicker"/>
-        </HBox>
+                <!-- Date Début et Date Fin -->
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <Label text="Date Début:" />
+                    <DatePicker fx:id="dateDebutPicker" />
 
-        <!-- Boutons pour les actions CRUD -->
-        <HBox spacing="10" alignment="CENTER">
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
-            <Button onAction="#ajouterLocation" style="-fx-background-color: #007BFF; -fx-text-fill: white;"
-                    text="Créer Location"/> <!-- Blue -->
-            <Button onAction="#modifierLocation" style="-fx-background-color: #DC3545; -fx-text-fill: white;"
-                    text="Modifier Location"/> <!-- Red -->
-            <Button onAction="#supprimerLocation" style="-fx-background-color: #28A745; -fx-text-fill: white;"
-                    text="Supprimer Location"/> <!-- Green -->
-            <Button onAction="#afficherDetails" style="-fx-background-color: #6C757D; -fx-text-fill: white;"
-                    text="Afficher Détails"/> <!-- Gray -->
-        </HBox>
+                    <Label text="Date Fin:" />
+                    <DatePicker fx:id="dateFinPicker" />
+                </HBox>
+
+                <!-- Boutons pour les actions CRUD -->
+                <HBox alignment="CENTER" spacing="10.0">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <Button mnemonicParsing="false" onAction="#ajouterLocation" style="-fx-background-color: #007BFF; -fx-text-fill: white;" text="Créer Location" />
+                    <Button mnemonicParsing="false" onAction="#modifierLocation" style="-fx-background-color: #DC3545; -fx-text-fill: white;" text="Modifier Location" />
+                    <Button mnemonicParsing="false" onAction="#supprimerLocation" style="-fx-background-color: #28A745; -fx-text-fill: white;" text="Supprimer Location" />
+                    <Button mnemonicParsing="false" onAction="#afficherDetails" style="-fx-background-color: #6C757D; -fx-text-fill: white;" text="Afficher Détails" />
+                </HBox>
+            </VBox>
+        </children>
     </VBox>
 </AnchorPane>

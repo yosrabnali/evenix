@@ -12,7 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ServiceLigneLocation {
-    private Connection cnx;
+    private Connection cnx;//Gère la connexion à la base de données
+    //→ Permet de journaliser les messages d'information et les erreurs.
     private static final Logger LOGGER = Logger.getLogger(ServiceLigneLocation.class.getName());
 
     public ServiceLigneLocation() {
@@ -22,7 +23,10 @@ public class ServiceLigneLocation {
             LOGGER.severe("La connexion à la base de données est null.");
         }
     }
-
+//getAllByLocationId(int idLocation)
+//Récupère toutes les lignes de location pour un idlocation donné.
+//Sélectionne les champs nécessaires de lignelocation et joint la table materiel pour récupérer nomMateriel.
+//Utilise un PreparedStatement pour éviter les injections SQL.
     public List<LigneLocation> getAllByLocationId(int idLocation) {
         List<LigneLocation> lignes = new ArrayList<>();
         String sql = "SELECT ll.idLigneloca, ll.idlocation, ll.idmateriel, ll.quantite, ll.montantTotal, m.nom AS nomMateriel " +
@@ -59,7 +63,7 @@ public class ServiceLigneLocation {
 
         return lignes;
     }
-
+//Exécute la requête et crée une liste d'objets LigneLocation.
     public List<LigneLocation> getAll() {
         List<LigneLocation> lignes = new ArrayList<>();
         String sql = "SELECT ll.idLigneloca, ll.idlocation, ll.idmateriel, ll.quantite, ll.montantTotal, m.nom AS nomMateriel " +
@@ -103,7 +107,7 @@ public class ServiceLigneLocation {
             pstmt.setDouble(4, ligne.getMontantTotal());
 
             int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
+            if (rowsAffected > 0) {  //Vérifie si l’insertion a réussi (rowsAffected > 0).
                 LOGGER.info("Ligne de location ajoutée avec succès : " + ligne);
                 return true;
             } else {
@@ -127,7 +131,7 @@ public class ServiceLigneLocation {
             pstmt.setInt(5, ligne.getIdLigneloca());
 
             int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
+            if (rowsAffected > 0) { //Met à jour une ligne existante via idLigneloca.
                 LOGGER.info("Ligne de location mise à jour avec succès : " + ligne);
                 return true;
             } else {

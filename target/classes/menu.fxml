@@ -1,8 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Menu FXML Chargé !" />
-</VBox>
+<AnchorPane prefHeight="810" prefWidth="1315" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserMainLayoutController">
+
+    <stylesheets>
+        <URL value="@css/styles.css" />
+    </stylesheets>
+
+    <children>
+        <!-- Barre supérieure -->
+        <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="65" spacing="20" style="-fx-background-color: white;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <children>
+                <Label style="-fx-text-fill: #878787; -fx-font-size: 24; -fx-font-weight: bold;" text="EVENIX">
+                    <padding>
+                        <Insets left="30.0" top="10.0" />
+                    </padding></Label>
+                <ImageView fitHeight="72" fitWidth="145" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="/images/logo.PNG" />
+                    </image>
+                </ImageView>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="userNameTop" style="-fx-text-fill: #333; -fx-font-size: 16; -fx-font-weight: bold;" text="Yosra Ben ali" />
+                <ImageView fx:id="userPhotoTop" fitHeight="50" fitWidth="50" preserveRatio="true">
+                    <image>
+                        <Image url="/images/userphoto.jpg" />
+                    </image>
+                    <clip>
+                        <Circle centerX="25" centerY="25" radius="25" />
+                    </clip>
+                </ImageView>
+            </children>
+        </HBox>
+
+        <!-- Barre latérale gauche -->
+        <VBox fx:id="leftBar" alignment="CENTER_LEFT" prefWidth="150" spacing="20" style="-fx-background-color: white;                      -fx-border-radius: 15px;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="65">
+            <children>
+                <Region VBox.vgrow="ALWAYS" />
+                <ImageView fx:id="homeIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleHome" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="/images/iconhome.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="eventIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleEvent" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="/images/iconevent.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="publicationIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handlePublication" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="/images/iconpublication.jpg" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="complaintIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleComplaint" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="/images/iconcomplaint.jpg" />
+                    </image>
+                </ImageView>
+                <Region VBox.vgrow="ALWAYS" />
+                <ImageView fx:id="logoutIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleLogout" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="/images/logout.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+
+        <!-- Zone principale -->
+        <BorderPane fx:id="mainContent" style="-fx-background-color: transparent; -fx-padding: 30;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="250" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="65">
+            <center>
+                <VBox fx:id="centerContent" alignment="CENTER" spacing="15" styleClass="card">
+                    <Label style="-fx-font-size: 28; -fx-text-fill: #333; -fx-font-weight: bold;" text="Hello Good People!" />
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

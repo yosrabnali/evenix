@@ -10,13 +10,14 @@ public class Location {
     private final ObjectProperty<LocalDate> datedebut;
     private final ObjectProperty<LocalDate> datefin;
     private final IntegerProperty idUser;  // Added to hold user ID
-    // Les propriétés IntegerProperty et ObjectProperty sont utilisées pour JavaFX, ce qui permet de lier facilement ces valeurs à une interface graphique.
+    private final StringProperty status;
 
     public Location(int idlocation, int idUser, LocalDate datedebut, LocalDate datefin) {
         this.idlocation = new SimpleIntegerProperty(idlocation);
-        this.idUser = new SimpleIntegerProperty(idUser); // Sets Iduser from the constructor
+        this.idUser = new SimpleIntegerProperty(idUser);
         this.datedebut = new SimpleObjectProperty<>(datedebut);
         this.datefin = new SimpleObjectProperty<>(datefin);
+        this.status = new SimpleStringProperty(calculateStatus(datedebut, datefin));
     }
 
     // Getters and Setters (with Property methods)
@@ -70,14 +71,43 @@ public class Location {
         this.idUser.set(idUser);
     }
 
+    public String getStatus() {
+        return status.get();
+    }
+
+    public StringProperty statusProperty() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status.set(status);
+    }
+
+    public void updateStatus(){
+        this.status.set(calculateStatus(this.getDatedebut(), this.getDatefin()));
+    }
+
+    private String calculateStatus(LocalDate datedebut, LocalDate datefin) {
+        LocalDate now = LocalDate.now();
+        if (now.isBefore(datedebut)) {
+            return "À venir"; // To come
+        } else if (now.isAfter(datefin)) {
+            return "Terminée"; // Completed
+        } else {
+            return "En cours"; // In progress
+        }
+    }
+
     @Override
     public String toString() {
         return "Location{" +
                 "idlocation=" + idlocation.get() +
                 ", datedebut=" + datedebut.get() +
                 ", datefin=" + datefin.get() +
+                ", status='" + status.get() + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

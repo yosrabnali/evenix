@@ -8,7 +8,9 @@ public class LigneLocation {
     private final IntegerProperty idmateriel;
     private final IntegerProperty quantite;
     private final DoubleProperty montantTotal;
-    private String nomMateriel;  // Not a Property
+    private String nomMateriel;  // Not a Property :
+    // Nom du matériel (⚠️ ce n'est pas une propriété JavaFX car il est seulement utilisé en affichage, pas pour la liaison avec l’UI).
+
 
     public LigneLocation(int idLigneloca, int idlocation, int idmateriel, int quantite, double montantTotal) {
         this.idLigneloca = new SimpleIntegerProperty(idLigneloca);
@@ -18,7 +20,7 @@ public class LigneLocation {
         this.montantTotal = new SimpleDoubleProperty(montantTotal);
     }
 
-    // Getters and setters for all properties
+    // Les getters permettent de récupérer une valeur, et les setters permettent de la modifier.
 
     public int getIdLigneloca() {
         return idLigneloca.get();
@@ -88,7 +90,7 @@ public class LigneLocation {
     public void setNomMateriel(String nomMateriel) {
         this.nomMateriel = nomMateriel;
     }
-
+// Une méthode toString() pour afficher l’objet sous forme de texte.
     @Override
     public String toString() {
         return "LigneLocation{" +

@@ -1,18 +1,37 @@
-.white-background{
-    -fx-background-color:#fff;
+/* General */
+.root {
+    -fx-background-color: #F5F5F5;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-text-fill: #333333;
+}
 
+/* Shopping Card Item */
+.shopping-card-item {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10; /* Rounded corners */
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2); /* Subtle shadow */
+}
 
+/* Card Details Section */
+.card-details-section {
+    -fx-background-color: #D0D8E0;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
 }
-.transparent{
-    -fx-background-color: rgba(0,0,0,0);
+
+/* Credit Card Graphic (This would be styling for the image/rectangle) */
+.credit-card-graphic {
+    -fx-background-color: #222222;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 3);
+    -fx-text-fill: white; /*Example text fill. This is applied as a test*/
 }
-.round-layout{
-    -fx-border-radius: 50;
-    -fx-border-color:#D7D7D7;
-}
-.selected{
-    -fx-background-color:#F3F3F3;
-}
-.mouse-moved:hover{
-    -fx-background-color:#E4E4E4 ;
+/*Quantity Controls*/
+
+.quantityControls{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0E0E0; /*Light Border */
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
 }

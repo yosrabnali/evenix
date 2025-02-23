@@ -12,6 +12,7 @@ module projectAPI {
     requires javafx.web;
     requires jdk.jsobject;
     requires java.net.http;
+    requires java.mail;
 
     // Export et ouverture des packages pour JavaFX
     exports controllers;
@@ -19,6 +20,9 @@ module projectAPI {
 
     exports controllers.Events;
     opens controllers.Events to javafx.fxml;
+
+
+
 
     exports controllers.Locations;  // ✅ Exporte le package
     opens controllers.Locations to javafx.fxml;  // ✅ Ouvre le package à JavaFX
