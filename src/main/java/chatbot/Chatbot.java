@@ -47,7 +47,7 @@ public class Chatbot {
         userInput.setPrefWidth(300);
 
         // Bouton d'envoi
-        Button sendButton = new Button("Envoyer");
+        Button sendButton = new Button("Send");
         sendButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;");
         sendButton.setOnAction(e -> sendMessage());
 
