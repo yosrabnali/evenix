@@ -1,6 +1,7 @@
 package com.main.controllers;
 
 import com.main.Entity.Article;
+import com.main.Util.CloudinaryUploader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import com.main.services.PublicationService;
 
@@ -25,33 +28,46 @@ public class PostController {
 
 
     @FXML
-    private Button AddMaterialBTN, ClearBtn, RentBTN, deleteBtn, modifyBtn, nextPageBtn, searchBtn;
+    private Button ClearBtn, RentBTN, deleteBtn, modifyBtn, searchBtn;
     @FXML
-    private Label AuteurLabel, ContenuLabel, TitreLablel, pageNumberLabel;
+    private Label AuteurLabel, ContenuLabel, TitreLablel ;
     @FXML
-    private ImageView PostImg;
+    private ImageView PostImg , imgProfile , AddMaterialBTN;
     @FXML
     private VBox chosenMaterialCard;
     @FXML
-    private GridPane grid;
+    private VBox articlecontainer;
+    @FXML
+    private HBox addImg ;
     @FXML
     private ScrollPane scroll;
     @FXML
     private TextField searchField;
+    @FXML
+    private TextArea commentinput;
 
-    private final PublicationService publicationService = new PublicationService();
+    PublicationService publicationService = new PublicationService();
     private Article selectedMateriel;
 
     private String resourcesPath = "src/main/resources/uploads/";
+    private String UploadedImageUrl;
+
+    public String getUploadedImageUrl() {
+        return UploadedImageUrl;
+    }
+
+    public void setUploadedImageUrl(String uploadedImageUrl) {
+        UploadedImageUrl = uploadedImageUrl;
+    }
 
     /*public PostController(){
-        loadMaterials();
-    }
-*/
-    public void initialize(){
+                loadMaterials();
+            }
+        */
+    public void initialize() {
         loadMaterials();
         chosenMaterialCard.getStyleClass().add("chosenMaterialCard");
-        if(deleteBtn!=null){
+        if (deleteBtn != null) {
             deleteBtn.setOnAction(event -> deleteSelectedMateriel());
         }
 
@@ -59,49 +75,63 @@ public class PostController {
     }
 
     @FXML
-    void openAddMatView(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/AddPost-item.fxml"));
-            Parent root = loader.load();
-            AddPostController addpostController = loader.getController();
-            addpostController.setPostController(this);
-            Stage stage = new Stage();
-            stage.setTitle("Add a Post");
-            stage.setScene(new Scene(root));
-            stage.setOnHidden(e -> loadMaterials());
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+    void addImgPost(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Fichier Image", "*.png", "*.jpg", "*.jpeg")
+        );
+        File imgFile = fileChooser.showOpenDialog(null);
+        String imageUrl = CloudinaryUploader.uploadImage(imgFile.getAbsolutePath());
+        if(imageUrl != null) {
+            UploadedImageUrl = imageUrl;
+            showWarningDialog("Image Uploaded");
         }
     }
+
+    @FXML
+    void openAddMatView(MouseEvent event) {
+        if (commentinput.getText().equals("")) {
+            showWarningDialog("Status Vide :(");
+        } else {
+            Article p = new Article();
+            p.setContenu(commentinput.getText());
+            p.setUserId((long)1);
+            p.setAuteur("Yesmine");
+            p.setTitre("Post");
+            if (getUploadedImageUrl() != null) {
+                p.setImage(getUploadedImageUrl());
+                System.out.println("Image URL : " + getUploadedImageUrl());
+            } /*else if (getUploadedVideoUrl() != null) {
+                p.setType_pub("video");
+                p.setContenu(getUploadedVideoUrl());
+                System.out.println("Video URL : " + getUploadedVideoUrl());
+            }*/ else {
+                p.setImage("");
+            }
+            try {
+                publicationService.ajouter(p);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            loadMaterials();
+        }
+    }
+
     public void loadMaterials() {
-        List<Article> articles = publicationService.rechercher();
-
-        grid.getChildren().clear();
-
-        grid.setVgap(20);  // Espacement entre les éléments
-        grid.setPadding(new Insets(10, 10, 10, 30));
-
-
-        int row = 0;
-        articles.sort(Comparator.comparing(((Article article )-> article.getCreatedAt())).reversed());
-
-        //add initial Box
-        VBox materialBoxs = new VBox();
-        materialBoxs.setMaxSize(50, 50);
-        StackPane containers = new StackPane(materialBoxs);
-        containers.setAlignment(Pos.CENTER);
-        grid.add(containers, 0, row++);
-
-        for (Article m : articles) {
-            VBox materialBox = createMaterialCard(m);
-            materialBox.setMinWidth(800);
-            materialBox.setMaxSize(900, 400);
-            materialBox.setAlignment(Pos.TOP_CENTER);
-            StackPane container = new StackPane(materialBox);
-            container.setAlignment(Pos.TOP_CENTER);
-
-            grid.add(container, 0, row++);
+        try {
+            List<Article> articles = publicationService.rechercher();
+            articlecontainer.getChildren().clear();
+            for (Article article : articles) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Publication/Article.fxml"));
+                VBox vbox = fxmlLoader.load();
+                ArticleController controller = fxmlLoader.getController();
+                controller.setArticleId(article.getId());
+                controller.setData(article.getId());
+                articlecontainer.getChildren().add(vbox);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -173,7 +203,9 @@ public class PostController {
         }
     }
 
-    /** ✅ Afficher un avertissement */
+    /**
+     * ✅ Afficher un avertissement
+     */
     private void showWarningDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
@@ -201,7 +233,7 @@ public class PostController {
 
         System.out.println("🧹 Champs et boutons réinitialisés !");
     }
-    
+
     private String userRole; // Rôle de l'utilisateur
 
     public void configureButtonsVisibility() {
@@ -209,16 +241,16 @@ public class PostController {
             // Prestataire : tous les boutons visibles
             AddMaterialBTN.setVisible(false);
             modifyBtn.setVisible(false);
-            nextPageBtn.setVisible(true);
+            //nextPageBtn.setVisible(true);
             deleteBtn.setVisible(true);
-           
+
         } else if ("organisateur".equalsIgnoreCase(userRole)) {
             // Organisateur : seul "Rent" est invisible
             AddMaterialBTN.setVisible(false);
             modifyBtn.setVisible(false);
-            nextPageBtn.setVisible(false);
+            //nextPageBtn.setVisible(false);
             deleteBtn.setVisible(false);
-            pageNumberLabel.setVisible(false);
+           // pageNumberLabel.setVisible(false);
 
         }
     }

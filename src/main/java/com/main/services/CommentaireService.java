@@ -93,4 +93,28 @@ public class CommentaireService implements IService<Commentaire> {
         }
         return commentaires;
     }
+
+    public List<Commentaire> rechercherByArticleID(long articleId) throws Exception {
+        String req = "SELECT * FROM commentaire WHERE article_id=?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setLong(1, articleId);
+        ResultSet rs = ps.executeQuery();
+        List<Commentaire> commentaires = new ArrayList<>();
+            while (rs.next()) {
+                Commentaire commentaire = new Commentaire();
+                commentaire.setId(rs.getLong("id"));
+                commentaire.setContenu(rs.getString("contenu"));
+                commentaire.setArticleId(rs.getLong("article_id"));
+                commentaire.setUserId(rs.getLong("user_id"));
+                commentaire.setAuteur(rs.getString("auteur"));
+                Timestamp timestamp = rs.getTimestamp("created_at");
+                if (timestamp != null) {
+                    commentaire.setCreatedAt(timestamp.toLocalDateTime());
+                } else {
+                    commentaire.setCreatedAt(LocalDateTime.now());
+                }
+                commentaires.add(commentaire);
+            }
+        return commentaires;
+    }
 }

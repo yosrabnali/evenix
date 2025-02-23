@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.ArticleController">
+   <children>
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="600.0" spacing="20.0">
+         <children>
+            <ImageView fx:id="profileImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/yesmine.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="username" text="Nom User">
+               <font>
+                  <Font name="Segoe UI Semibold" size="15.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="50.0" prefWidth="338.0" />
+            <ImageView fx:id="menutoggle" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showmenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/troispoints.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+         <children>
+            <Label fx:id="contenu" text="Contenu">
+               <font>
+                  <Font name="Segoe UI Semibold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </HBox>
+      <VBox fx:id="sidemenu" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #fff;">
+         <children>
+            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-cursor: hand;" text="Modifier">
+               <font>
+                  <Font name="Segoe UI Semibold" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-cursor: hand;" text="Supprimer">
+               <font>
+                  <Font name="Segoe UI Semibold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <ImageView fx:id="imgarticle" fitHeight="525.0" fitWidth="525.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ImageView>
+   </children>
+</VBox>

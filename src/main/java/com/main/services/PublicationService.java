@@ -101,7 +101,7 @@ public class PublicationService implements IService<Article> {
     @Override
     public List<Article> rechercher(){
         List<Article> articles = new ArrayList<>();
-        String req = "SELECT * FROM articles";
+        String req = "SELECT * FROM articles ORDER BY created_at DESC";
         try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);

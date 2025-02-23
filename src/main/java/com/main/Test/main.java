@@ -12,9 +12,9 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/Post-view.fxml"));
-            //Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+
+
 
             Parent root = loader.load(); // Charger le fichier FXML
 
