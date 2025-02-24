@@ -125,7 +125,7 @@ public class LocationsController {
         });
 
         // Initialize the filter ComboBox
-        statusFilterComboBox.getItems().addAll("Tous", "À venir", "En cours", "Terminée", "Inconnu");
+        statusFilterComboBox.getItems().addAll("Tous", "À venir", "En cours", "Terminée");
         statusFilterComboBox.setValue("Tous"); // Set default value
         statusFilterComboBox.setOnAction(event -> filterLocations()); // Attach filter action
 
