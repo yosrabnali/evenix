@@ -1,261 +1,235 @@
 package controllers;
 
-import entities.Role;
 import entities.User;
-import services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import services.ExcelExporter;
+import services.UserService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class UserDashboardController {
+
+    @FXML
+    private TableView<User> userTable;
+    @FXML
+    private TableColumn<User, String> nomColumn, prenomColumn, emailColumn, telephoneColumn, roleColumn;
+    @FXML
+    private TableColumn<User, Void> actionColumn;
+    private ExcelExporter excelExporter; // Service d'exportation Excel
+    @FXML
+    private Button homeBtn, logoutBtn, searchBtn, prevPageBtn, nextPageBtn, addUserButton;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Label pageNumberLabel;
+
     private UserService userService = new UserService();
-
-    @FXML private TextField nomField, prenomField, emailField, telephoneField;
-    @FXML private PasswordField passwordField;
-    @FXML private ComboBox<Role> roleComboBox;
-    @FXML private Button editUserButton;
-
-    @FXML private TextField searchEmailField, newNomField, newPrenomField, newTelephoneField;
-    @FXML private ComboBox<Role> newRoleComboBox;
-
-    @FXML private TableView<User> userTable;
-    @FXML private TableColumn<User, String> nomColumn, prenomColumn, emailColumn, telephoneColumn, roleColumn;
+    private ObservableList<User> userList = FXCollections.observableArrayList();
+    private FilteredList<User> filteredUserList;
 
     @FXML
     public void initialize() {
-        // Bind columns to User properties
+        // Initialisation des colonnes et des données
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        // Load user list
-        loadUserList();
+        // Configurer la colonne "Actions"
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button modifyButton = new Button("Modifier");
+            private final Button deleteButton = new Button("Supprimer");
 
-        // Enable the edit button only when a user is selected
-        editUserButton.setDisable(true);
-        userTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            editUserButton.setDisable(newSelection == null);
-            if (newSelection != null) {
-                System.out.println("ℹ Selected User: " + newSelection.getNom());
+            {
+                // Gestion des événements pour le bouton "Modifier"
+                modifyButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    handleModifyUser(user);
+                });
+
+                // Gestion des événements pour le bouton "Supprimer"
+                deleteButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    handleDeleteUser(user);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(new HBox(10, modifyButton, deleteButton));
+                }
             }
         });
 
-        // Populate role selection dropdowns
-        roleComboBox.setItems(FXCollections.observableArrayList(Role.values()));
-        newRoleComboBox.setItems(FXCollections.observableArrayList(Role.values()));
-    }
-
-    @FXML
-    private TabPane tabPane;
-
-    @FXML
-    private Tab ModifierUtilisateur;
-
-    @FXML
-    private Tab AjouterUtilisateur;
-
-    @FXML
-    private void switchToModifierUtilisateur() {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-
-        if (selectedUser != null) {
-            // Load user details before switching to modification tab
-            loadSelectedUserDetails(selectedUser);
-            tabPane.getSelectionModel().select(ModifierUtilisateur);
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucun utilisateur sélectionné", "Veuillez sélectionner un utilisateur à modifier.");
-        }
-    }
-
-    private void loadSelectedUserDetails(User selectedUser) {
-        if (selectedUser != null) {
-            System.out.println("✅ Loading User: " + selectedUser.getNom() + " " + selectedUser.getPrenom());
-
-            // Populate fields with selected user data
-            searchEmailField.setText(selectedUser.getEmail());
-            newNomField.setText(selectedUser.getNom());
-            newPrenomField.setText(selectedUser.getPrenom());
-            newTelephoneField.setText(selectedUser.getTelephone());
-            newRoleComboBox.setValue(selectedUser.getRole());
-
-            // Debugging logs
-            System.out.println("📌 New Nom Field: " + newNomField.getText());
-            System.out.println("📌 New Prénom Field: " + newPrenomField.getText());
-            System.out.println("📌 New Téléphone Field: " + newTelephoneField.getText());
-            System.out.println("📌 New Role Field: " + newRoleComboBox.getValue());
-        }
-    }
-
-
-
-    @FXML
-    private void switchToAjouterUtilisateur() {
-        tabPane.getSelectionModel().select(AjouterUtilisateur);
-    }
-
-
-    @FXML
-    public void handleAddUser() {
-        String nom = nomField.getText().trim();
-        String prenom = prenomField.getText().trim();
-        String email = emailField.getText().trim();
-        String password = passwordField.getText().trim();
-        String telephone = telephoneField.getText().trim();
-        Role role = roleComboBox.getValue();
-
-        // Vérification des champs vides
-        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty() || telephone.isEmpty() || role == null) {
-            showAlert(Alert.AlertType.WARNING, "Champs obligatoires", "Veuillez remplir tous les champs.");
-            return;
-        }
-
-        // Vérification du format de l'email
-        if (!isValidEmail(email)) {
-            showAlert(Alert.AlertType.WARNING, "Email invalide", "Veuillez entrer une adresse email valide.");
-            return;
-        }
-
-        // Vérification de la force du mot de passe
-        if (!isValidPassword(password)) {
-            showAlert(Alert.AlertType.WARNING, "Mot de passe faible", "Le mot de passe doit contenir au moins 6 caractères et un chiffre.");
-            return;
-        }
-
-        // Vérification du format du téléphone
-        if (!isValidPhoneNumber(telephone)) {
-            showAlert(Alert.AlertType.WARNING, "Téléphone invalide", "Veuillez entrer un numéro de téléphone valide.");
-            return;
-        }
-
-        // Création et ajout de l'utilisateur
-        User user = new User(nom, prenom, email, password, telephone, role);
-        userService.Ajouter(user);
-
-        // Confirmation et mise à jour de l'interface
-        showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès !");
-        clearFields(nomField, prenomField, emailField, passwordField, telephoneField);
-        roleComboBox.setValue(null);
+        // Charger les utilisateurs dans la table
         loadUserList();
+
+        // Initialisation de la FilteredList
+        filteredUserList = new FilteredList<>(userList, p -> true);
+
+        // Lier la FilteredList à la TableView
+        userTable.setItems(filteredUserList);
+
+        // Ajouter un écouteur sur le champ de recherche pour filtrer dynamiquement
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredUserList.setPredicate(user -> {
+                // Si le champ de recherche est vide, afficher tous les utilisateurs
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Convertir le texte de recherche en minuscules pour une recherche insensible à la casse
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Vérifier si l'un des champs de l'utilisateur correspond au texte de recherche
+                if (user.getNom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (user.getPrenom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (user.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (user.getTelephone().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (user.getRole().getRoleName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false; // Aucune correspondance trouvée
+            });
+        });
     }
-
-
-    // Vérification du format de l'email
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-
-        return email.matches(emailRegex);
-    }
-
-    // Vérification de la force du mot de passe
-    private boolean isValidPassword(String password) {
-        // Minimum 6 characters, at least 1 digit
-        String passwordRegex = "^(?=.*\\d).{6,}$";
-        return password.matches(passwordRegex);
-    }
-
-
-    // Vérification du format du téléphone (exemple pour format international)
-    private boolean isValidPhoneNumber(String telephone) {
-        String phoneRegex = "^[0-9]{8,15}$"; // Accepte entre 8 et 15 chiffres
-        return telephone.matches(phoneRegex);
-    }
-    @FXML
-    public void handleEditUser() {
-        // Get the selected user from the TableView
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-
-        if (selectedUser == null) {
-            showAlert(Alert.AlertType.WARNING, "Aucun utilisateur sélectionné", "Veuillez sélectionner un utilisateur à modifier.");
-            return;
-        }
-
-        // Validate input fields
-        if (!validateFields(newNomField, newPrenomField, newTelephoneField) || newRoleComboBox.getValue() == null) {
-            showAlert(Alert.AlertType.WARNING, "Champs obligatoires", "Veuillez remplir tous les champs.");
-            return;
-        }
-
-        // Update the user with new values
-        selectedUser.setNom(newNomField.getText());
-        selectedUser.setPrenom(newPrenomField.getText());
-        selectedUser.setTelephone(newTelephoneField.getText());
-        selectedUser.setRole(newRoleComboBox.getValue());
-
-        // Debug logs
-        System.out.println("✏️ Modifying User:");
-        System.out.println("   - Nom: " + selectedUser.getNom());
-        System.out.println("   - Prénom: " + selectedUser.getPrenom());
-        System.out.println("   - Téléphone: " + selectedUser.getTelephone());
-        System.out.println("   - Rôle: " + selectedUser.getRole());
-
-        // Call UserService to update the database
-        userService.Modifier(selectedUser);
-
-        // Show success message
-        showAlert(Alert.AlertType.INFORMATION, "Modification Réussie", "Les informations de l'utilisateur ont été mises à jour.");
-
-        // Clear input fields
-        clearFields(newNomField, newPrenomField, newTelephoneField);
-        newRoleComboBox.setValue(null);
-
-        // Refresh user list
-        loadUserList();
-    }
-
-
-
 
     @FXML
-    public void handleDeleteUser() {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
-            userService.Supprimer(selectedUser.getEmail());
-            showAlert(Alert.AlertType.INFORMATION, "Suppression", "Utilisateur supprimé avec succès !");
-            loadUserList();
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucun utilisateur sélectionné", "Veuillez sélectionner un utilisateur à supprimer.");
+    private void goToDashboardPage() {
+        // Logique pour aller au tableau de bord
+        System.out.println("Aller au tableau de bord");
+    }
+
+    @FXML
+    private void handleLogout() {
+        // Logique pour déconnecter l'utilisateur
+        System.out.println("Déconnexion");
+    }
+
+    @FXML
+    private void handleSearchUser() {
+        // Logique pour rechercher un utilisateur
+        System.out.println("Rechercher un utilisateur");
+    }
+
+    @FXML
+    private void goToPreviousPage() {
+        // Logique pour aller à la page précédente
+        System.out.println("Page précédente");
+    }
+
+    @FXML
+    private void goToNextPage() {
+        // Logique pour aller à la page suivante
+        System.out.println("Page suivante");
+    }
+
+    @FXML
+    private void goToAddUserPage() {
+        try {
+            // Charger la page d'ajout d'utilisateur
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/fxml/AddUser.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un utilisateur");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void loadUserList() {
-        List<User> users = userService.Recuperer();
-        ObservableList<User> userList = FXCollections.observableArrayList(users);
-        userTable.setItems(userList);
+        // Charger les utilisateurs depuis le service
+        userList.setAll(userService.Recuperer());
+    }
 
-        // Debug : Afficher dans la console
-        if (users.isEmpty()) {
-            System.out.println("⚠ Aucun utilisateur trouvé !");
+    private void handleModifyUser(User user) {
+        try {
+            // Charger la page de modification d'utilisateur
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/fxml/ModifierUtilisateur.fxml"));
+            Parent root = loader.load();
+
+            // Passer l'utilisateur à modifier au contrôleur de la page de modification
+            ModifierUtilisateurController controller = loader.getController();
+            controller.initData(user);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modifier un utilisateur");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleDeleteUser(User user) {
+        // Supprimer l'utilisateur
+        boolean success = userService.Supprimer(user.getEmail());
+        if (success) {
+            loadUserList(); // Recharger la liste des utilisateurs
+            System.out.println("Utilisateur supprimé : " + user.getNom());
         } else {
-            System.out.println("✅ Nombre d'utilisateurs récupérés : " + users.size());
+            System.out.println("Échec de la suppression de l'utilisateur : " + user.getNom());
         }
     }
+    @FXML
+    private void handleExportToExcel() {
+        // Récupérer les utilisateurs affichés dans le tableau
+        List<User> users = userTable.getItems();
 
-    private boolean validateFields(TextField... fields) {
-        for (TextField field : fields) {
-            if (field.getText().trim().isEmpty()) {
-                return false;
+        // Initialiser le service d'exportation
+        excelExporter = new ExcelExporter(/* Passer la connexion à la base de données si nécessaire */);
+
+        // Ouvrir une boîte de dialogue pour choisir l'emplacement du fichier
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Enregistrer sous");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichier Excel (*.xlsx)", "*.xlsx"));
+        fileChooser.setInitialFileName("Utilisateurs.xlsx");
+
+        File file = fileChooser.showSaveDialog(new Stage());
+        if (file != null) {
+            // Exporter les données vers Excel
+            boolean success = excelExporter.exportToExcel(users, file);
+            if (success) {
+                showAlert(Alert.AlertType.INFORMATION, "Export réussi", "Le fichier Excel a été exporté avec succès : " + file.getAbsolutePath());
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Erreur d'export", "Une erreur est survenue lors de l'exportation.");
             }
-        }
-        return true;
-    }
-
-    private void clearFields(TextField... fields) {
-        for (TextField field : fields) {
-            field.clear();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Export annulé", "L'exportation a été annulée par l'utilisateur.");
         }
     }
 
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
+    // Méthode utilitaire pour afficher des alertes
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

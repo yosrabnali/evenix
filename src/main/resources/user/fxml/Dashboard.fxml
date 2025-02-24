@@ -2,135 +2,84 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.UserDashboardController"
-            prefHeight="600.0" prefWidth="800.0"
-            stylesheets="/css/Dashboard.css">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.UserDashboardController" stylesheets="@/css/style1.css">
 
-    <TabPane fx:id="tabPane" prefWidth="800.0" prefHeight="600.0"
-             AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
-             AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+    <!-- Sidebar -->
+    <left>
+        <VBox spacing="15" styleClass="sidebar">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <children>
+                <!-- Logo de l'application -->
+                <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/logo.png" />
+                    </image>
+                </ImageView>
 
-        <!-- Onglet Liste -->
-        <Tab text="Liste des Utilisateurs">
-            <AnchorPane>
-                <ScrollPane fitToWidth="true" fitToHeight="true">
-                    <VBox spacing="10" alignment="CENTER"
-                          prefWidth="750.0" prefHeight="550.0">
-                        <Label text="Liste des Utilisateurs" style="-fx-font-size: 18px;"/>
+                <!-- Boutons du menu -->
+                <Button fx:id="homeBtn" text="🏠 Dashboard" onAction="#goToDashboardPage" styleClass="sidebar-button" />
+                <Button fx:id="eventBtn" text="📅 Événements" styleClass="sidebar-button" />
+                <Button fx:id="reclamationBtn" text="📝 Réclamations"  styleClass="sidebar-button" />
+                <Button fx:id="locationBtn" text="🚗 Location" styleClass="sidebar-button" />
+                <Button fx:id="materialBtn" text="🛠 Matériel"  styleClass="sidebar-button" />
+                <Button fx:id="discussionBtn" text="💬 Discussion"  styleClass="sidebar-button" />
 
-                        <TableView fx:id="userTable">
-                            <columns>
-                                <TableColumn text="Nom" fx:id="nomColumn"/>
-                                <TableColumn text="Prénom" fx:id="prenomColumn"/>
-                                <TableColumn text="Email" fx:id="emailColumn"/>
-                                <TableColumn text="Téléphone" fx:id="telephoneColumn"/>
-                                <TableColumn text="Rôle" fx:id="roleColumn"/>
-                            </columns>
-                        </TableView>
+                <!-- Bouton Déconnexion -->
+                <Button fx:id="logoutBtn" text="🚪 Déconnexion" onAction="#handleLogout" styleClass="sidebar-button logout" />
+            </children>
+        </VBox>
+    </left>
 
-                        <HBox spacing="120" alignment="BASELINE_CENTER">
-                            <Button text="Supprimer Sélection" onAction="#handleDeleteUser"
-                                    style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
-                            <Button fx:id="editUserButton" text="Modifier Utilisateur"
-                                    onAction="#switchToModifierUtilisateur"
-                                    style="-fx-background-color: #FF9800; -fx-text-fill: white;" disable="true"/>
-                            <Button text="Ajouter Utilisateur" onAction="#switchToAjouterUtilisateur"
-                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-                        </HBox>
-                    </VBox>
-                </ScrollPane>
-            </AnchorPane>
-        </Tab>
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="20" styleClass="main-content">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <children>
+                <!-- Titre -->
+                <Label text="Gestion des Utilisateurs" styleClass="header-label" />
 
-        <!-- Onglet Ajouter -->
-        <Tab fx:id="AjouterUtilisateur" text="Ajouter Utilisateur">
-            <AnchorPane>
-                <ScrollPane fitToWidth="true" fitToHeight="true">
-                    <VBox spacing="10" alignment="CENTER"
-                          prefWidth="750.0" prefHeight="550.0">
-                        <Label text="Ajouter un Utilisateur" style="-fx-font-size: 18px;"/>
+                <!-- Barre de recherche -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="searchField" promptText="Rechercher un utilisateur..." styleClass="search-field" />
+                    <Button fx:id="searchBtn" onAction="#handleSearchUser" styleClass="search-button" text="🔍 Rechercher" />
+                </HBox>
 
-                        <VBox spacing="5">
-                            <Label text="Nom:" />
-                            <TextField fx:id="nomField" promptText="Entrez le nom"/>
-                        </VBox>
+                <!-- Tableau des utilisateurs -->
+                <TableView fx:id="userTable" prefHeight="300.0" prefWidth="750.0" styleClass="user-table">
+                    <columns>
+                        <TableColumn fx:id="nomColumn" text="Nom" />
+                        <TableColumn fx:id="prenomColumn" text="Prénom" />
+                        <TableColumn fx:id="emailColumn" text="Email" />
+                        <TableColumn fx:id="telephoneColumn" text="Téléphone" />
+                        <TableColumn fx:id="roleColumn" text="Rôle" />
+                        <TableColumn fx:id="actionColumn" text="Actions" />
+                    </columns>
+                </TableView>
 
-                        <VBox spacing="5">
-                            <Label text="Prénom:" />
-                            <TextField fx:id="prenomField" promptText="Entrez le prénom"/>
-                        </VBox>
+                <!-- Pagination -->
+                <HBox alignment="CENTER" spacing="15">
+                    <Button fx:id="prevPageBtn" onAction="#goToPreviousPage" styleClass="pagination-button" text="⬅ Précédent" />
+                    <Label fx:id="pageNumberLabel" text="Page 1" />
+                    <Button fx:id="nextPageBtn" onAction="#goToNextPage" styleClass="pagination-button" text="Suivant ➡" />
+                </HBox>
 
-                        <VBox spacing="5">
-                            <Label text="Email:" />
-                            <TextField fx:id="emailField" promptText="Entrez l'email"/>
-                        </VBox>
+                <!-- Boutons d'actions -->
+                <HBox spacing="15" alignment="CENTER">
+                    <Button fx:id="addUserButton" onAction="#goToAddUserPage" styleClass="add-user-button" text="➕ Ajouter Utilisateur" />
+                    <Button fx:id="exportExcelButton" onAction="#handleExportToExcel" styleClass="export-button" text="📊 Exporter en Excel" />
+<!--                    <Button fx:id="exportExcelButton" onAction="#exportToExcel" styleClass="export-button" text="📊 Exporter en Excel" />-->
+                </HBox>
 
-                        <VBox spacing="5">
-                            <Label text="Mot de passe:" />
-                            <PasswordField fx:id="passwordField" promptText="Entrez le mot de passe"/>
-                        </VBox>
-
-                        <VBox spacing="5">
-                            <Label text="Téléphone:" />
-                            <TextField fx:id="telephoneField" promptText="Entrez le téléphone"/>
-                        </VBox>
-
-                        <VBox spacing="5">
-                            <Label text="Rôle:" />
-                            <ComboBox fx:id="roleComboBox" promptText="Sélectionnez un rôle"/>
-                        </VBox>
-
-                        <Button text="Ajouter" onAction="#handleAddUser"
-                                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-                    </VBox>
-                </ScrollPane>
-            </AnchorPane>
-        </Tab>
-
-        <!-- Onglet Modifier -->
-        <Tab fx:id="ModifierUtilisateur" text="Modifier Utilisateur">
-            <AnchorPane>
-                <ScrollPane fitToWidth="true" fitToHeight="true">
-                    <VBox spacing="10" alignment="CENTER"
-                          prefWidth="750.0" prefHeight="550.0">
-                        <Label text="Modifier un Utilisateur" style="-fx-font-size: 18px;"/>
-
-                        <VBox spacing="5">
-                            <Label text="Email de l'utilisateur à modifier:" />
-                            <TextField fx:id="searchEmailField" promptText="Entrez l'email"/>
-                        </VBox>
-
-                        <VBox spacing="5">
-                            <Label text="Nouveau Nom:" />
-                            <TextField fx:id="newNomField" promptText="Entrez le nouveau nom"/>
-                        </VBox>
-
-                        <VBox spacing="5">
-                            <Label text="Nouveau Prénom:" />
-                            <TextField fx:id="newPrenomField" promptText="Entrez le nouveau prénom"/>
-                        </VBox>
-
-                        <VBox spacing="5">
-                            <Label text="Nouveau Téléphone:" />
-                            <TextField fx:id="newTelephoneField" promptText="Entrez le nouveau téléphone"/>
-                        </VBox>
-
-                        <VBox spacing="5">
-                            <Label text="Nouveau Rôle:" />
-                            <ComboBox fx:id="newRoleComboBox" promptText="Sélectionnez un rôle"/>
-                        </VBox>
-
-                        <HBox>
-                            <Button text="Modifier" onAction="#handleEditUser"
-                                    style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
-                        </HBox>
-                    </VBox>
-                </ScrollPane>
-            </AnchorPane>
-        </Tab>
-
-    </TabPane>
-</AnchorPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

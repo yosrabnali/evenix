@@ -1,5 +1,5 @@
 /* Background for the entire dashboard */
-.root {
+AnchorPane {
     -fx-background-color: linear-gradient(to right, #1E3C72, #2A5298);
 }
 
@@ -22,8 +22,6 @@
     -fx-cursor: hand;
     -fx-background-color: #546E7A; /* Couleur des boutons du menu */
     -fx-text-fill: white;
-    -fx-pref-width: 160px; /* Largeur fixe */
-    -fx-alignment: CENTER_LEFT;
 }
 
 .sidebar-button:hover {
@@ -119,43 +117,30 @@
     -fx-background-color: #388E3C; /* Couleur au survol */
 }
 
-/* Bouton Modifier */
+/* Modify Button */
 .modify-button {
-    -fx-background-color: #FF9800; /* Orange */
+    -fx-background-color: #FF9800; /* Couleur du bouton "Modifier" */
     -fx-text-fill: white;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-padding: 5px 10px;
     -fx-background-radius: 10;
     -fx-cursor: hand;
 }
 
 .modify-button:hover {
-    -fx-background-color: #F57C00; /* Orange foncé au survol */
+    -fx-background-color: #F57C00; /* Couleur au survol */
 }
 
-/* Bouton Supprimer */
+/* Delete Button */
 .delete-button {
-    -fx-background-color: #F44336; /* Rouge */
+    -fx-background-color: #F44336; /* Couleur du bouton "Supprimer" */
     -fx-text-fill: white;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-padding: 5px 10px;
     -fx-background-radius: 10;
     -fx-cursor: hand;
 }
 
 .delete-button:hover {
-    -fx-background-color: #D32F2F; /* Rouge foncé au survol */
-}
-
-/* Export Button */
-.export-button {
-    -fx-background-color: #4CAF50; /* Vert */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 5px;
-}
-
-.export-button:hover {
-    -fx-background-color: #45a049; /* Vert plus foncé au survol */
+    -fx-background-color: #D32F2F; /* Couleur au survol */
 }

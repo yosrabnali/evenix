@@ -35,7 +35,7 @@ public class SignUpController {
     @FXML
     public void initialize() {
 //        // Initialisation des rôles dans le ComboBox
-//        roleComboBox.getItems().addAll("Admin", "Client", "Organisateur", "Prestataire");
+//        roleComboBox.getItems().addAll( "Client", "Organisateur", "Prestataire");
     }
 
     @FXML

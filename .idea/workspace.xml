@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2f68b34-279d-4f0f-ab2d-8187b3d5f875" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/SignUpController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/IService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/MYDB.java" afterDir="false" />
-    </list>
+    <list default="true" id="a2f68b34-279d-4f0f-ab2d-8187b3d5f875" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,9 +17,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
+        <option value="CSS File" />
         <option value="FxmlFile" />
         <option value="Class" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -55,10 +42,10 @@
     "Application.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "user",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "C:/Users/Salim/Desktop/projectAPI/untitled2/src/main/java",
-    "last_opened_file_path": "C:/Users/Salim/Desktop/jeri",
+    "last_opened_file_path": "C:/Users/Salim/Desktop/slayemFX",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -75,8 +62,12 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Salim\Desktop\projectAPI\untitled2\src\main\resources\images" />
+      <recent name="C:\Users\Salim\Desktop\projectAPI\untitled2\src\main\resources\images\Icons" />
+      <recent name="C:\Users\Salim\Desktop\projectAPI\untitled2\src\main\resources\user\fxml" />
+      <recent name="C:\Users\Salim\Desktop\projectAPI\untitled2\src\main\resources\css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Salim\Desktop\projectAPI\untitled2\src\main\resources\images\Icons" />
       <recent name="C:\Users\Salim\Desktop\projectAPI\untitled2\src\main\resources\user\fxml" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -87,7 +78,7 @@
   <component name="RunManager">
     <configuration name="MainFX" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main.MainFX" />
-      <module name="untitled2" />
+      <module name="projet" />
       <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Salim\Downloads\openjfx-23.0.2_windows-x64_bin-sdk\javafx-sdk-23.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
@@ -119,6 +110,12 @@
       <workItem from="1739703111549" duration="46190000" />
       <workItem from="1739826657562" duration="3568000" />
       <workItem from="1739835979536" duration="47448000" />
+      <workItem from="1739952061910" duration="3311000" />
+      <workItem from="1740169924006" duration="32565000" />
+      <workItem from="1740255623456" duration="7989000" />
+      <workItem from="1740265576080" duration="35270000" />
+      <workItem from="1740362085898" duration="3783000" />
+      <workItem from="1740367298143" duration="115000" />
     </task>
     <servers />
   </component>

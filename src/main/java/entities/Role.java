@@ -26,4 +26,5 @@ public enum Role {
             }
         }
         throw new IllegalArgumentException("Rôle inconnu: " + roleName);
-    }}
+    }
+}

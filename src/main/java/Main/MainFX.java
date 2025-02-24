@@ -17,7 +17,7 @@ public class MainFX extends Application {
             // Vérification des ressources avant de les utiliser
 
             // Charger le fichier FXML du SignUp
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/fxml/LandingPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user/fxml/Dashboard.fxml"));
             Pane root = loader.load();
 
             // Créer la scène

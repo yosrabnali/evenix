@@ -1,11 +1,10 @@
 package services;
-import entities.User;
 
 import java.util.List;
 
 public interface IService<T> {
-        public void Ajouter(T t) ;
-        public void Modifier(T t);
+        public boolean Ajouter(T t) ;
+        public boolean Modifier(T t);
         public boolean Supprimer(int Id);
 
         boolean Supprimer(String email);
