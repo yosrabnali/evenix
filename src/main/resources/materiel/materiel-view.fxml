@@ -231,19 +231,19 @@
                             <children>
                                 <Pane fx:id="iconPane" prefHeight="67.0" prefWidth="840.0" style="-fx-background-color: #D3D3D3; -fx-border-radius: 15; -fx-background-radius: 15; -fx-padding: 10;">
                            <children>
-                              <ImageView fx:id="IAimage" fitHeight="36.0" fitWidth="38.0" layoutX="20.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="IAimage" fitHeight="36.0" fitWidth="38.0" layoutX="24.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/Icons/chatbot.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="excelimg" fitHeight="36.0" fitWidth="31.0" layoutX="147.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="excelimg" fitHeight="36.0" fitWidth="31.0" layoutX="200.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/Icons/check_16625951.png" />
+                                    <Image url="@../images/Icons/telecharger.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="exportimg" fitHeight="36.0" fitWidth="32.0" layoutX="89.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="exportimg" fitHeight="36.0" fitWidth="38.0" layoutX="87.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/Icons/telecharger%20(1).png" />
+                                    <Image url="@../images/Icons/check_16625951.png" />
                                  </image>
                               </ImageView>
                               <Button fx:id="AddMaterialBTN" layoutX="703.0" layoutY="9.0" mnemonicParsing="false" onAction="#openAddMatView" prefHeight="36.0" prefWidth="137.0" styleClass="search-button" stylesheets="@../css/style.css" text="Add Material" textFill="#828282" />
@@ -258,12 +258,23 @@
                                     <Font name="Cambria" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="importTXT" layoutX="148.0" layoutY="62.0" prefHeight="15.0" prefWidth="52.0" text="Import" textFill="#515d8f">
+                              <Label fx:id="importTXT" layoutX="198.0" layoutY="62.0" prefHeight="15.0" prefWidth="52.0" text="Import" textFill="#515d8f">
                                  <font>
                                     <Font name="Cambria" size="12.0" />
                                  </font>
                               </Label>
                               <ComboBox fx:id="triComboBox" layoutX="495.0" layoutY="8.0" prefHeight="38.0" prefWidth="192.0" promptText="Sort by price" styleClass="combo-box" stylesheets="@../css/style.css" />
+                              <ImageView fx:id="PDFbtn" fitHeight="46.0" fitWidth="25.0" layoutX="144.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/document_16509258.png" />
+                                 </image>
+                              </ImageView>
+                              <ComboBox fx:id="categoryFilter" layoutX="297.0" layoutY="8.0" prefHeight="38.0" prefWidth="192.0" promptText="Filter by category" styleClass="combo-box" stylesheets="@../css/style.css" />
+                              <Label fx:id="PDFTXT" layoutX="146.0" layoutY="62.0" prefHeight="15.0" prefWidth="52.0" text="PDF" textFill="#515d8f">
+                                 <font>
+                                    <Font name="Cambria" size="12.0" />
+                                 </font>
+                              </Label>
                            </children></Pane>
                             </children>
                             <VBox.margin>

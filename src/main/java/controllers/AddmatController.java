@@ -1,7 +1,7 @@
 package controllers;
 
-import entities.Categorie;
-import entities.Materiel;
+import Entity.Categorie;
+import Entity.Materiel;
 import javafx.scene.image.ImageView;
 import services.MaterielService;
 import services.CategorieService;
@@ -12,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;

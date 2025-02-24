@@ -1,6 +1,6 @@
 package controllers;
 
-import entities.Categorie;
+import Entity.Categorie;
 import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

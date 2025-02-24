@@ -1,8 +1,8 @@
 package services;
 
 
-import entities.Materiel;
-import util.MyDB;
+import Entity.Materiel;
+import Util.MyDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,6 +45,13 @@ public class MaterielService implements IService<Materiel> {
                 m.setIdMateriel(generatedKeys.getInt(1));
             }
             System.out.println("✅ Matériel ajouté avec succès ! ID: " + m.getIdMateriel());
+
+            // 🚀 Envoi du SMS après ajout
+            String numeroDestinataire = "+21626654742"; // Remplace par le numéro de l'utilisateur ou un admin
+            String message = "✅ Nouveau matériel ajouté : " + m.getNom() + " (Quantité: " + m.getQuantite() + ")";
+
+            SmsService.sendSms(numeroDestinataire, message);
+            System.out.println("📩 SMS envoyé avec succès !");
 
         } catch (SQLException ex) {
             System.err.println("❌ Erreur lors de l'ajout du matériel : " + ex.getMessage());
@@ -262,32 +269,7 @@ public class MaterielService implements IService<Materiel> {
             throw new RuntimeException(e);
         }
     }
-    public Materiel getMaterielById(int idMateriel) {
-        String sql = "SELECT * FROM materiel WHERE idmateriel = ?";
-        try {
-            Connection conn = MyDB.getInstance().getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, idMateriel);
-            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return new  Materiel(
-
-                        rs.getInt("idmateriel"),
-                        rs.getString("nom"),
-                        rs.getString("description"),
-                        rs.getDouble("prix"),
-                        rs.getString("image"),
-                        rs.getInt("quantite"),
-                        rs.getInt("idcategorie"),
-                        rs.getInt("iduser")
-                );
-            }
-        } catch (SQLException e) {
-            System.out.println("❌ Erreur lors de la récupération du matériel : " + e.getMessage());
-        }
-        return null;
-    }
 }
 
 

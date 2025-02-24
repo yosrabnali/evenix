@@ -1,4 +1,4 @@
-package entities;
+package Entity;
 
 public class Materiel {
     private int idMateriel;
@@ -23,6 +23,16 @@ public class Materiel {
         this.quantite = quantite;
         this.idCategorie = idCategorie;
         this.idUser = idUser;
+    }
+
+    public Materiel(int idMateriel, String nom, String description, double prix, String image, int quantite, int idCategorie) {
+        this.idMateriel = idMateriel;
+        this.nom = nom;
+        this.description = description;
+        this.prix = prix;
+        this.image = image;
+        this.quantite = quantite;
+        this.idCategorie = idCategorie;
     }
 
     public Materiel(String nom, String description, double prix, String image, int quantite, int idCategorie, int idUser) {

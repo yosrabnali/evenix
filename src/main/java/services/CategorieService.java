@@ -1,7 +1,7 @@
 package services;
 
-import entities.Categorie;
-import util.MyDB;
+import Entity.Categorie;
+import Util.MyDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -140,6 +140,8 @@ public class CategorieService implements IService<Categorie> {
         }
         return nomCategorie;
     }
+
+
 
 
 

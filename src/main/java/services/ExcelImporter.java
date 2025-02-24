@@ -2,17 +2,16 @@ package services;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import entities.Materiel;
+import Entity.Materiel;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import util.MyDB;
+import Util.MyDB;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Iterator;
 
 public class ExcelImporter {
@@ -59,8 +58,7 @@ public class ExcelImporter {
                     double prix = getCellValueAsDouble(row.getCell(3));
                     String image = getCellValueAsString(row.getCell(4));
                     int quantite = (int) getCellValueAsDouble(row.getCell(5));
-                    String nomCategorie = getCellValueAsString(row.getCell(6)); // ✅ Nom au lieu d'ID
-                    int idUser = (int) getCellValueAsDouble(row.getCell(7));
+                    String nomCategorie = getCellValueAsString(row.getCell(6)); // ✅ Nom de la catégorie
 
                     // 🔹 1. Récupérer idCategorie depuis le service
                     int idCategorie = categorieService.getIdCategorieByName(nomCategorie);
@@ -70,8 +68,8 @@ public class ExcelImporter {
                         continue;
                     }
 
-                    // 🔹 2. Insérer le matériel dans la base
-                    insertMateriel(new Materiel(idMateriel, nom, description, prix, image, quantite, idCategorie, idUser));
+                    // 🔹 2. Insérer le matériel dans la base (sans iduser)
+                    insertMateriel(new Materiel(idMateriel, nom, description, prix, image, quantite, idCategorie));
 
                 } catch (Exception e) {
                     System.err.println("❌ Erreur lors de l'importation d'une ligne : " + e.getMessage());
@@ -85,7 +83,8 @@ public class ExcelImporter {
     }
 
     private void insertMateriel(Materiel materiel) {
-        String sql = "INSERT INTO materiel (idmateriel, nom, description, prix, image, quantite, idcategorie, iduser) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        // 🔹 Nouvelle requête SANS `iduser`
+        String sql = "INSERT INTO materiel (idmateriel, nom, description, prix, image, quantite, idcategorie) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, materiel.getIdMateriel());
@@ -95,7 +94,6 @@ public class ExcelImporter {
             stmt.setString(5, materiel.getImage());
             stmt.setInt(6, materiel.getQuantite());
             stmt.setInt(7, materiel.getIdCategorie());
-            stmt.setInt(8, materiel.getIdUser());
 
             stmt.executeUpdate();
             System.out.println("✅ Matériel ajouté : " + materiel.getNom());

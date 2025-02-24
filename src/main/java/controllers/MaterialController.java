@@ -1,9 +1,8 @@
 package controllers;
 
 import QRcode.QRCodeGenerator;
-import QRcode.QRScanner;
 import chatbot.Chatbot;
-import entities.Materiel;
+import Entity.Materiel;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,10 +21,16 @@ import javafx.stage.Stage;
 import services.ExcelExporter;
 import services.ExcelImporter;
 import services.MaterielService;
-import util.MyDB;
+import services.PDFExporter;
+import Util.MyDB;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -113,11 +118,17 @@ public class MaterialController {
         @FXML
         private ImageView recicon;
         @FXML
+        private ImageView PDFbtn;
+        @FXML
         private Label exportTXT;
         @FXML
         private Label importTXT;
         @FXML
+        private Label PDFTXT;
+        @FXML
         private ComboBox<String> triComboBox;
+        @FXML
+        private ComboBox<String>categoryFilter;
 
 
 
@@ -139,6 +150,10 @@ public class MaterialController {
                 exportimg.setOnMouseClicked(e ->handleExportExcel());
                 grid.setStyle("-fx-background-color: #f5f5f5; -fx-padding: 20px;");
                 chosenMaterialCard.getStyleClass().add("chosen-Material-Card");
+
+
+                PDFbtn.setOnMouseClicked(e ->ExportPDF() );
+
 
 
                 // Cacher la carte de détail au début
@@ -191,6 +206,7 @@ public class MaterialController {
                 ImageAnimation.animateTextFade(IAchat, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
                 ImageAnimation.animateTextFade(importTXT, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
                 ImageAnimation.animateTextFade(exportTXT, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
+                ImageAnimation.animateTextFade(PDFTXT, 1.5, 1.0, 0.3, FadeTransition.INDEFINITE);
                 ////////////////////////////////////////
                 ImageAnimation.addHoverEffect(IAimage);
                 ImageAnimation.addHoverEffect(excelimg);
@@ -204,6 +220,7 @@ public class MaterialController {
                 ImageAnimation.addHoverEffect(deleteBtn);
                 ImageAnimation.addHoverEffect(RentBTN);
                 ImageAnimation.addHoverEffect(logouticon);
+                ImageAnimation.addHoverEffect(PDFbtn);
                 ////////////////////////////////
                 ImageAnimation.addTooltip(homeicon, "Home");
                 ImageAnimation.addTooltip(eventicon, "Events");
@@ -212,7 +229,8 @@ public class MaterialController {
                 ImageAnimation.addTooltip(recicon, "Reclamation");
                 ImageAnimation.addTooltip(achaticon, "Buy");
 
-
+                loadCategories(); // Charger les catégories
+                categoryFilter.setOnAction(event -> handleFilterByCategory());
 
 
 
@@ -236,6 +254,71 @@ public class MaterialController {
                 rotate.setInterpolator(Interpolator.LINEAR);
                 rotate.play();
         }
+
+
+
+        private void loadCategories() {
+                categoryFilter.getItems().clear();
+                categoryFilter.getItems().add("All categories"); // Option par défaut
+
+                String query = "SELECT DISTINCT service FROM categorie"; // Récupérer les noms des catégories
+
+                try (Connection conn = MyDB.getInstance().getConnection();
+                     Statement stmt = conn.createStatement();
+                     ResultSet rs = stmt.executeQuery(query)) {
+
+                        while (rs.next()) {
+                                categoryFilter.getItems().add(rs.getString("service"));
+                        }
+
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+
+                categoryFilter.setValue("All categories"); // Par défaut
+        }
+        @FXML
+        private void handleFilterByCategory() {
+                String selectedCategory = categoryFilter.getValue();
+
+                String query;
+                if (selectedCategory.equals("All categories")) {
+                        query = "SELECT * FROM materiel";
+                } else {
+                        query = "SELECT * FROM materiel WHERE idcategorie = (SELECT idcategorie FROM categorie WHERE service = ?)";
+                }
+
+                try (Connection conn = MyDB.getInstance().getConnection();
+                     PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                        if (!selectedCategory.equals("All categories")) {
+                                stmt.setString(1, selectedCategory);
+                        }
+
+                        ResultSet rs = stmt.executeQuery();
+                        List<Materiel> filteredMateriels = new ArrayList<>();
+
+                        while (rs.next()) {
+                                filteredMateriels.add(new Materiel(
+                                        rs.getInt("idmateriel"),
+                                        rs.getString("nom"),
+                                        rs.getString("description"),
+                                        rs.getDouble("prix"),
+                                        rs.getString("image"),
+                                        rs.getInt("quantite"),
+                                        rs.getInt("idcategorie"),
+                                        rs.getInt("iduser")
+                                ));
+
+                        }
+
+                        afficherMateriels(filteredMateriels); // Mettre à jour l'affichage
+
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
+
 
         @FXML
         private void openAddMatView(ActionEvent event) {
@@ -446,7 +529,7 @@ public class MaterialController {
 
                 // ✅ Création d’un texte bien formaté pour le QR Code
                 String qrData = "\n📌 Name: " + nom +
-                        "\n💰 Price: " + prix + " DT" +
+                        "\n💰 Price: " + prix + " $" +
                         "\n🏷 Description: " + description +
                         "\n📂 Category: " + categorie;
 
@@ -619,18 +702,28 @@ public class MaterialController {
                         Stage popupStage = new Stage();
                         popupStage.initOwner(RentBTN.getScene().getWindow());
                         popupStage.initModality(Modality.APPLICATION_MODAL);
-                        popupStage.setTitle("Confirmer la livraison");
+                        popupStage.setTitle("Confirm Delivery");
 
-                        Label label = new Label("Entrez la quantité (max: " + maxQte + ") :");
+                        // 🔹 Création du label et des champs d'entrée
+                        Label label = new Label("Enter the quantity (max: " + maxQte + ") :");
                         TextField qteField = new TextField();
                         Button confirmButton = new Button("OK");
-                        VBox layout = new VBox(10, label, qteField, confirmButton);
+
+                        // 🔹 Image de succès (initialement cachée)
+                        ImageView successImage = new ImageView(new Image("file:src/main/resources/images/success.png"));
+                        successImage.setFitWidth(50);
+                        successImage.setFitHeight(50);
+                        successImage.setVisible(false);
+
+                        // 🔹 Mise en page
+                        VBox layout = new VBox(10, label, qteField, confirmButton, successImage);
                         layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
                         confirmButton.setOnAction(e -> {
                                 try {
                                         int qte = Integer.parseInt(qteField.getText());
                                         if (qte > 0 && qte <= maxQte) {
+                                                // 🔹 Ajouter la livraison et mettre à jour la base de données
                                                 materielService.ajouterLivraison(idMateriel, qte);
 
                                                 if (!MyDB.getInstance().isConnected()) {
@@ -640,24 +733,40 @@ public class MaterialController {
 
                                                 materielService.diminuerQuantiteMateriel(idMateriel, qte);
 
-                                                layout.getChildren().clear();
+                                                // 🔹 Mise à jour de l'interface : cacher les champs et afficher le succès
+                                                qteField.setVisible(false);
+                                                confirmButton.setVisible(false);
+                                                label.setText("✅ Delivery confirmed!");
+                                                successImage.setVisible(true); // Afficher l'image de succès
 
-                                                // Fermer la popup après 1 seconde
-                                                PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                                                // 🔹 Animation de fondu pour l'image de succès
+                                                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), successImage);
+                                                fadeIn.setFromValue(0);
+                                                fadeIn.setToValue(1);
+                                                fadeIn.play();
+
+                                                // 🔹 Fermer la popup après 1.5 secondes
+                                                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
                                                 delay.setOnFinished(event -> popupStage.close());
                                                 delay.play();
                                         } else {
-                                                label.setText("Quantité invalide !");
+                                                label.setText("Invalid quantity!");
                                         }
                                 } catch (NumberFormatException ex) {
-                                        label.setText("Veuillez entrer un nombre valide !");
+                                        label.setText("Please enter a valid number!");
                                 }
                         });
 
+                        // 🔹 Afficher la fenêtre modale
                         popupStage.setScene(new Scene(layout, 300, 200));
                         popupStage.showAndWait();
                 });
         }
+        private void refreshPage() {
+                System.out.println("🔄 Rafraîchissement de la page...");
+                loadMaterials(); // Recharge les matériels
+        }
+
 
 
 
@@ -665,11 +774,18 @@ public class MaterialController {
         private void handleImportExcel() {
                 ExcelImporter importer = new ExcelImporter();
                 importer.importFromExcel(new Stage());
+
+                        refreshPage(); // 🔄 Rafraîchir la page après la fermeture
         }
         @FXML
         private void handleExportExcel() {
                 ExcelExporter exporter = new ExcelExporter();
                 exporter.exportToExcel(new Stage());
+        }
+        @FXML
+        private void ExportPDF() {
+                PDFExporter pdfExporter = new PDFExporter();
+                pdfExporter.exportToPDF(new Stage());
         }
 
 

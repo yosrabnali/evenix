@@ -1,4 +1,4 @@
-package Main;
+package Test;
 
 import controllers.MaterialController;
 import javafx.application.Application;
@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class main extends Application {
+public class HelloApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -29,7 +29,7 @@ public class main extends Application {
         }
     }
 
-    public static void main(String[] args) {
+    public static void HelloApplication(String[] args) {
         launch(args);
     }
 }

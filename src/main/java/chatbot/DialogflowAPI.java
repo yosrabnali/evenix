@@ -27,7 +27,7 @@ public class DialogflowAPI {
 
     // 🔥 Hugging Face API
     private static final String HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2";
-    private static final String HUGGINGFACE_API_KEY = "";
+    private static final String HUGGINGFACE_API_KEY = "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";
 
     public static String getDialogflowResponse(String query) {
         logger.info("🔹 Début du traitement...");
