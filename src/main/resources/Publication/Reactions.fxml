@@ -10,62 +10,69 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.ArticleController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" styleClass="post-background" stylesheets="@../../../../../../Desktop/Facebook-Post-Reactions-main/Facebook/src/resources/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.PostController">
    <children>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="600.0" spacing="20.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0">
          <children>
-            <ImageView fx:id="profileImg" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgProfile" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox alignment="CENTER" prefHeight="60.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="username">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="18.0" />
+                           </font>
+                        </Label>
+                        <!--<ImageView fx:id="imgVerified" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../Desktop/Facebook-Post-Reactions-main/Facebook/src/img/ic_verified.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>-->
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="date" textFill="#616770">
+                           <font>
+                              <Font name="Segoe UI Historic" size="15.0" />
+                           </font>
+                        </Label>
+                        <!--<ImageView fx:id="audience" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../Desktop/Facebook-Post-Reactions-main/Facebook/src/img/ic_public.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>-->
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/yesmine.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="username" text="Nom User">
-               <font>
-                  <Font name="Segoe UI Semibold" size="15.0" />
-               </font>
-            </Label>
-            <Pane prefHeight="50.0" prefWidth="338.0" />
-            <ImageView fx:id="menutoggle" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#showmenu" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/troispoints.png" />
+                  <Image url="@../../../../../../Desktop/Facebook-Post-Reactions-main/Facebook/src/img/ic_more.png" />
                </image>
             </ImageView>
          </children>
          <padding>
-            <Insets left="10.0" />
+            <Insets left="20.0" right="20.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefWidth="200.0">
-         <children>
-            <Label fx:id="contenu" text="Contenu">
-               <font>
-                  <Font name="Segoe UI Semibold" size="15.0" />
-               </font>
-            </Label>
-         </children>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-      </HBox>
-      <VBox fx:id="sidemenu" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #fff;">
-         <children>
-            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-cursor: hand;" text="Modifier">
-               <font>
-                  <Font name="Segoe UI Semibold" size="15.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-cursor: hand;" text="Supprimer">
-               <font>
-                  <Font name="Segoe UI Semibold" size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <ImageView fx:id="imgarticle" fitHeight="525.0" fitWidth="525.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="caption" maxWidth="1.7976931348623157E308" wrapText="true">
          <VBox.margin>
-            <Insets />
+            <Insets left="20.0" right="20.0" />
          </VBox.margin>
-      </ImageView>
+         <font>
+            <Font name="Segoe UI Historic" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgPost" fitHeight="535.0" fitWidth="535.0" pickOnBounds="true" preserveRatio="true" />
       <StackPane alignment="CENTER_LEFT">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -197,6 +204,9 @@
             </HBox>
             <HBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS" />
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
          <padding>
             <Insets bottom="10.0" top="10.0" />
          </padding>
