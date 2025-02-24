@@ -1,8 +1,12 @@
 package controllers.Locations;
 
 import Entity.Locations.Location;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import services.Locations.ServiceLocation;
 
 import javax.mail.*;
@@ -18,8 +23,15 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,36 +51,62 @@ public class LocationsController {
     private final ObservableList<Location> locationList = FXCollections.observableArrayList();
     private final ObservableList<Location> filteredLocationList = FXCollections.observableArrayList(); // Separate list for filtered data
 
+    private static final long ALERT_THRESHOLD_DAYS = 7; // Nombre de jours avant le début pour l'alerte
+    private static final String ALERT_STYLE_CLASS = "location-proche"; // Classe CSS pour l'alerte
+
+    private static final String EMAIL_USERNAME = "hemdenminou@gmail.com";
+    private static final String EMAIL_PASSWORD = "szex gsyo jnyu lvaq\n"; // Replace
+
+    private Set<Integer> alertedLocationIds = new HashSet<>();  // Track alerted locations
+    private static final int DELAY_BETWEEN_EMAILS_MS = 1000; // 1 second (Rate limiting)
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);  //  Thread Pool
+
     @FXML
     public void initialize() {
         colId.setCellValueFactory(cellData -> cellData.getValue().idlocationProperty().asObject());
         colDateDebut.setCellValueFactory(cellData -> cellData.getValue().datedebutProperty());
         colDateFin.setCellValueFactory(cellData -> cellData.getValue().datefinProperty());
-        colStatus.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
+        colStatus.setCellValueFactory(cellData -> cellData.getValue().statusProperty()); // Use the property directly
+
+        // Configure la cellule pour afficher le status et gérer les alertes
         colStatus.setCellFactory(column -> new TableCell<Location, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
+                TableRow<Location> row = getTableRow(); // Récupère la ligne
+
+                if (empty || row == null) {
                     setText(null);
+                    if (row != null) {
+                        row.getStyleClass().remove(ALERT_STYLE_CLASS); // Enlève le style si la cellule est vide ou la ligne est nulle
+                    }
                 } else {
-                    Location location = getTableView().getItems().get(getIndex());
+                    Location location = getTableView().getItems().get(getIndex()); // Récupère l'objet Location associé à cette cellule
+                    if (location == null) {
+                        setText(null);
+                        if (row != null) {
+                            row.getStyleClass().remove(ALERT_STYLE_CLASS); // Enlève le style si location est null
+                        }
+                        return;
+                    }
+                    setText(location.getStatus());
+                    // Vérifie si la date de début est proche et ajoute ou supprime le style
                     LocalDate now = LocalDate.now();
                     LocalDate dateDebut = location.getDatedebut();
-                    LocalDate dateFin = location.getDatefin();
-                    String status;
-
-                    if (now.isBefore(dateDebut)) {
-                        status = "À venir";
-                    } else if (now.isAfter(dateDebut) && now.isBefore(dateFin)) {
-                        status = "En cours";
-                    } else {
-                        status = "Terminée";
+                    if(dateDebut != null){
+                        long daysUntilStart = ChronoUnit.DAYS.between(now, dateDebut);
+                        if (daysUntilStart >= 0 && daysUntilStart <= ALERT_THRESHOLD_DAYS) {
+                            if (!row.getStyleClass().contains(ALERT_STYLE_CLASS)) {
+                                row.getStyleClass().add(ALERT_STYLE_CLASS);
+                            }
+                        } else {
+                            row.getStyleClass().remove(ALERT_STYLE_CLASS);
+                        }
+                    }else {
+                        row.getStyleClass().remove(ALERT_STYLE_CLASS);
                     }
 
-                    setText(status);
-                    location.setStatus(status); // Update the status in the Location object
-                    serviceLocation.update(location); // Persist the status update to the database
+
                 }
             }
         });
@@ -87,11 +125,25 @@ public class LocationsController {
         });
 
         // Initialize the filter ComboBox
-        statusFilterComboBox.getItems().addAll("Tous", "À venir", "En cours", "Terminée");
+        statusFilterComboBox.getItems().addAll("Tous", "À venir", "En cours", "Terminée", "Inconnu");
         statusFilterComboBox.setValue("Tous"); // Set default value
         statusFilterComboBox.setOnAction(event -> filterLocations()); // Attach filter action
 
+        // Enable sorting on date columns
+        colDateDebut.setSortable(true);
+        colDateFin.setSortable(true);
+
+        // Set the comparator for the start date column
+        colDateDebut.setComparator(Comparator.nullsLast(Comparator.naturalOrder()));
+
+        // Set the comparator for the end date column
+        colDateFin.setComparator(Comparator.nullsLast(Comparator.naturalOrder()));
+
+
         chargerLocations();
+
+        // Démarre le système d'alerte (toutes les 60 secondes)
+        startAlertSystem();
     }
 
     private void chargerLocations() {
@@ -101,25 +153,31 @@ public class LocationsController {
         filteredLocationList.clear(); // Clear the filtered list when loading
         filteredLocationList.addAll(locationList); // Initially, filtered list contains all locations
         tableView.setItems(filteredLocationList);
+
+        // Rafraîchit l'affichage pour appliquer les styles d'alerte
+        tableView.refresh();
     }
 
-    // Method to filter locations based on status
+    // Méthode pour filtrer les locations en fonction du statut
     @FXML
     private void filterLocations() {
         String selectedStatus = statusFilterComboBox.getValue();
+        System.out.println("selectedStatus: " + selectedStatus + " (Type: " + selectedStatus.getClass().getName() + ")"); //DEBUG
+
         filteredLocationList.clear();
 
         if ("Tous".equals(selectedStatus)) {
-            filteredLocationList.addAll(locationList); // Show all locations
+            filteredLocationList.addAll(locationList); // Afficher toutes les locations
         } else {
             for (Location location : locationList) {
+                System.out.println("location.getStatus(): " + location.getStatus() + " (Type: " + location.getStatus().getClass().getName() + ")"); //DEBUG
                 if (selectedStatus.equals(location.getStatus())) {
-                    filteredLocationList.add(location); // Add locations matching the selected status
+                    filteredLocationList.add(location); // Ajouter les locations correspondant au statut sélectionné
                 }
             }
         }
 
-        tableView.setItems(filteredLocationList); // Update the TableView with the filtered list
+        tableView.setItems(filteredLocationList); // Mettre à jour le TableView avec la liste filtrée
     }
 
     @FXML
@@ -143,20 +201,8 @@ public class LocationsController {
             // Récupérer l'ID de l'utilisateur (par exemple, à partir de la session)
             int idUser = recupererIdUser();
 
-            // Déterminer le statut initial en fonction des dates
-            LocalDate now = LocalDate.now();
-            String status;
-            if (now.isBefore(dateDebut)) {
-                status = "À venir";
-            } else if (now.isAfter(dateDebut) && now.isBefore(dateFin)) {
-                status = "En cours";
-            } else {
-                status = "Terminée";
-            }
-
             // Créer une nouvelle location
             Location nouvelleLocation = new Location(0, idUser, dateDebut, dateFin);
-            nouvelleLocation.setStatus(status);
 
             // Ajouter la location via le service
             boolean success = serviceLocation.add(nouvelleLocation);
@@ -197,21 +243,9 @@ public class LocationsController {
                 return;
             }
 
-            // Déterminer le nouveau statut en fonction des dates
-            LocalDate now = LocalDate.now();
-            String status;
-            if (now.isBefore(dateDebut)) {
-                status = "À venir";
-            } else if (now.isAfter(dateDebut) && now.isBefore(dateFin)) {
-                status = "En cours";
-            } else {
-                status = "Terminée";
-            }
-
-            // Mettre à jour la location
             selectedLocation.setDatedebut(dateDebut);
             selectedLocation.setDatefin(dateFin);
-            selectedLocation.setStatus(status);
+            selectedLocation.updateStatus();
 
             boolean success = serviceLocation.update(selectedLocation);
 
@@ -347,7 +381,8 @@ public class LocationsController {
             afficherInformation("Email envoyé", "Un email a été envoyé pour confirmer que la location à été effectuée avec succes!");
 
             //Add Alert for Email being sent.
-            sendEmail("hdmminiar@mail.com", "Location terminée", emailContent);
+            //Schedule the email, now with throttling and handled by multi threading
+            scheduleEmailTask("hemdenminiar@gmail.com", "Location terminée", emailContent);
 
             // Optional: Update status in UI
 
@@ -357,8 +392,8 @@ public class LocationsController {
     }
     public static void sendEmail(String to, String subject, String content) {
         // Sender's email credentials
-        final String username = "miniar.hemden@esprit.tn"; // Replace
-        final String password = "zbdg gcrs taho onuk\n"; // Replace
+        final String username = "hemdenminou@gmail.com"; // Replace
+        final String password = "szex gsyo jnyu lvaq\n"; // Replace
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -391,5 +426,87 @@ public class LocationsController {
         }
     }
 
+    private void startAlertSystem() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(60), event -> {  // Vérifie toutes les 60 secondes
+                    checkUpcomingLocationsAndSendAlerts(); // Call the new method
+                    updateLocationAlerts();
+                })
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
 
+    private void updateLocationAlerts() {
+        //Itérer à travers chaque location dans la liste filtrée et rafraîchir son style.
+        // Iterate through each location in the filtered list and refresh its style.
+        for (Location location : filteredLocationList) {
+            // Find the TableRow associated with the Location object.
+            for (int i = 0; i < tableView.getItems().size(); i++) {
+                if (tableView.getItems().get(i) == location) {
+                    // Refresh the TableView to update the styles.
+                    tableView.refresh();
+                    break; // Exit the loop once the Location is found.
+                }
+            }
+        }
+    }
+
+    //NEW METHOD: Check for upcoming locations and send email alerts
+    private void checkUpcomingLocationsAndSendAlerts() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Format date for email
+
+        for (Location location : locationList) { // Check ALL locations, not just filtered ones.
+            if ("À venir".equals(location.getStatus())) {  //Only check 'À venir' locations
+                LocalDate startDate = location.getDatedebut();
+                if (startDate != null) {
+                    long daysUntilStart = ChronoUnit.DAYS.between(now, startDate);
+
+                    if (daysUntilStart >= 0 && daysUntilStart <= ALERT_THRESHOLD_DAYS) {
+                        //  Check if the location has already been alerted
+                        if (!alertedLocationIds.contains(location.getIdlocation())) {  // IMPORTANT: CHECK IF WE ALREADY SENT IT
+
+                            // Capture current state in final variables for use within the task
+                            final int locationId = location.getIdlocation();
+                            final LocalDate dateDebut = location.getDatedebut();
+
+                            //Schedule the email, now with throttling and handled by multi threading
+                            scheduleEmailTask("hemdenminiar@gmail.com", "Votre location commence bientôt !", String.format("Votre location %d commence le %s.  Pensez à vous préparer !",
+                                    locationId, dateDebut.format(formatter)));
+
+                            // Mark alert already sent after scheduling the email
+
+                        } else {
+                            LOGGER.log(Level.INFO, "Start soon alert already sent for Location ID: " + location.getIdlocation());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void scheduleEmailTask(String to, String subject, String content) {
+        scheduler.schedule(() -> {
+
+            try {
+                sendEmail(to, subject, content);
+                LOGGER.log(Level.INFO, "Email sent to : " + to);
+
+                // Add location ID to the set of alerted locations when send succesfully
+                List<Location> locations = serviceLocation.getAll(); // Get all locations
+                for (Location location : locations) {
+                    List<Location> listeLoc = serviceLocation.getAll();
+                    for (Location loc : listeLoc) {
+                        alertedLocationIds.add(loc.getIdlocation()); // Mark as sent
+                    }
+                }
+            } catch (Exception e) {
+                // Handle exception
+                e.printStackTrace();
+
+            }
+
+        }, DELAY_BETWEEN_EMAILS_MS, TimeUnit.MILLISECONDS);
+    }
 }

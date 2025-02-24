@@ -76,3 +76,8 @@
     -fx-cursor: hand;
     -fx-font-size: 12px;
 }
+
+.location-proche {
+    -fx-background-color: #FFFFE0; /* Jaune pâle */
+    -fx-font-weight: bold;
+}

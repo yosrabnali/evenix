@@ -9,7 +9,7 @@ public class Location {
     private final IntegerProperty idlocation;
     private final ObjectProperty<LocalDate> datedebut;
     private final ObjectProperty<LocalDate> datefin;
-    private final IntegerProperty idUser;
+    private final IntegerProperty idUser;  // Added to hold user ID
     private final StringProperty status;
 
     public Location(int idlocation, int idUser, LocalDate datedebut, LocalDate datefin) {
@@ -43,7 +43,6 @@ public class Location {
 
     public void setDatedebut(LocalDate datedebut) {
         this.datedebut.set(datedebut);
-        updateStatus(); // Recalculate status when dateDebut changes
     }
 
     public LocalDate getDatefin() {
@@ -56,8 +55,9 @@ public class Location {
 
     public void setDatefin(LocalDate datefin) {
         this.datefin.set(datefin);
-        updateStatus(); // Recalculate status when dateFin changes
     }
+
+    // Getter/Setter for idUser
 
     public int getIdUser() {
         return idUser.get();
@@ -83,21 +83,18 @@ public class Location {
         this.status.set(status);
     }
 
-    public void updateStatus() {
+    public void updateStatus(){
         this.status.set(calculateStatus(this.getDatedebut(), this.getDatefin()));
     }
 
     private String calculateStatus(LocalDate datedebut, LocalDate datefin) {
-        if (datedebut == null || datefin == null) {
-            return "Inconnu";
-        }
         LocalDate now = LocalDate.now();
         if (now.isBefore(datedebut)) {
-            return "À venir";
+            return "À venir"; // To come
         } else if (now.isAfter(datefin)) {
-            return "Terminée";
+            return "Terminée"; // Completed
         } else {
-            return "En cours";
+            return "En cours"; // In progress
         }
     }
 
