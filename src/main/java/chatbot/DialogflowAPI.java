@@ -42,6 +42,7 @@ public class DialogflowAPI {
             logger.log(Level.SEVERE, "❌ Erreur lors du chargement des credentials", e);
             return "❌ Problème avec la connexion à Dialogflow.";
         }
+        String g="";
 
         // 🔹 Génération d'un Session ID unique
         String sessionId = "session-" + UUID.randomUUID().toString();
