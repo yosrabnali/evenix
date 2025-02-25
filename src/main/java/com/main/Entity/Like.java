@@ -5,20 +5,32 @@ public class Like {
     private Long articleId;
     private Long userId;
 
+    public long getReactiontype() {
+        return Reactiontype;
+    }
+
+    public void setReactiontype(long reactiontype) {
+        Reactiontype = reactiontype;
+    }
+
+    private long Reactiontype;
+
     // Constructeur par défaut
     public Like() {}
 
     // Constructeur avec articleId et userId (pour l'ajout)
-    public Like(Long articleId, Long userId) {
+    public Like(Long articleId, Long userId ,long Reactiontype) {
         this.articleId = articleId;
         this.userId = userId;
+        this.Reactiontype = Reactiontype;
     }
 
     // Constructeur complet
-    public Like(Long id, Long articleId, Long userId) {
+    public Like(Long id, Long articleId, Long userId,long Reactiontype) {
         this.id = id;
         this.articleId = articleId;
         this.userId = userId;
+        this.Reactiontype = Reactiontype;
     }
 
     // Getters et Setters
@@ -52,6 +64,8 @@ public class Like {
                 "id=" + id +
                 ", articleId=" + articleId +
                 ", userId=" + userId +
-                '}';
+                ", Reactiontype=" + Reactiontype +
+                "}";
+
     }
 }

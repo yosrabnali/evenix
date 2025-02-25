@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox fx:id="commentBox" alignment="CENTER_LEFT" prefWidth="565.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.CommentItemController">
+    <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="5.0">
+            <children>
+                <ImageView fx:id="profileImage" fitHeight="40" fitWidth="40" />
+                <HBox prefWidth="506.0" style="-fx-background-color: #f0f2f5; -fx-background-radius: 50;">
+                    <children>
+                        <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="usernameLabel" style="-fx-font-weight: bold;" text="Username">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="17.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="commentTextLabel" maxWidth="400" text="Commentaire" wrapText="true">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="15.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="565.0" spacing="10.0">
+            <children>
+                <Label fx:id="dateLabel" style="-fx-text-fill: gray; -fx-font-size: 10px;" text="2 heure ago">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="modifcomment" alignment="CENTER_RIGHT" onMouseClicked="#handleModif" style="-fx-text-fill: gray; -fx-cursor: hand;" text="Modifier">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="10.0" />
+                    </font>
+                </Label>
+                <Label fx:id="supprimercomment" alignment="CENTER_RIGHT" onMouseClicked="#handleSuppr" style="-fx-text-fill: gray; -fx-cursor: hand;" text="Supprimer">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="10.0" />
+                    </font>
+                </Label>
+            </children>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+            <padding>
+                <Insets left="70.0" />
+            </padding>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" top="10.0" />
+    </padding>
+</VBox>

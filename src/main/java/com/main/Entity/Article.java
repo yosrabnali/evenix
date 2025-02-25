@@ -1,7 +1,7 @@
 package com.main.Entity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Article {
@@ -10,22 +10,25 @@ public class Article {
     private String titre;
     private String contenu;
     private String auteur;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private String image;
-    private int likes;
     private List<Commentaire> commentaires = new ArrayList<>();
 
     // Constructeur par défaut
+    public Article(String auteur, String titre, String contenu, long l, String newFileName) {
+
+    }
+
     public Article() {
-        this.createdAt = LocalDateTime.now();
     }
 
     // Constructeur pour l'ajout
-    public Article(long userId, String titre, String contenu, String auteur) {
+    public Article(long userId, String titre, String contenu, String auteur, Date createdAt) {
         this.userId = userId;
         this.titre = titre;
         this.contenu = contenu;
         this.auteur = auteur;
+        this.createdAt = createdAt;
     }
 
     // Constructeur pour la modification
@@ -41,7 +44,7 @@ public class Article {
     }
 
     // Constructeur complet
-    public Article(long id, long userId, String titre, String contenu, String auteur, LocalDateTime createdAt) {
+    public Article(long id, long userId, String titre, String contenu, String auteur, Date createdAt) {
         this.id = id;
         this.userId = userId;
         this.titre = titre;
@@ -51,15 +54,15 @@ public class Article {
     }
 
     // Ajouter ce constructeur
-    public Article(String auteur, String titre, String contenu, Long userId, String image) {
+    public Article(String auteur, String titre, String contenu, Long userId, String image,Date createdAt) {
         this.auteur = auteur;
         this.titre = titre;
         this.contenu = contenu;
         this.userId = userId;
         this.image = image;
-        this.createdAt = LocalDateTime.now();
-        this.commentaires = new ArrayList<>();
-        this.likes = 0;
+        this.createdAt = createdAt;
+
+
     }
 
     // Getters et Setters
@@ -103,11 +106,11 @@ public class Article {
         this.auteur = auteur;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -119,7 +122,7 @@ public class Article {
         this.image = image;
     }
 
-    public int getLikes() {
+    /*public int getLikes() {
         return likes;
     }
 
@@ -134,7 +137,7 @@ public class Article {
     public void addCommentaire(Commentaire commentaire) {
         if (commentaires == null) commentaires = new ArrayList<>();
         commentaires.add(commentaire);
-    }
+    }*/
 
     @Override
     public String toString() {

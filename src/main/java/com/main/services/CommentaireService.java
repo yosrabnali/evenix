@@ -15,15 +15,15 @@ public class CommentaireService implements IService<Commentaire> {
     private final Connection connection = MyDB.getInstance().getConnection();
 
     @Override
-    public void ajouter(Commentaire commentaire) throws SQLException {
-        String req = "INSERT INTO commentaire (contenu, article_id, user_id, auteur, created_at) VALUES (?, ?, ?, ?, ?)";
+    public void ajouter(Commentaire commentaire) throws Exception {
+        String req = "INSERT INTO commentaire (contenu, article_id, user_id, auteur) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setString(1, commentaire.getContenu());
             pst.setLong(2, commentaire.getArticleId());
             pst.setLong(3, commentaire.getUserId());
             pst.setString(4, commentaire.getAuteur());
-            pst.setTimestamp(5, Timestamp.valueOf(commentaire.getCreatedAt()));
+           // pst.setTimestamp(5, Timestamp.valueOf(commentaire.getCreatedAt()));
             
             pst.executeUpdate();
             System.out.println("Commentaire ajouté avec succès");
@@ -64,7 +64,7 @@ public class CommentaireService implements IService<Commentaire> {
     }
 
     @Override
-    public List<Commentaire> rechercher() throws SQLException {
+    public List<Commentaire> rechercher() throws Exception {
         List<Commentaire> commentaires = new ArrayList<>();
         String req = "SELECT * FROM commentaire";
         try {
@@ -79,11 +79,7 @@ public class CommentaireService implements IService<Commentaire> {
                 commentaire.setAuteur(rs.getString("auteur"));
                 
                 Timestamp timestamp = rs.getTimestamp("created_at");
-                if (timestamp != null) {
-                    commentaire.setCreatedAt(timestamp.toLocalDateTime());
-                } else {
-                    commentaire.setCreatedAt(LocalDateTime.now());
-                }
+
                 
                 commentaires.add(commentaire);
             }
@@ -108,13 +104,10 @@ public class CommentaireService implements IService<Commentaire> {
                 commentaire.setUserId(rs.getLong("user_id"));
                 commentaire.setAuteur(rs.getString("auteur"));
                 Timestamp timestamp = rs.getTimestamp("created_at");
-                if (timestamp != null) {
-                    commentaire.setCreatedAt(timestamp.toLocalDateTime());
-                } else {
-                    commentaire.setCreatedAt(LocalDateTime.now());
-                }
+
                 commentaires.add(commentaire);
             }
         return commentaires;
     }
+
 }

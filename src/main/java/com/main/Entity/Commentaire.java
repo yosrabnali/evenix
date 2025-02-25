@@ -1,6 +1,7 @@
 package com.main.Entity;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+
 
 public class Commentaire {
 
@@ -8,20 +9,19 @@ public class Commentaire {
     private Long articleId;
     private Long userId;
     private String contenu;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private String auteur;
 
     // Constructeur par défaut
     public Commentaire() {
-        this.createdAt = LocalDateTime.now();
+
     }
 
     // Constructeur avec paramètres pour l'ajout sans date
-    public Commentaire(Long articleId, Long userId, String contenu) {
+    public Commentaire(Long articleId, Long userId, String contenu ) {
         this.articleId = articleId;
         this.userId = userId;
         this.contenu = contenu;
-        this.createdAt = LocalDateTime.now();  // La date de publication est définie sur l'heure actuelle
     }
 
     // Constructeur avec l'ID et le contenu seulement
@@ -41,7 +41,7 @@ public class Commentaire {
         this.contenu = contenu;
         this.auteur = auteur;
         this.userId = userId;
-        this.createdAt = LocalDateTime.now();
+       // this.createdAt = LocalDateTime.now();
     }
 
     @Override
@@ -88,11 +88,11 @@ public class Commentaire {
         this.contenu = contenu;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

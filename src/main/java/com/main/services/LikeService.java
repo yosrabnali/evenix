@@ -52,23 +52,36 @@ public class LikeService implements IService<Like> {
     }
 
     @Override
-    public List<Like> rechercher() {
+    public List<Like> rechercher() throws Exception {
         List<Like> likes = new ArrayList<>();
         String req = "SELECT * FROM `Like`";
-        try {
-            PreparedStatement pst = connection.prepareStatement(req);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Like like = new Like(
-                        rs.getLong("id"),
-                        rs.getLong("article_id"),
-                        rs.getLong("user_id")
-                );
-                likes.add(like);
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des likes: " + e.getMessage());
+        PreparedStatement pst = connection.prepareStatement(req);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            Like like = new Like(
+                    rs.getLong("id"),
+                    rs.getLong("article_id"),
+                    rs.getLong("user_id"),
+                    rs.getLong("Reactiontype")
+            );
+            likes.add(like);
+            return likes;
         }
-        return likes;
+        return null;
+    }
+
+    public Like getUserReaction(int publicationId, int userId) {
+        return null;
+    }
+
+    public void toggleReaction(long publicationId, int userId, int id) {
+    }
+
+    public char[] countReactions(long publicationId) {
+        return null;
+    }
+
+    public List<Integer> getTop3Reactions(long publicationId) {
+        return null;
     }
 }
