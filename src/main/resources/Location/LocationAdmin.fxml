@@ -25,6 +25,15 @@
                 <ComboBox fx:id="statusFilterComboBox" prefWidth="150.0" promptText="Status" />
             </HBox>
 
+            <!-- ComboBox pour trier par date -->
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <padding>
+                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                </padding>
+                <Label text="Trier par date:"/>
+                <ComboBox fx:id="dateSortComboBox" prefWidth="200.0" promptText="Trier par date" />
+            </HBox>
+
             <!-- TableView pour afficher les locations -->
             <TableView fx:id="tableView" prefHeight="318.0" prefWidth="492.0">
                 <columns>

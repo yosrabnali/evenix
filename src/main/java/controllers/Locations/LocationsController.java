@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,6 +45,7 @@ public class LocationsController {
     @FXML private TableColumn<Location, String> colStatus;
     @FXML private DatePicker dateDebutPicker, dateFinPicker;
     @FXML private ComboBox<String> statusFilterComboBox; // Add ComboBox for filtering
+    @FXML private ComboBox<String> dateSortComboBox;
 
     private final ServiceLocation serviceLocation = new ServiceLocation();
     private final ObservableList<Location> locationList = FXCollections.observableArrayList();
@@ -139,6 +139,11 @@ public class LocationsController {
         // Set the comparator for the end date column
         colDateFin.setComparator(Comparator.nullsLast(Comparator.naturalOrder()));
 
+        // Initialize the date sort ComboBox
+        dateSortComboBox.getItems().addAll("Aucun", "Date croissant", "Date décroissant");
+        dateSortComboBox.setValue("Aucun"); // Set default value
+        dateSortComboBox.setOnAction(event -> sortLocationsByDate()); // Attach sort action
+
 
         chargerLocations();
 
@@ -162,7 +167,6 @@ public class LocationsController {
     @FXML
     private void filterLocations() {
         String selectedStatus = statusFilterComboBox.getValue();
-        System.out.println("selectedStatus: " + selectedStatus + " (Type: " + selectedStatus.getClass().getName() + ")"); //DEBUG
 
         filteredLocationList.clear();
 
@@ -170,7 +174,6 @@ public class LocationsController {
             filteredLocationList.addAll(locationList); // Afficher toutes les locations
         } else {
             for (Location location : locationList) {
-                System.out.println("location.getStatus(): " + location.getStatus() + " (Type: " + location.getStatus().getClass().getName() + ")"); //DEBUG
                 if (selectedStatus.equals(location.getStatus())) {
                     filteredLocationList.add(location); // Ajouter les locations correspondant au statut sélectionné
                 }
@@ -178,7 +181,32 @@ public class LocationsController {
         }
 
         tableView.setItems(filteredLocationList); // Mettre à jour le TableView avec la liste filtrée
+        sortLocationsByDate();
     }
+
+    @FXML
+    private void sortLocationsByDate() {
+        String selectedSort = dateSortComboBox.getValue();
+
+        switch (selectedSort) {
+            case "Date croissant":
+                filteredLocationList.sort(Comparator.comparing(Location::getDatedebut, Comparator.nullsLast(Comparator.naturalOrder())));
+                break;
+            case "Date décroissant":
+                filteredLocationList.sort(Comparator.comparing(Location::getDatedebut, Comparator.nullsLast(Comparator.reverseOrder())));
+                break;
+
+            default:
+                // Do nothing or reset to default sorting
+                chargerLocations();
+                filterLocations();
+
+                break;
+        }
+
+        tableView.refresh();
+    }
+
 
     @FXML
     private void ajouterLocation() {
@@ -382,7 +410,7 @@ public class LocationsController {
 
             //Add Alert for Email being sent.
             //Schedule the email, now with throttling and handled by multi threading
-            scheduleEmailTask("hemdenminiar@gmail.com", "Location terminée", emailContent);
+            scheduleEmailTask("hdmminiar@gmail.com", "Location terminée", emailContent);
 
             // Optional: Update status in UI
 
@@ -401,17 +429,16 @@ public class LocationsController {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
 
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EMAIL_USERNAME, EMAIL_PASSWORD);
+            }
+        });
 
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
+            message.setFrom(new InternetAddress(EMAIL_USERNAME));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
             message.setSubject(subject);
@@ -472,7 +499,7 @@ public class LocationsController {
                             final LocalDate dateDebut = location.getDatedebut();
 
                             //Schedule the email, now with throttling and handled by multi threading
-                            scheduleEmailTask("hemdenminiar@gmail.com", "Votre location commence bientôt !", String.format("Votre location %d commence le %s.  Pensez à vous préparer !",
+                            scheduleEmailTask("hdmminiar@gmail.com", "Votre location commence bientôt !", String.format("Votre location %d commence le %s.  Pensez à vous préparer !",
                                     locationId, dateDebut.format(formatter)));
 
                             // Mark alert already sent after scheduling the email
