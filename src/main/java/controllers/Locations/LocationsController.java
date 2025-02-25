@@ -130,7 +130,7 @@ public class LocationsController {
         statusFilterComboBox.setOnAction(event -> filterLocations()); // Attach filter action
 
         // Initialize the date sort ComboBox
-        dateSortComboBox.getItems().addAll("Aucun", "Date de début (croissant)", "Date de début (décroissant)");
+        dateSortComboBox.getItems().addAll("Aucun", "Date croissant", "Date décroissant");
         dateSortComboBox.setValue("Aucun"); // Set default value
         dateSortComboBox.setOnAction(event -> sortLocationsByDate()); // Attach sort action
 
@@ -156,56 +156,55 @@ public class LocationsController {
         locationList.addAll(locations);
         filteredLocationList.clear(); // Clear the filtered list when loading
         filteredLocationList.addAll(locationList); // Initially, filtered list contains all locations
-        tableView.setItems(filteredLocationList);
-
-        // Rafraîchit l'affichage pour appliquer les styles d'alerte
-        tableView.refresh();
+        applyFiltersAndSort(); // Apply initial filters and sort
     }
 
     // Méthode pour filtrer les locations en fonction du statut
     @FXML
     private void filterLocations() {
-        String selectedStatus = statusFilterComboBox.getValue();
-
-        filteredLocationList.clear();
-
-        if ("Tous".equals(selectedStatus)) {
-            filteredLocationList.addAll(locationList); // Afficher toutes les locations
-        } else {
-            for (Location location : locationList) {
-                if (selectedStatus.equals(location.getStatus())) {
-                    filteredLocationList.add(location); // Ajouter les locations correspondant au statut sélectionné
-                }
-            }
-        }
-
-        tableView.setItems(filteredLocationList); // Mettre à jour le TableView avec la liste filtrée
-        sortLocationsByDate();  // Apply sorting after filtering
+        applyFiltersAndSort();
     }
 
     @FXML
     private void sortLocationsByDate() {
+        applyFiltersAndSort();
+    }
+
+    private void applyFiltersAndSort() {
+        String selectedStatus = statusFilterComboBox.getValue();
         String selectedSort = dateSortComboBox.getValue();
 
+        // 1. Apply Filters
+        ObservableList<Location> filteredList = FXCollections.observableArrayList(locationList);
+
+        if (!"Tous".equals(selectedStatus)) {
+            filteredList.removeIf(location -> !selectedStatus.equals(location.getStatus()));
+        }
+
+        // 2. Apply Sorting
         Comparator<Location> dateComparator = null;
 
         switch (selectedSort) {
-            case "Date de début (croissant)":
+            case "Date croissant":
                 dateComparator = Comparator.comparing(Location::getDatedebut, Comparator.nullsLast(Comparator.naturalOrder()));
                 break;
-            case "Date de début (décroissant)":
+            case "Date décroissant":
                 dateComparator = Comparator.comparing(Location::getDatedebut, Comparator.nullsLast(Comparator.reverseOrder()));
                 break;
+            case "Aucun":
+                // Do nothing. Keep the order as is.
+                break;
             default:
-                // Aucun, don't sort just do nothing
+                LOGGER.warning("Unknown sort option: " + selectedSort);
                 break;
         }
 
         if (dateComparator != null) {
-            filteredLocationList.sort(dateComparator);
+            filteredList.sort(dateComparator);
         }
 
-        tableView.refresh(); // Refresh TableView to display the sorted data
+        // 3. Update TableView
+        tableView.setItems(filteredList);
     }
 
     @FXML
