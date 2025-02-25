@@ -7,6 +7,7 @@ import com.main.services.PublicationService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -40,6 +41,25 @@ public class ArticleController implements Initializable {
     public void setPublicationId(long publicationId) {
         this.publicationId = publicationId;
     }
+
+    @FXML
+    private ImageView imgCare;
+
+    @FXML
+    private ImageView imgHaha;
+
+    @FXML
+    private ImageView imgLike;
+
+    @FXML
+    private ImageView imgLove;
+    @FXML
+    private ImageView imgSad;
+
+    @FXML
+    private ImageView imgWow;
+    @FXML
+    private Label nbReactions;
 
     private long publicationId;
     @FXML
@@ -100,6 +120,7 @@ public class ArticleController implements Initializable {
     LikeService ls = new LikeService();
     private Popup sidemenuPopup = new Popup();
     CommentaireService cs = new CommentaireService();
+
     public long getArticleId() {
         return articleId;
     }
@@ -113,6 +134,20 @@ public class ArticleController implements Initializable {
         sidemenuPopup.show(menutoggle.getScene().getWindow(),
                 event.getScreenX(), event.getScreenY());
     }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        sidemenuPopup.getContent().add(sidemenu);
+        sidemenuPopup.setAutoHide(true);
+        commentSection.setManaged(false);
+        commentSection.setVisible(false);
+        commentScrolll.setManaged(false);
+        commentScrolll.setVisible(false);
+        setData(articleId);
+
+    }
+
 
     public void setData(long articleId) {
         try {
@@ -178,10 +213,14 @@ public class ArticleController implements Initializable {
                 e.printStackTrace();
             }
             commentTextArea.clear();
+        }else{
+            showWarningDialog("veuiller saisir commentaire :(");
         }
 
 
     }
+
+
 
     @FXML
     void handleComment(MouseEvent event) {
@@ -209,16 +248,7 @@ public class ArticleController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        sidemenuPopup.getContent().add(sidemenu);
-        sidemenuPopup.setAutoHide(true);
-        commentSection.setManaged(false);
-        commentSection.setVisible(false);
-        commentScrolll.setManaged(false);
-        commentScrolll.setVisible(false);
-        setData(articleId);
-    }
+
     @FXML
     public void onLikeContainerPressed(MouseEvent event) {
         startTime = System.currentTimeMillis();
@@ -241,23 +271,26 @@ public class ArticleController implements Initializable {
     }
     public void onReactionImgPressed(MouseEvent event) {
         switch (((ImageView) event.getSource()).getId()) {
-            case "imgFire":
+            case "imgLike":
                 setReaction(Reactions.LIKE);
                 break;
             case "imgLove":
                 setReaction(Reactions.LOVE);
                 break;
-            case "imgMad":
-                setReaction(Reactions.ANGRY);
+            case "imgCare":
+                setReaction(Reactions.CARE);
+                break;
+            case "imgHaha":
+                setReaction(Reactions.HAHA);
                 break;
             case "imgWow":
                 setReaction(Reactions.WOW);
                 break;
-            case "imgLaugh":
-                setReaction(Reactions.HAHA);
-                break;
-            case "imgCry":
+            case "imgSad":
                 setReaction(Reactions.SAD);
+                break;
+            case "imgAngry":
+                setReaction(Reactions.ANGRY);
                 break;
             default:
                 setReaction(Reactions.NON);
@@ -313,7 +346,8 @@ public class ArticleController implements Initializable {
         try {
             if (currentReaction != null && currentReaction != reaction) {
                 ls.toggleReaction(publicationId, userId, reaction.getId());
-                //nbReact.setText(String.valueOf(ls.countReactions(publicationId) + " Réactions"));
+
+                nbReactions.setText(String.valueOf(ls.countReactions(publicationId) + " Réactions"));
                 List<Integer> topReactions = ls.getTop3Reactions(publicationId);
                 updateTopReactions(topReactions);
             }
@@ -356,6 +390,12 @@ public class ArticleController implements Initializable {
     }
 
 
-
+    private void showWarningDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 }

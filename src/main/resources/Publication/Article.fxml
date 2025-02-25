@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.ArticleController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.ArticleController">
    <children>
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="600.0" spacing="20.0">
          <children>
@@ -78,7 +78,7 @@
                            <children>
                               <ImageView fx:id="reaction1" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/like.png" />
+                                    <Image url="@../images/ic_like.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="reaction2" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -93,14 +93,13 @@
                               </ImageView>
                            </children>
                         </HBox>
-                        <Label fx:id="nbReactions" maxWidth="1.7976931348623157E308" textFill="#606266">
+                        <Label fx:id="nbReactions" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="115.0" text="nbReactions" textFill="#606266">
                            <font>
-                              <Font name="Segoe UI Historic" size="18.0" />
+                              <Font name="Segoe UI Historic" size="16.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <Pane prefWidth="0.0" HBox.hgrow="ALWAYS" />
                   <Label fx:id="nbComments" textFill="#606266">
                      <font>
                         <Font name="Segoe UI Historic" size="18.0" />
@@ -116,9 +115,14 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </HBox>
-            <HBox fx:id="ReactionsContainer" maxWidth="-Infinity" styleClass="reactions-container" stylesheets="@../../../../../../Desktop/Facebook-Post-Reactions-main/Facebook/src/resources/styles.css" visible="false">
+            <HBox fx:id="ReactionsContainer" maxWidth="-Infinity" styleClass="reactions-container" stylesheets="@../css/style.css" visible="false">
                <children>
-                  <ImageView fx:id="imgLove" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgLike" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/ic_like.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgLove" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/ic_love_.png" />
                      </image>
@@ -126,34 +130,24 @@
                         <Insets />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="imgCare" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgCare" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/ic_care.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgHaha" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgHaha" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/ic_haha.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgWow" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgWow" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/ic_wow.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgSad" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgSad" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/ic_sad.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="imgAngry" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/ic_angry.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="imgLike" fitHeight="50.0" fitWidth="50.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/like.png" />
                      </image>
                   </ImageView>
                </children>
@@ -166,7 +160,7 @@
             </HBox>
          </children>
       </StackPane>
-      <HBox maxWidth="1.7976931348623157E308" styleClass="top-border" stylesheets="@../../../../../../Desktop/Facebook-Post-Reactions-main/Facebook/src/resources/styles.css">
+      <HBox maxWidth="1.7976931348623157E308" styleClass="top-border" stylesheets="@../css/style.css">
          <children>
             <HBox fx:id="likeContainer" alignment="CENTER" onMousePressed="#onLikeContainerPressed" onMouseReleased="#onLikeContainerMouseReleased" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>

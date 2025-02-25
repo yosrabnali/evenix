@@ -28,7 +28,7 @@ public class PostController {
     @FXML
     private Label AuteurLabel, ContenuLabel, TitreLablel;
     @FXML
-    private ImageView PostImg, imgProfile, AddMaterialBTN;
+    private ImageView PostImg, imgProfile, AddPostBTN;
     @FXML
     private VBox chosenMaterialCard;
     @FXML
@@ -165,14 +165,14 @@ public class PostController {
     public void configureButtonsVisibility() {
         if ("Admin".equalsIgnoreCase(userRole)) {
             // Prestataire : tous les boutons visibles
-            AddMaterialBTN.setVisible(false);
+            AddPostBTN.setVisible(false);
             modifyBtn.setVisible(false);
             //nextPageBtn.setVisible(true);
             deleteBtn.setVisible(true);
 
-        } else if ("organisateur".equalsIgnoreCase(userRole)) {
-            // Organisateur : seul "Rent" est invisible
-            AddMaterialBTN.setVisible(false);
+        } else if ("Client".equalsIgnoreCase(userRole)) {
+
+            AddPostBTN.setVisible(false);
             modifyBtn.setVisible(false);
             //nextPageBtn.setVisible(false);
             deleteBtn.setVisible(false);

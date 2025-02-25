@@ -1,9 +1,22 @@
 package com.main.Entity;
 
+import java.util.Date;
+
 public class Like {
     private Long id;
     private Long articleId;
     private Long userId;
+    private long Reactiontype;
+   /* private String createdAt;
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }*/
+
 
     public long getReactiontype() {
         return Reactiontype;
@@ -13,7 +26,7 @@ public class Like {
         Reactiontype = reactiontype;
     }
 
-    private long Reactiontype;
+
 
     // Constructeur par défaut
     public Like() {}

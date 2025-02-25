@@ -17,9 +17,13 @@ public class PublicationService implements IService<Article> {
 
     @Override
     public void ajouter(Article article) throws SQLException {
-        String req = "INSERT INTO articles (titre, contenu, auteur, user_id, created_at) VALUES (?, ?, ?, ?, ?)";
-        if (hasImageColumn()) {
+        String req;
+        boolean hasImage = hasImageColumn(); // Vérifier si la colonne "image" existe
+
+        if (hasImage) {
             req = "INSERT INTO articles (titre, contenu, auteur, user_id, image, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+        } else {
+            req = "INSERT INTO articles (titre, contenu, auteur, user_id, created_at) VALUES (?, ?, ?, ?, ?)";
         }
 
         try {
@@ -29,9 +33,11 @@ public class PublicationService implements IService<Article> {
             pst.setString(3, article.getAuteur());
             pst.setLong(4, article.getUserId());
 
-            if (hasImageColumn()) {
+            if (hasImage) {
                 pst.setString(5, article.getImage());
-
+                pst.setTimestamp(6, new java.sql.Timestamp(System.currentTimeMillis())); // Date actuelle
+            } else {
+                pst.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis())); // Date actuelle
             }
 
             pst.executeUpdate();
