@@ -23,11 +23,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MaterialController">
     <children>
-        <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="1384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
                 <VBox fx:id="DAL" prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="74.0" prefWidth="435.0">
                             <children>
                                 <Label prefHeight="50.0" prefWidth="191.0" text="Materials" textFill="#878787">
                                     <font>
@@ -61,175 +61,188 @@
                                 <String fx:value="shadow" />
                             </styleClass>
                         </HBox>
-                        <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
-                        <VBox fx:id="chosenMaterialCard" alignment="CENTER" prefHeight="569.0" prefWidth="334.0" stylesheets="@../css/style.css">
-                            <VBox.margin>
-                                <Insets left="50.0" right="50.0" />
-                            </VBox.margin>
-
-                            <children>
-                        <ImageView fx:id="ClearBtn" fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Icons/annuler.png" />
-                           </image>
-                        </ImageView>
-                                <HBox prefHeight="70.0" prefWidth="314.0">
-                                    <children>
-                                        <Label fx:id="materielNameLable" prefHeight="44.0" prefWidth="218.0" text="Name">
-                                            <font>
-                                                <Font name="Cambria" size="36.0" />
-                                            </font>
-                                        </Label>
-                              <Label fx:id="materielPriceLabel" prefHeight="44.0" prefWidth="126.0" text="Price">
-                                 <font>
-                                    <Font name="Cambria" size="36.0" />
-                                 </font>
-                              </Label>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets left="20.0" top="30.0" />
-                                    </VBox.margin>
-                                </HBox>
-                                <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
-                                    <children>
-                                        <Label fx:id="categoryLabel" prefHeight="44.0" prefWidth="337.0" text="Category">
-                                            <font>
-                                                <Font name="Cambria" size="36.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                                <ImageView fx:id="materielImg" fitHeight="170.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </ImageView>
-                        <ImageView fx:id="QRimg" fitHeight="75.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" />
-                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                        <Pane prefHeight="552.0" prefWidth="435.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox layoutX="-18.0" layoutY="-169.0" prefHeight="54.0" prefWidth="384.0">
                            <children>
-                              <Separator prefHeight="0.0" prefWidth="118.0" />
-                              <Label alignment="CENTER" prefHeight="45.0" prefWidth="64.0" text="and" textFill="WHITE">
-                                 <font>
-                                    <Font name="Cambria" size="24.0" />
-                                 </font>
-                              </Label>
-                              <Separator prefHeight="0.0" prefWidth="118.0" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
                            </children>
-                        </HBox>
-                                <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
-                                    <children>
-                                        <Label fx:id="quantityNameLable" prefWidth="329.0" text="Quantity">
-                                            <font>
-                                                <Font name="Cambria" size="36.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </HBox>
-                        <VBox prefHeight="46.0" prefWidth="334.0" />
-                        <Label fx:id="DescriptionLabel" prefHeight="22.0" prefWidth="319.0" text="Description">
-                           <font>
-                              <Font name="Cambria" size="18.0" />
-                           </font>
-                        </Label>
-                        <VBox prefHeight="62.0" prefWidth="334.0" />
-                        <HBox prefHeight="66.0" prefWidth="334.0">
-                           <children>
-                              <HBox prefHeight="36.0" prefWidth="128.0" />
-                              <HBox prefHeight="36.0" prefWidth="44.0">
+                        </VBox>
+                              <VBox fx:id="chosenMaterialCard" alignment="CENTER" layoutX="50.0" layoutY="16.0" prefHeight="601.0" prefWidth="359.0" stylesheets="@../css/style.css">
+
+                                              <children>
+                              <ImageView fx:id="ClearBtn" fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Icons/annuler.png" />
+                                 </image>
+                              </ImageView>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                                      <HBox prefHeight="70.0" prefWidth="314.0">
+                                          <children>
+                                              <Label fx:id="materielNameLable" prefHeight="72.0" prefWidth="215.0" text="Name">
+                                                  <font>
+                                                      <Font name="Cambria" size="36.0" />
+                                                  </font>
+                                              </Label>
+                                    <Label fx:id="materielPriceLabel" prefHeight="44.0" prefWidth="126.0" text="Price">
+                                       <font>
+                                          <Font name="Cambria" size="36.0" />
+                                       </font>
+                                    </Label>
+                                          </children>
+                                          <VBox.margin>
+                                              <Insets left="20.0" top="30.0" />
+                                          </VBox.margin>
+                                      </HBox>
+                                      <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                          <children>
+                                              <Label fx:id="categoryLabel" prefHeight="44.0" prefWidth="337.0" text="Category">
+                                                  <font>
+                                                      <Font name="Cambria" size="36.0" />
+                                                  </font>
+                                              </Label>
+                                          </children>
+                                      </HBox>
+                                      <ImageView fx:id="materielImg" fitHeight="194.0" fitWidth="285.0" pickOnBounds="true" preserveRatio="true">
+                                          <VBox.margin>
+                                              <Insets top="20.0" />
+                                          </VBox.margin>
+                                      </ImageView>
+                              <ImageView fx:id="QRimg" fitHeight="75.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" />
+                              <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
                                  <children>
-                                    <ImageView fx:id="deleteBtn" fitHeight="36.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <Separator prefHeight="0.0" prefWidth="118.0" />
+                                    <Label alignment="CENTER" prefHeight="45.0" prefWidth="64.0" text="and" textFill="WHITE">
+                                       <font>
+                                          <Font name="Cambria" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator prefHeight="0.0" prefWidth="118.0" />
+                                 </children>
+                              </HBox>
+                                      <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
+                                          <children>
+                                              <Label fx:id="quantityNameLable" prefWidth="329.0" text="Quantity">
+                                                  <font>
+                                                      <Font name="Cambria" size="36.0" />
+                                                  </font>
+                                              </Label>
+                                          </children>
+                                          <VBox.margin>
+                                              <Insets top="20.0" />
+                                          </VBox.margin>
+                                      </HBox>
+                              <VBox prefHeight="46.0" prefWidth="334.0" />
+                              <Label fx:id="DescriptionLabel" prefHeight="22.0" prefWidth="319.0" text="Description">
+                                 <font>
+                                    <Font name="Cambria" size="18.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefHeight="62.0" prefWidth="334.0" />
+                              <HBox prefHeight="66.0" prefWidth="334.0">
+                                 <children>
+                                    <HBox prefHeight="36.0" prefWidth="128.0" />
+                                    <HBox prefHeight="36.0" prefWidth="44.0">
+                                       <children>
+                                          <ImageView fx:id="deleteBtn" fitHeight="36.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Icons/bouton-supprimer.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <ImageView fx:id="RentBTN" fitHeight="36.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Icons/bouton-supprimer.png" />
+                                          <Image url="@../images/Icons/ajouter-au-panier.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <ImageView fx:id="RentBTN" fitHeight="36.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/ajouter-au-panier.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                            </children>
-                            <styleClass>
-                                <String fx:value="chosen-Material-card" />
-                                <String fx:value="shadow" />
-                            </styleClass>
-                        </VBox>
-                        <Pane prefHeight="99.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
+                                  </children>
+                                  <styleClass>
+                                      <String fx:value="chosen-Material-card" />
+                                      <String fx:value="shadow" />
+                                  </styleClass>
+                              </VBox>
+                        <ImageView fx:id="homeicon" fitHeight="44.0" fitWidth="38.0" layoutX="1.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/bouton-daccueil.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="eventicon" fitHeight="36.0" fitWidth="45.0" layoutX="2.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/event_2413421.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="recicon" fitHeight="42.0" fitWidth="38.0" layoutX="2.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/rapport.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="achaticon" fitHeight="36.0" fitWidth="38.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/panier.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pubicon" fitHeight="36.0" fitWidth="38.0" layoutX="2.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Icons/relations-publiques.png" />
+                           </image>
+                        </ImageView>
+                     </children></Pane>
                     </children>
                 </VBox>
             </left>
             <center>
                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="840.0">
-                            <VBox.margin>
-                                <Insets left="20.0" right="20.0" />
-                            </VBox.margin>
-                            <children>
-                        <ImageView fx:id="evenix" fitHeight="72.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" styleClass="rotating-image">
-                           <image>
-                              <Image url="@../images/Evenix.png" />
-                           </image>
-                        </ImageView>
-                                <Label fx:id="evenixTXT" prefHeight="29.0" prefWidth="88.0" text="EVENIX" textFill="#878787">
-                                    <font>
-                                        <Font name="Cambria Bold" size="18.0" />
-                                    </font>
-                                </Label>
-                                <Pane prefHeight="106.0" prefWidth="564.0" HBox.hgrow="ALWAYS">
+                  <HBox prefHeight="70.0" prefWidth="880.0">
+                     <children>
+                        <HBox prefHeight="55.0" prefWidth="141.0" />
+                        <HBox alignment="CENTER" prefHeight="72.0" prefWidth="2086.0">
                            <children>
-                              <ImageView fx:id="homeicon" fitHeight="51.0" fitWidth="60.0" layoutX="20.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="evenix" fitHeight="72.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" styleClass="rotating-image">
                                  <image>
-                                    <Image url="@../images/Icons/bouton-daccueil.png" />
+                                    <Image url="@../images/Evenix.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="eventicon" fitHeight="51.0" fitWidth="60.0" layoutX="88.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                              <Label fx:id="evenixTXT" prefHeight="29.0" prefWidth="88.0" text="EVENIX" textFill="#878787">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="106.0" prefWidth="564.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fx:id="logouticon" fitHeight="51.0" fitWidth="60.0" layoutX="1715.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Icons/se-deconnecter.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fx:id="logouticon" fitHeight="36.0" fitWidth="45.0" layoutX="554.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Icons/se-deconnecter.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                              <Label prefHeight="62.0" prefWidth="46.0" text="Dali" textFill="#878787">
+                                 <font>
+                                    <Font name="Cambria" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/Icons/event_2413421.png" />
+                                    <Image url="@../images/dali.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="recicon" fitHeight="51.0" fitWidth="60.0" layoutX="150.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/rapport.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="achaticon" fitHeight="51.0" fitWidth="60.0" layoutX="212.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/panier.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="pubicon" fitHeight="51.0" fitWidth="60.0" layoutX="296.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/relations-publiques.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="logouticon" fitHeight="51.0" fitWidth="60.0" layoutX="490.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Icons/se-deconnecter.png" />
-                                 </image>
-                              </ImageView>
-                           </children></Pane>
-                                <Label prefHeight="62.0" prefWidth="46.0" text="Dali" textFill="#878787">
-                                    <font>
-                                        <Font name="Cambria" size="18.0" />
-                                    </font>
-                                </Label>
-                                <ImageView fitHeight="69.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/dali.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
+                           </children>
                         </HBox>
+                     </children>
+                  </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Pane fx:id="iconPane" prefHeight="67.0" prefWidth="840.0" style="-fx-background-color: #D3D3D3; -fx-border-radius: 15; -fx-background-radius: 15; -fx-padding: 10;">
+                                <Pane fx:id="iconPane" prefHeight="100.0" prefWidth="870.0" style="-fx-background-color: #D3D3D3; -fx-border-radius: 15; -fx-background-radius: 15; -fx-padding: 10;">
                            <children>
                               <ImageView fx:id="IAimage" fitHeight="36.0" fitWidth="38.0" layoutX="24.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -306,11 +319,11 @@
                 </VBox>
             </center>
         </BorderPane>
-      <HBox layoutX="1141.0" layoutY="739.0" prefHeight="62.0" prefWidth="182.0" styleClass="transparent" stylesheets="@../css/style.css">
+      <HBox layoutX="1153.0" layoutY="694.0" prefHeight="143.0" prefWidth="270.0" styleClass="transparent" stylesheets="@../css/style.css">
          <children>
-                      <HBox alignment="CENTER" prefHeight="99.0" prefWidth="178.0" spacing="10">
-                          <Label fx:id="pageNumberLabel" text="Page 1" />
-                          <Button fx:id="nextPageBtn" text="Next ➡" />
+                      <HBox alignment="CENTER" prefHeight="123.0" prefWidth="135.0" spacing="10">
+                          <Label fx:id="pageNumberLabel" prefHeight="15.0" prefWidth="86.0" text="Page 1" />
+                          <Button fx:id="nextPageBtn" prefHeight="36.0" prefWidth="135.0" text="Next ➡" />
                       </HBox>
          </children>
       </HBox>

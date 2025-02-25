@@ -225,49 +225,63 @@ public class MaterielService implements IService<Materiel> {
         return categoryName;
     }
 
-    public void ajouterLivraison(int idMateriel, int qte) {
-        try {
-            Connection connection = null;
-            if (connection == null || connection.isClosed()) {
-                connection = MyDB.getInstance().getConnection(); // Récupérer la connexion si elle est fermée
+    public boolean louerMateriel(int idMateriel, int qte) {
+        boolean success = false;
+
+        try (Connection conn = MyDB.getInstance().getConnection()) {
+            conn.setAutoCommit(false); // ✅ Démarrer une transaction
+
+            // 1️⃣ Mettre à jour la quantité dans la BD
+            String updateQuery = "UPDATE materiel SET quantite = quantite - ? WHERE idmateriel = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+                stmt.setInt(1, qte);
+                stmt.setInt(2, idMateriel);
+                int rowsUpdated = stmt.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    // 2️⃣ Vérifier si la quantité est devenue 0
+                    String checkQuery = "SELECT quantite FROM materiel WHERE idmateriel = ?";
+                    try (PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+                        checkStmt.setInt(1, idMateriel);
+                        ResultSet rs = checkStmt.executeQuery();
+
+                        if (rs.next() && rs.getInt("quantite") == 0) {
+                            // Supprimer le matériel s'il n'a plus de stock
+                            String deleteQuery = "DELETE FROM materiel WHERE idmateriel = ?";
+                            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+                                deleteStmt.setInt(1, idMateriel);
+                                deleteStmt.executeUpdate();
+                            }
+                        }
+                    }
+                }
+                conn.commit(); // ✅ Valider la transaction
+                success = true;
+            } catch (Exception ex) {
+                conn.rollback(); // ❌ Annuler en cas d'erreur
+                ex.printStackTrace();
+            } finally {
+                conn.setAutoCommit(true); // ✅ Réactiver auto-commit
             }
-
-            String query = "INSERT INTO livraison (reponselivraison, qte, idmateriel) VALUES (?, ?, ?)";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, "Validée");
-            stmt.setInt(2, qte);
-            stmt.setInt(3, idMateriel);
-
-            stmt.executeUpdate();
-            stmt.close();
-
-            System.out.println("✅ Livraison ajoutée avec succès !");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return success;
     }
-
-
-
-    public void diminuerQuantiteMateriel(int idMateriel, int qte) {
-        try {
-            Connection connection = null;
-            if (connection == null || connection.isClosed()) {
-                connection = MyDB.getInstance().getConnection(); // Récupérer la connexion si elle est fermée
+    public int getQuantiteMateriel(int idMateriel) {
+        String query = "SELECT quantite FROM materiel WHERE idmateriel = ?";
+        try (Connection conn = MyDB.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, idMateriel);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("quantite");
             }
-            String sql = "UPDATE materiel SET quantite = quantite - ? WHERE idmateriel = ?";
-            try {
-                PreparedStatement ps = connection.prepareStatement(sql);
-                ps.setInt(1, qte);
-                ps.setInt(2, idMateriel);
-                ps.executeUpdate();
-                System.out.println("✅ Quantité mise à jour avec succès !");
-            } catch (SQLException e) {
-                System.out.println("❌ Erreur lors de la mise à jour de la quantité : " + e.getMessage());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return 0; // Erreur
     }
 
 }

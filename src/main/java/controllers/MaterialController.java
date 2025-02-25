@@ -194,7 +194,7 @@ public class MaterialController {
                 nextPageBtn.setOnAction(e -> openCategoryManagement());
                 RentBTN.setOnMouseClicked(event -> {
                         if (selectedMateriel != null) {
-                                showLivraisonPopup(selectedMateriel.getIdMateriel(), selectedMateriel.getQuantite());
+                                showRentPopup(selectedMateriel.getIdMateriel(), selectedMateriel.getQuantite());
                         } else {
                                 showWarningDialog("⚠ Aucun matériel sélectionné !");
                         }
@@ -240,6 +240,7 @@ public class MaterialController {
                 // Charger les matériels au démarrage
                 loadMaterials();
         }
+
         private void startRotationEvery2Seconds() {
                 Timeline timeline = new Timeline(
                         new KeyFrame(Duration.seconds(2), event -> rotateImage()) // Exécute la rotation chaque 2 secondes
@@ -500,14 +501,23 @@ public class MaterialController {
         public void setChosenMateriel(Materiel materiel) {
                 if (materiel == null) return;
 
-                selectedMateriel = materiel; // Stocker le matériel sélectionné
-                // Mettre à jour les labels avec les nouvelles informations
+                // ✅ Mise à jour de la quantité réelle depuis la BD
+                int nouvelleQuantite = materielService.getQuantiteMateriel(materiel.getIdMateriel());
+
+                if (nouvelleQuantite == 0) {
+                        clearChosenMaterial(); // ✅ Effacer la carte si quantité = 0
+                        selectedMateriel = null; // ✅ Réinitialiser l'objet sélectionné
+                        return;
+                }
+
+                // ✅ Mettre à jour l'objet et l'affichage
+                materiel.setQuantite(nouvelleQuantite);
+                selectedMateriel = materiel;
+
                 materielNameLable.setText(materiel.getNom());
                 materielPriceLabel.setText("$" + materiel.getPrix());
-                quantityNameLable.setText("Quantity: " + materiel.getQuantite());
+                quantityNameLable.setText("Quantity: " + nouvelleQuantite);
                 DescriptionLabel.setText("Description: " + materiel.getDescription());
-
-                // 🔹 Afficher la catégorie dans le Label
                 categoryLabel.setText("Category: " + materielService.getCategoryName(materiel.getIdCategorie()));
 
                 // Charger l'image
@@ -521,32 +531,26 @@ public class MaterialController {
                 } else {
                         materielImg.setImage(new Image("file:src/main/resources/images/default.png"));
                 }
-                // ✅ Vérifier les données avant affichage
-                String nom = materiel.getNom() != null ? materiel.getNom() : "Inconnu";
-                String prix = String.valueOf(materiel.getPrix());
-                String description = materiel.getDescription() != null ? materiel.getDescription() : "Non spécifiée";
-                String categorie = materielService.getCategoryName(materiel.getIdCategorie()) != null ? materielService.getCategoryName(materiel.getIdCategorie()) : "Non spécifiée";
 
-                // ✅ Création d’un texte bien formaté pour le QR Code
-                String qrData = "\n📌 Name: " + nom +
-                        "\n💰 Price: " + prix + " $" +
-                        "\n🏷 Description: " + description +
-                        "\n📂 Category: " + categorie;
+                // ✅ Générer un QR Code mis à jour
+                String qrData = "\n📌 Name: " + materiel.getNom() +
+                        "\n💰 Price: " + materiel.getPrix() + " $" +
+                        "\n🏷 Description: " + materiel.getDescription() +
+                        "\n📂 Category: " + materielService.getCategoryName(materiel.getIdCategorie());
 
-                System.out.println("🔹 QR Code généré avec les données suivantes : \n" + qrData); // Debug pour voir si les données sont bien envoyées
-
-                // ✅ Affichage du QR Code
                 QRimg.setImage(QRCodeGenerator.generateQRCode(qrData, 150, 150));
-
 
                 // ✅ Activer les boutons
                 modifyBtn.setDisable(false);
                 deleteBtn.setDisable(false);
                 ClearBtn.setDisable(false);
-                // Rendre la carte visible
+
+                // ✅ Rendre la carte visible
                 chosenMaterialCard.setVisible(true);
                 chosenMaterialCard.setManaged(true);
         }
+
+
 
 
 
@@ -697,58 +701,63 @@ public class MaterialController {
 
 
         @FXML
-        public void showLivraisonPopup(int idMateriel, int maxQte) {
+        public void showRentPopup(int idMateriel, int maxQte) {
                 Platform.runLater(() -> {
                         Stage popupStage = new Stage();
                         popupStage.initOwner(RentBTN.getScene().getWindow());
                         popupStage.initModality(Modality.APPLICATION_MODAL);
-                        popupStage.setTitle("Confirm Delivery");
+                        popupStage.setTitle("Confirm Rent");
 
-                        // 🔹 Création du label et des champs d'entrée
-                        Label label = new Label("Enter the quantity (max: " + maxQte + ") :");
+                        Label label = new Label("Enter the quantity  (max: " + maxQte + ") :");
                         TextField qteField = new TextField();
                         Button confirmButton = new Button("OK");
 
-                        // 🔹 Image de succès (initialement cachée)
                         ImageView successImage = new ImageView(new Image("file:src/main/resources/images/success.png"));
                         successImage.setFitWidth(50);
                         successImage.setFitHeight(50);
                         successImage.setVisible(false);
 
-                        // 🔹 Mise en page
                         VBox layout = new VBox(10, label, qteField, confirmButton, successImage);
                         layout.setStyle("-fx-padding: 20; -fx-alignment: center;");
 
                         confirmButton.setOnAction(e -> {
                                 try {
                                         int qte = Integer.parseInt(qteField.getText());
+
                                         if (qte > 0 && qte <= maxQte) {
-                                                // 🔹 Ajouter la livraison et mettre à jour la base de données
-                                                materielService.ajouterLivraison(idMateriel, qte);
+                                                boolean success = materielService.louerMateriel(idMateriel, qte);
 
-                                                if (!MyDB.getInstance().isConnected()) {
-                                                        System.out.println("🔄 Réouverture de la connexion...");
-                                                        materielService = new MaterielService(); // Réinitialiser la connexion
+                                                if (success) {
+                                                        // ✅ Mise à jour de la quantité après la location
+                                                        int nouvelleQuantite = materielService.getQuantiteMateriel(idMateriel);
+
+                                                        if (nouvelleQuantite == 0) {
+                                                                clearChosenMaterial(); // ✅ Nettoyer automatiquement si quantité = 0
+                                                                selectedMateriel = null; // ✅ Réinitialiser le matériel sélectionné
+                                                        } else {
+                                                                selectedMateriel.setQuantite(nouvelleQuantite); // ✅ Mettre à jour la quantité de l'objet
+                                                                setChosenMateriel(selectedMateriel); // ✅ Rafraîchir la carte sans la supprimer
+                                                        }
+
+                                                        qteField.setVisible(false);
+                                                        confirmButton.setVisible(false);
+                                                        label.setText("✅ Rent confirmed!");
+                                                        successImage.setVisible(true);
+
+                                                        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), successImage);
+                                                        fadeIn.setFromValue(0);
+                                                        fadeIn.setToValue(1);
+                                                        fadeIn.play();
+
+                                                        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                                                        delay.setOnFinished(event -> {
+                                                                popupStage.close();
+                                                                loadMaterials(); // 🔄 Mettre à jour la liste complète
+                                                        });
+                                                        delay.play();
+                                                } else {
+                                                        label.setText("❌ Erreur lors de la location !");
                                                 }
-
-                                                materielService.diminuerQuantiteMateriel(idMateriel, qte);
-
-                                                // 🔹 Mise à jour de l'interface : cacher les champs et afficher le succès
-                                                qteField.setVisible(false);
-                                                confirmButton.setVisible(false);
-                                                label.setText("✅ Delivery confirmed!");
-                                                successImage.setVisible(true); // Afficher l'image de succès
-
-                                                // 🔹 Animation de fondu pour l'image de succès
-                                                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), successImage);
-                                                fadeIn.setFromValue(0);
-                                                fadeIn.setToValue(1);
-                                                fadeIn.play();
-
-                                                // 🔹 Fermer la popup après 1.5 secondes
-                                                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
-                                                delay.setOnFinished(event -> popupStage.close());
-                                                delay.play();
                                         } else {
                                                 label.setText("Invalid quantity!");
                                         }
@@ -757,11 +766,12 @@ public class MaterialController {
                                 }
                         });
 
-                        // 🔹 Afficher la fenêtre modale
                         popupStage.setScene(new Scene(layout, 300, 200));
                         popupStage.showAndWait();
                 });
         }
+
+
         private void refreshPage() {
                 System.out.println("🔄 Rafraîchissement de la page...");
                 loadMaterials(); // Recharge les matériels

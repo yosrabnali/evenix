@@ -91,6 +91,14 @@ public class CategorieGestureController {
         ImageAnimation.addHoverEffect(achaticon);
         ImageAnimation.addHoverEffect(logouticon);
         ImageAnimation.addHoverEffect(btnSort);
+        /////////////////////////////////////////
+        ImageAnimation.addTooltip(homeicon, "Home");
+        ImageAnimation.addTooltip(eventicon, "Events");
+        ImageAnimation.addTooltip(logouticon, "Logout");
+        ImageAnimation.addTooltip(pubicon, "Publications");
+        ImageAnimation.addTooltip(recicon, "Reclamation");
+        ImageAnimation.addTooltip(achaticon, "Buy");
+
 
         AddBTN.setOnAction(this::handleAddCategory);
         columnservice.setCellValueFactory(new PropertyValueFactory<>("service"));
