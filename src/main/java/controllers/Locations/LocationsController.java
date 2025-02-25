@@ -58,7 +58,7 @@ public class LocationsController {
     private static final String EMAIL_PASSWORD = "szex gsyo jnyu lvaq\n"; // Replace
 
     private Set<Integer> alertedLocationIds = new HashSet<>();  // Track alerted locations
-    private static final int DELAY_BETWEEN_EMAILS_MS = 1000; // 1 second (Rate limiting)
+    private static final int DELAY_BETWEEN_EMAILS_MS = 1000; // 1 second (Rate limiting) //Délai entre l'envoi de deux emails pour éviter le spam
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);  //  Thread Pool
 
     @FXML
@@ -238,6 +238,11 @@ public class LocationsController {
                 afficherInformation("Succès", "Location ajoutée avec succès !");
                 chargerLocations(); // Recharger les locations dans le TableView
                 clearFields(); // Vider les champs du formulaire
+
+                // **RESTART the alert system after adding a new location**
+                alertedLocationIds.clear(); // IMPORTANT: Clear the alerted IDs so that the alert will be sent.
+                startAlertSystem();
+
             } else {
                 afficherAlerte("Erreur", "Échec de l'ajout de la location.");
             }
@@ -280,6 +285,11 @@ public class LocationsController {
                 afficherInformation("Succès", "Location modifiée avec succès !");
                 chargerLocations();
                 clearFields();
+
+                // **RESTART the alert system after modifying a location**
+                alertedLocationIds.clear(); // IMPORTANT: Clear the alerted IDs so that the alert will be sent again if needed.
+                startAlertSystem();
+
             } else {
                 afficherAlerte("Erreur", "Échec de la modification de la location.");
             }
@@ -392,6 +402,7 @@ public class LocationsController {
 
 
     // Check if the status is "Terminée"
+    //Vérifie si une location est terminée et envoie un email.
     private void checkStatusAndSendEmail(Location selectedLocation) {
         if ("Terminée".equals(selectedLocation.getStatus())) {
             // Retrieve the dateFin from the selectedLocation
@@ -417,6 +428,7 @@ public class LocationsController {
             afficherAlerte("Alerte", "Cette location n'est pas encore terminée.");
         }
     }
+    //Envoi d'un email via SMTP.
     public static void sendEmail(String to, String subject, String content) {
         // Sender's email credentials
         final String username = "hemdenminou@gmail.com"; // Replace
@@ -451,67 +463,54 @@ public class LocationsController {
             e.printStackTrace();
         }
     }
-
+    //Démarrage du système d'alerte pour vérifier les locations à venir.
     private void startAlertSystem() {
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(60), event -> {  // Vérifie toutes les 60 secondes
+                new KeyFrame(Duration.seconds(5), event -> {  // Vérifie toutes les 5 secondes
                     checkUpcomingLocationsAndSendAlerts(); // Call the new method
-                    updateLocationAlerts();
+
                 })
         );
-        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.setCycleCount(1); // Run only once
         timeline.play();
     }
 
-    private void updateLocationAlerts() {
-        //Itérer à travers chaque location dans la liste filtrée et rafraîchir son style.
-        // Iterate through each location in the filtered list and refresh its style.
-        for (Location location : filteredLocationList) {
-            // Find the TableRow associated with the Location object.
-            for (int i = 0; i < tableView.getItems().size(); i++) {
-                if (tableView.getItems().get(i) == location) {
-                    // Refresh the TableView to update the styles.
-                    tableView.refresh();
-                    break; // Exit the loop once the Location is found.
-                }
-            }
-        }
-    }
 
     //NEW METHOD: Check for upcoming locations and send email alerts
+    //Vérification des locations à venir et envoi d'alertes par email si nécessaire.
     private void checkUpcomingLocationsAndSendAlerts() {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //Format date for email
 
         for (Location location : locationList) { // Check ALL locations, not just filtered ones.
-            if ("À venir".equals(location.getStatus())) {  //Only check 'À venir' locations
+            if ("À venir".equals(location.getStatus()) && !alertedLocationIds.contains(location.getIdlocation())) {  //Only check 'À venir' locations and not already alerted
                 LocalDate startDate = location.getDatedebut();
                 if (startDate != null) {
                     long daysUntilStart = ChronoUnit.DAYS.between(now, startDate);
 
                     if (daysUntilStart >= 0 && daysUntilStart <= ALERT_THRESHOLD_DAYS) {
                         //  Check if the location has already been alerted
-                        if (!alertedLocationIds.contains(location.getIdlocation())) {  // IMPORTANT: CHECK IF WE ALREADY SENT IT
 
-                            // Capture current state in final variables for use within the task
-                            final int locationId = location.getIdlocation();
-                            final LocalDate dateDebut = location.getDatedebut();
 
-                            //Schedule the email, now with throttling and handled by multi threading
-                            scheduleEmailTask("hdmminiar@gmail.com", "Votre location commence bientôt !", String.format("Votre location %d commence le %s.  Pensez à vous préparer !",
-                                    locationId, dateDebut.format(formatter)));
+                        // Capture current state in final variables for use within the task
+                        final int locationId = location.getIdlocation();
+                        final LocalDate dateDebut = location.getDatedebut();
 
-                            // Mark alert already sent after scheduling the email
+                        //Schedule the email, now with throttling and handled by multi threading
+                        scheduleEmailTask("hdmminiar@gmail.com", "Votre location commence bientôt !", String.format("Votre location %d commence le %s.  Pensez à vous préparer !",
+                                locationId, dateDebut.format(formatter)));
 
-                        } else {
-                            LOGGER.log(Level.INFO, "Start soon alert already sent for Location ID: " + location.getIdlocation());
-                        }
+                        // Mark alert already sent after scheduling the email
+                        alertedLocationIds.add(locationId); //mark alerted
+
+                        LOGGER.log(Level.INFO, "Start soon alert already sent for Location ID: " + location.getIdlocation());
+
                     }
                 }
             }
         }
     }
-
+    //Planification de l'envoi d'un email avec un délai pour éviter le spam.up
     private void scheduleEmailTask(String to, String subject, String content) {
         scheduler.schedule(() -> {
 
@@ -519,14 +518,8 @@ public class LocationsController {
                 sendEmail(to, subject, content);
                 LOGGER.log(Level.INFO, "Email sent to : " + to);
 
-                // Add location ID to the set of alerted locations when send succesfully
-                List<Location> locations = serviceLocation.getAll(); // Get all locations
-                for (Location location : locations) {
-                    List<Location> listeLoc = serviceLocation.getAll();
-                    for (Location loc : listeLoc) {
-                        alertedLocationIds.add(loc.getIdlocation()); // Mark as sent
-                    }
-                }
+
+
             } catch (Exception e) {
                 // Handle exception
                 e.printStackTrace();
