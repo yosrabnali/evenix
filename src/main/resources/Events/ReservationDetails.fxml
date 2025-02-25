@@ -171,9 +171,17 @@
                                 </children>
 <!--                                this is the map-->
 
-                                <VBox fx:id="vbox" maxWidth="300" minHeight="300">
-
+                                <VBox fx:id="vbox" maxWidth="300" minHeight="250" maxHeight="250"
+                                      style="-fx-border-color: #a0b2c0;
+             -fx-border-width: 2px;
+             -fx-border-radius: 0px;
+             -fx-effect: dropshadow(gaussian, black, 10, 0, 2, 2);
+             -fx-border-insets: 0;
+             -fx-padding: 0;">
                                 </VBox>
+
+
+
                             </HBox>
 
                             <!-- (3) Boutons d'action en bas -->
@@ -201,6 +209,7 @@
                                                    -fx-background-radius: 10;
                                                    -fx-text-fill: #ffffff;
                                                    -fx-background-color: #e74c3c;"/>
+                                    
                                 </children>
                             </HBox>
                         </VBox>

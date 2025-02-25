@@ -1,4 +1,6 @@
-/* Style des cartes et des ombres */
+/**************************************
+ * Style des cartes et des ombres
+ **************************************/
 .card {
     -fx-background-color: white;
     -fx-border-radius: 15px;
@@ -17,20 +19,26 @@
     -fx-text-fill: #2e7d32;
 }
 
-/* Style général de l'application */
+/**************************************
+ * Style général de l'application
+ **************************************/
 .main-container {
     -fx-background-color: #f8f9fa;
     -fx-padding: 40;
 }
 
-/* Barre latérale */
+/**************************************
+ * Barre latérale
+ **************************************/
 .left-bar {
     -fx-background-color: #ffffff;
     -fx-border-radius: 15px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
 }
 
-/* Style des boutons et images interactives */
+/**************************************
+ * Style des boutons et images interactives
+ **************************************/
 .image-view:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
@@ -38,7 +46,9 @@
     -fx-background-color: transparent;
 }
 
-/* Style des labels */
+/**************************************
+ * Style des labels
+ **************************************/
 .header-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -46,8 +56,12 @@
     -fx-padding: 0 0 10 0;
 }
 
-/* Champs de saisie */
-.custom-textfield, .custom-date-picker, .custom-combobox {
+/**************************************
+ * Champs de saisie
+ **************************************/
+.custom-textfield,
+.custom-date-picker,
+.custom-combobox {
     -fx-background-color: #ffffff;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -57,7 +71,9 @@
     -fx-text-fill: #495057;
 }
 
-/* Style des boutons */
+/**************************************
+ * Style des boutons
+ **************************************/
 .button {
     -fx-background-color: #fafafa;
     -fx-text-fill: #ffffff;
@@ -68,57 +84,72 @@
     -fx-cursor: hand;
 }
 
-
-
-/* Style des onglets */
-/* Fond de la zone d'en-tête des onglets en gris clair */
-/* --- Bande (barre) des onglets en blanc --- */
-/* Barre d’onglets en blanc */
-/* 1) Rendre le fond général du TabPane transparent (ou blanc) */
-/* Bande d'onglets en blanc */
-.tab-pane .tab-header-area {
+/**************************************
+ * Style des onglets
+ **************************************/
+/* Fond général du TabPane en blanc sans bordure */
+.tab-pane {
     -fx-background-color: white;
     -fx-border-color: transparent;
 }
 
-/* Ajoute un espacement entre les onglets */
+/* Zone d'en-tête des onglets : fond blanc et sans bordure */
+.tab-pane .tab-header-area {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Arrière-plan juste derrière les onglets en blanc */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+
+/* Espacement entre les onglets */
 .tab-pane .tab-header-area .headers-region {
     -fx-spacing: 10px;
 }
 
-/* Style de base des onglets (non sélectionnés) */
+/* Onglets non sélectionnés avec effet d'ombre léger */
 .tab-pane .tab-header-area .tab {
-    -fx-background-color: #e6e6e6;      /* Bouton gris clair */
-    -fx-background-radius: 25;          /* Forme arrondie */
+    -fx-background-color: #e6e6e6; /* Gris clair */
+    -fx-background-radius: 25;
     -fx-border-radius: 25;
-    -fx-padding: 5 20 5 20;             /* Plus d'espace horizontal pour contenir le texte */
-    -fx-text-fill: #333;                /* Couleur du texte */
-    -fx-font-size: 14px;                /* Taille de police */
-    -fx-font-weight: bold;              /* Texte en gras */
-    -fx-pref-height: 42;                /* Hauteur fixe du bouton */
-    /* La largeur s'ajuste automatiquement en fonction du texte et du padding */
+    -fx-padding: 5 20;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 42;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 5, 0.5, 0, 2);
 }
 
-/* Style pour l'onglet sélectionné */
+/* Onglet sélectionné avec effet d'ombre prononcé */
 .tab-pane .tab-header-area .tab:selected {
-
-    -fx-background-color: #3a6d9b;  /* Couleur pour l’onglet actif */
-    -fx-text-fill: white;           /* Texte en blanc */
+    -fx-background-color: #3a6d9b; /* Couleur de l'onglet actif */
+    -fx-text-fill: white;
     -fx-background-radius: 25;
     -fx-border-radius: 25;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0.5, 0, 3);
 }
+
+/**************************************
+ * Champs arrondis (boutons, combos, etc.)
+ **************************************/
 .rounded-text-field {
-    -fx-text-fill: #070707;           /* Couleur du texte */
+    -fx-text-fill: #070707;
     -fx-background-color: #ccc6c6;
     -fx-border-color: #ccc6c6;
     -fx-font-family: 'Corbel';
     -fx-pref-width: 100px;
     -fx-pref-height: 22px;
-    -fx-font-weight: normal;          /* Assure que le texte n'est pas en gras */
+    -fx-font-weight: normal;
     -fx-font-size: 16px;
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
@@ -126,22 +157,22 @@
     -fx-padding: 10px;
 }
 
-/* Appliquez cette classe à votre ComboBox via styleClass="rounded-combo-field" */
+/* Pour la ComboBox : style arrondi */
 .rounded-combo-field {
     -fx-text-fill: #000000;
     font-family: 'Corbel';
     font-weight: normal;
-    -fx-background-color: #ccc6c6;    /* Couleur de fond basée sur #A0B2C0 */
-    -fx-border-color: #ccc6c6;        /* Bordure légèrement plus foncée */
+    -fx-background-color: #d5cdcd;
+    -fx-border-color: #d5cdcd;
     -fx-border-width: 1;
-    -fx-border-radius: 15;            /* Coins arrondis pour la bordure */
-    -fx-background-radius: 15;        /* Coins arrondis pour le fond */
-    -fx-padding: 5 10 5 10;           /* Espacement interne */
-    -fx-font-size: 16px;              /* Taille de police */
-    -fx-text-fill: #2E2E2E;           /* Couleur du texte */
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 5 10;
+    -fx-font-size: 16px;
+    -fx-text-fill: #2E2E2E;
 }
 
-/* Personnalisation du bouton de la flèche */
+/* Bouton de la flèche dans la ComboBox */
 .rounded-combo-field .arrow-button {
     -fx-background-color: transparent;
 }
@@ -152,7 +183,7 @@
     -fx-background-radius: 10;
 }
 
-/* Effet lors du focus */
+/* Effet au focus sur la ComboBox */
 .rounded-combo-field:focused {
     -fx-border-color: #6B7A8C;
 }

@@ -38,7 +38,7 @@ public class EditEventController {
     @FXML
     private TextField txtImage;
     @FXML
-    private TextField txtLieu;
+    private ComboBox<String>  txtLieu;
     @FXML
     private DatePicker datePicker;
 
@@ -63,8 +63,17 @@ public class EditEventController {
         comboEtat.getItems().addAll("Disponible", "Complet", "Annulé");
 
         // For testing, initialize the comboRole with "Admin" or "User"
-        comboRole.getItems().addAll("Admin", "User");
-        comboRole.setValue("Admin");
+
+
+        if (txtLieu != null) {
+            txtLieu.getItems().addAll(
+                    "Ariana", "Béja", "Ben Arous", "Bizerte", "Gabès",
+                    "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili",
+                    "Kef", "Mahdia", "Manouba", "Medenine", "Monastir",
+                    "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse",
+                    "Tataouine", "Tozeur", "Tunis", "Zaghouan"
+            );
+        }
     }
 
     /**
@@ -80,7 +89,7 @@ public class EditEventController {
         comboEtat.setValue(event.getEtat());
         comboType.setValue(event.getType());
         txtImage.setText(event.getImage());
-        txtLieu.setText(event.getLieu());
+        txtLieu.setValue(event.getLieu());
         txtlatitude.setText(String.valueOf(event.getLatitude()));
         txtlongitude.setText(String.valueOf(event.getLongitude()));
         // Convert java.sql.Date to LocalDate for the DatePicker
@@ -114,7 +123,7 @@ public class EditEventController {
             String etat = comboEtat.getValue();
             String type = comboType.getValue();
             String image = txtImage.getText();
-            String lieu = txtLieu.getText();
+            String lieu = txtLieu.getValue();
             double latitude = Double.parseDouble(txtlatitude.getText());
             double longitude = Double.parseDouble(txtlongitude.getText());
 

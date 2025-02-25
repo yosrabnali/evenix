@@ -12,9 +12,7 @@
 }
 
 /* Style pour l'image de l'événement */
-.event-image {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
-}
+
 
 /* Style pour le titre de l'événement */
 .event-title {
@@ -59,3 +57,10 @@
 .reserve-button:hover {
     -fx-background-color: #a0b2c0;
 }
+.event-image:hover {
+    -fx-opacity: 0.8; /* diminue l'opacité lors du survol */
+    -fx-scale-x: 1.05; /* agrandit légèrement l'image horizontalement */
+    -fx-scale-y: 1.05; /* agrandit légèrement l'image verticalement */
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 10, 0.0, 0, 0);
+}
+

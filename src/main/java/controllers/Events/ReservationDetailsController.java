@@ -77,6 +77,7 @@ public class ReservationDetailsController  {
     private VBox vbox;
     private PaymentService paymentService;
 
+
     // Current ticket count
     private int ticketCount = 0;
     private static final int MAX_TICKETS = 5;

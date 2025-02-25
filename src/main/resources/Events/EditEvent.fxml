@@ -59,7 +59,7 @@
 
                             <!-- Row 4: Venue -->
                             <Label text="Venue:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField fx:id="txtLieu" promptText="Enter event venue"
+                            <ComboBox fx:id="txtLieu" promptText="Enter event venue"
                                        GridPane.rowIndex="4" GridPane.columnIndex="1"
                                        styleClass="custom-textfield"/>
 

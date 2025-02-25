@@ -12,7 +12,12 @@
       fx:controller="controllers.Events.ReservationCellController"
       spacing="15"
       alignment="CENTER"
-      styleClass="reservation-cell">
+      style="-fx-background-color: white;
+             -fx-background-radius: 10;
+             -fx-border-color: #a0b2c0;
+             -fx-border-radius: 10;
+             -fx-border-width: 2;
+             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);">
     <children>
         <!-- Image de l'événement avec effet de shadow géré en CSS -->
         <ImageView fx:id="eventImageView"
@@ -24,7 +29,6 @@
         <!-- Première colonne d'informations -->
         <VBox spacing="8" alignment="CENTER_LEFT" styleClass="reservation-info">
             <children>
-
                 <Label fx:id="lblDate" text="Date: 2025-03-10" styleClass="reservation-date"/>
                 <Label fx:id="lblNbPlaces" text="Places: 3" styleClass="reservation-places"/>
             </children>
@@ -41,10 +45,10 @@
         <!-- Espaceur pour pousser le bouton vers la droite -->
         <Region HBox.hgrow="ALWAYS"/>
 
-        <!-- Bouton de suppression avec design personnalisé -->
+        <!-- Bouton de suppression -->
         <Button fx:id="btnDelete"
                 text="Delete"
                 onAction="#handleDelete"
-                styleClass="delete-button"/>
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5; -fx-border-radius: 5;"/>
     </children>
 </HBox>

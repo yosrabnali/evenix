@@ -18,24 +18,19 @@
 
 /* 📌 Champs de texte arrondis */
 .rounded-text-field {
-    -fx-pref-width: 500px;
-    -fx-pref-height: 42px;
-    -fx-font-size: 16px;
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
-    -fx-border-color: #b0b0b0;
-    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 15;
+    -fx-padding: 8 12 8 12;
 }
 
-/* 🔽 ComboBox */
-.rounded-combo-box {
-    -fx-pref-width: 1000px;
-    -fx-pref-height: 100px;
-    -fx-font-size: 16px;
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
-    -fx-border-color: #b0b0b0;
-    -fx-padding: 10px;
+/* Pour les ComboBox */
+.rounded-combobox {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 15;
 }
 
 /* 🖼️ ImageView */
@@ -62,31 +57,13 @@
 }
 
 /* ✅ Bouton "Save" */
-.save-button {
-    -fx-pref-width: 120px;
-    -fx-pref-height: 40px;
-    -fx-font-size: 16px;
-    -fx-background-color: #27ae60;
-    -fx-text-fill: white;
-    -fx-background-radius: 25px;
-    -fx-cursor: hand;
+.save-button, .cancel-button, .browse-button, .image-button:hover  {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 8 15 8 15;
 }
 
-.save-button:hover {
-    -fx-background-color: #1e8449;
-}
-
-/* ❌ Bouton "Cancel" */
-.cancel-button {
-    -fx-pref-width: 120px;
-    -fx-pref-height: 40px;
-    -fx-font-size: 16px;
-    -fx-background-color: #e74c3c;
-    -fx-text-fill: white;
-    -fx-background-radius: 25px;
-    -fx-cursor: hand;
-}
-
-.cancel-button:hover {
-    -fx-background-color: #c0392b;
+.root-container * {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
 }

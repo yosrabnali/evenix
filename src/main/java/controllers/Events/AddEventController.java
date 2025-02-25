@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class AddEventController {
+
     @FXML
     private FlowPane flowPaneEvents;
     @FXML

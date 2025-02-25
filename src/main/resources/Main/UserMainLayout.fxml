@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="810" prefWidth="1315" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserMainLayoutController">
+<AnchorPane prefHeight="810" prefWidth="1315" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserMainLayoutController">
 
     <stylesheets>
         <URL value="@../css/styles.css" />
@@ -15,42 +15,52 @@
 
     <children>
         <!-- Barre supérieure -->
-        <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="65" spacing="20" style="-fx-background-color: white;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="65" spacing="20" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
             <children>
-                <Label style="-fx-text-fill: #878787; -fx-font-size: 24; -fx-font-weight: bold;" text="EVENIX">
-               <padding>
-                  <Insets left="30.0" top="10.0" />
-               </padding></Label>
-                <ImageView fitHeight="72" fitWidth="145" pickOnBounds="true" preserveRatio="true">
+                <!-- Logo avec fx:id "evenix" pour la rotation -->
+                <ImageView fx:id="evenix" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/logo.png" />
+                        <Image url="@../images/logo.jpg" />
                     </image>
+                    <HBox.margin>
+                        <Insets left="40.0" top="-8.0" />
+                    </HBox.margin>
                 </ImageView>
-                <Region HBox.hgrow="ALWAYS" />
-                <Label fx:id="userNameTop" style="-fx-text-fill: #333; -fx-font-size: 16; -fx-font-weight: bold;" text="Yosra Ben ali" />
-                <ImageView fx:id="userPhotoTop" fitHeight="50" fitWidth="50" preserveRatio="true">
+                <Region prefHeight="99.0" prefWidth="1036.0" HBox.hgrow="ALWAYS" />
+                <!-- Bouton logout déplacé dans la barre supérieure -->
+                <ImageView fx:id="logoutIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#handleLogout" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/logout.png" />
+                    </image>
+               <HBox.margin>
+                  <Insets right="-10.0" />
+               </HBox.margin>
+                </ImageView>
+                <Label fx:id="userNameTop" prefHeight="25.0" prefWidth="248.0" style="-fx-text-fill: #333; -fx-font-size: 16; -fx-font-weight: bold;" text="Yosra Ben ali">
+               <HBox.margin>
+                  <Insets right="-70.0" />
+               </HBox.margin></Label>
+                <ImageView fx:id="userPhotoTop" fitHeight="53.0" fitWidth="52.0" preserveRatio="true">
                     <image>
                         <Image url="@../images/userphoto.jpg" />
                     </image>
                     <clip>
                         <Circle centerX="25" centerY="25" radius="25" />
                     </clip>
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
                 </ImageView>
             </children>
         </HBox>
 
         <!-- Barre latérale gauche -->
-        <VBox fx:id="leftBar" alignment="CENTER_LEFT" prefWidth="150" spacing="20" style="-fx-background-color: white;                      -fx-border-radius: 15px;                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="65">
+        <VBox fx:id="leftBar" alignment="CENTER_LEFT" prefHeight="745.0" prefWidth="50.0" spacing="20" style="-fx-background-color: white; -fx-border-radius: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="65">
             <children>
                 <Region VBox.vgrow="ALWAYS" />
-                <ImageView fx:id="homeIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleHome" preserveRatio="true" styleClass="card">
-                    <image>
-                        <Image url="@../images/iconhome.jpg" />
-                    </image>
-                </ImageView>
                 <ImageView fx:id="eventIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleEvent" preserveRatio="true" styleClass="card">
                     <image>
-                        <Image url="@../images/iconevent.png" />
+                        <Image url="@../images/iconevent.jpg" />
                     </image>
                 </ImageView>
                 <ImageView fx:id="publicationIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handlePublication" preserveRatio="true" styleClass="card">
@@ -58,25 +68,21 @@
                         <Image url="@../images/iconpublication.jpg" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="complaintIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleComplaint" preserveRatio="true" styleClass="card">
+                <ImageView fx:id="materielIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handlemateriel" preserveRatio="true" styleClass="card">
                     <image>
-                        <Image url="@../images/iconcomplaint.jpg" />
+                        <Image url="@../images/iconmateriel.png" />
                     </image>
                 </ImageView>
                 <Region VBox.vgrow="ALWAYS" />
-                <ImageView fx:id="logoutIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleLogout" preserveRatio="true" styleClass="card">
-                    <image>
-                        <Image url="@../images/logout.png" />
-                    </image>
-                </ImageView>
+                <!-- Le bouton logout a été retiré de cette VBox -->
             </children>
         </VBox>
 
         <!-- Zone principale -->
-        <BorderPane fx:id="mainContent" style="-fx-background-color: transparent; -fx-padding: 30;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="250" AnchorPane.rightAnchor="30" AnchorPane.topAnchor="65">
+        <BorderPane fx:id="mainContent" style="-fx-background-color: transparent; -fx-padding:30;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="110" AnchorPane.rightAnchor="110" AnchorPane.topAnchor="65">
             <center>
                 <VBox fx:id="centerContent" alignment="CENTER" spacing="15" styleClass="card">
-                    <Label style="-fx-font-size: 28; -fx-text-fill: #333; -fx-font-weight: bold;" text="Hello Good People!" />
+
                 </VBox>
             </center>
         </BorderPane>

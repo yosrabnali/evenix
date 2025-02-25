@@ -9,27 +9,35 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-
 <?import javafx.scene.layout.VBox?>
-<?import java.lang.String?>
 <?import javafx.scene.control.DatePicker?>
+<?import java.lang.String?>
+
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.Events.EventContentController"
             stylesheets="@../css/affichage.css"
-            style="-fx-background-color: #E0E0E0;"
-            prefWidth="1600"
+            style="-fx-background-color: #ffffff;"
+            prefWidth="1400"
             prefHeight="1000">
 
     <children>
+        <!-- TabPane existant avec une contrainte du bas modifiée pour laisser la place au footer -->
         <TabPane fx:id="mainTabPane"
                  tabClosingPolicy="UNAVAILABLE"
-                 AnchorPane.topAnchor="0.0"
-                 AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0"
-                 AnchorPane.rightAnchor="0.0"
-                 style="-fx-background-color: transparent;">
-
+                 AnchorPane.topAnchor="10.0"
+                 AnchorPane.leftAnchor="10.0"
+                 AnchorPane.rightAnchor="10.0"
+                 AnchorPane.bottomAnchor="60.0"
+                 style="-fx-background-color: white;
+                        -fx-background-radius: 20px;
+                        -fx-border-radius: 20px;
+                        -fx-border-color: #a0b2c0;  /* Contour bleu */
+                        -fx-border-width: 2px;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);  /* Ombre */
+                        -fx-tab-min-height: 50px;
+                        -fx-tab-max-height: 50px;
+                        -fx-padding: 5px;">
             <tabs>
                 <!-- Events Tab -->
                 <Tab>
@@ -42,7 +50,6 @@
                                       -fx-padding: 10;"/>
                     </graphic>
                     <content>
-
                         <VBox spacing="10">
                             <!-- Filter Section -->
                             <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
@@ -116,7 +123,6 @@
                                 </content>
                             </ScrollPane>
                         </VBox>
-
                     </content>
                 </Tab>
 
@@ -150,5 +156,23 @@
 
             </tabs>
         </TabPane>
+
+        <!-- Barre grise de pied de page arrondie avec contour bleu et ombre -->
+        <HBox prefHeight="50"
+              spacing="10"
+              AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0"
+              AnchorPane.bottomAnchor="0"
+              style="-fx-background-color: #b0c5d3;
+                     -fx-background-radius: 15;
+                     -fx-border-radius: 15;
+                     -fx-border-color: #a0b2c0;
+                     -fx-border-width: 2;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);">
+            <children>
+                <Label text="Contact us : evenix@esprit.tn                                                                                                                                                        Phone number : 27181133"
+                       style="-fx-text-fill: #333333; -fx-font-size: 14px; -fx-padding: 10;"/>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>
