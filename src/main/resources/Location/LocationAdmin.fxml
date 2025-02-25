@@ -22,7 +22,7 @@
                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                 </padding>
                 <Label text="Filtrer par status:"/>
-                <ComboBox fx:id="statusFilterComboBox" prefWidth="150.0" promptText="Status" />
+                <ComboBox fx:id="statusFilterComboBox" prefWidth="150.0" promptText="Status" style="-fx-background-radius: 15;"/>
             </HBox>
 
             <!-- ComboBox pour trier par date -->
@@ -31,7 +31,7 @@
                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                 </padding>
                 <Label text="Trier par date:"/>
-                <ComboBox fx:id="dateSortComboBox" prefWidth="200.0" promptText="Trier par date" />
+                <ComboBox fx:id="dateSortComboBox" prefWidth="200.0" promptText="Trier par date" style="-fx-background-radius: 15;"/>
             </HBox>
 
             <!-- TableView pour afficher les locations -->
@@ -67,10 +67,10 @@
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
-                    <Button mnemonicParsing="false" onAction="#ajouterLocation" style="-fx-background-color: #007BFF; -fx-text-fill: white;" text="Créer Location" />
-                    <Button mnemonicParsing="false" onAction="#modifierLocation" style="-fx-background-color: #DC3545; -fx-text-fill: white;" text="Modifier Location" />
-                    <Button mnemonicParsing="false" onAction="#supprimerLocation" style="-fx-background-color: #28A745; -fx-text-fill: white;" text="Supprimer Location" />
-                    <Button mnemonicParsing="false" onAction="#afficherDetails" style="-fx-background-color: #6C757D; -fx-text-fill: white;" text="Afficher Détails" />
+                    <Button mnemonicParsing="false" onAction="#ajouterLocation" style="-fx-background-color: #007BFF; -fx-text-fill: white; -fx-background-radius: 15;" text="Créer Location" />
+                    <Button mnemonicParsing="false" onAction="#modifierLocation" style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-background-radius: 15;" text="Modifier Location" />
+                    <Button mnemonicParsing="false" onAction="#supprimerLocation" style="-fx-background-color: #28A745; -fx-text-fill: white; -fx-background-radius: 15;" text="Supprimer Location" />
+                    <Button mnemonicParsing="false" onAction="#afficherDetails" style="-fx-background-color: #6C757D; -fx-text-fill: white; -fx-background-radius: 15;" text="Afficher Détails" />
                 </HBox>
             </VBox>
         </children>
