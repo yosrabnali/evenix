@@ -51,6 +51,8 @@ public class PostController {
     @FXML
     private TextArea commentTextArea;
     private long publicationId;
+    @FXML
+    private VBox sideMenu;
 
     public long getPublicationId() {
         return publicationId;
@@ -78,6 +80,8 @@ public class PostController {
             }
         */
     public void initialize() {
+        sideMenu.setVisible(false);
+        sideMenu.setManaged(false);
         loadMaterials();
         /*if (deleteBtn != null) {
             deleteBtn.setOnAction(event -> deleteSelectedMateriel());
@@ -181,6 +185,13 @@ public class PostController {
         }
     }
 
+//recuperer les données de l'article à afficher'
 
+    public void setArticleData(Article article) {
+        if (article != null) {
+            ContenuLabel.setText(article.getTitre());
+            ContenuLabel.setText(article.getContenu());
+        }
+    }
 
 }

@@ -7,6 +7,8 @@ import com.main.services.PublicationService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -19,18 +21,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.main.services.UserService;
+import javafx.stage.Stage;
 
 
-public class ArticleController implements Initializable {
+public class ArticleController implements Initializable
+{
 
     Reactions currentReaction;
-    private long startTime=0;
+    private long startTime = 0;
     private long articleId;
     PublicationService ps = new PublicationService();
 
@@ -102,6 +107,12 @@ public class ArticleController implements Initializable {
 
     @FXML
     private ImageView menutoggle;
+
+    @FXML
+    private Label modifBTN;
+
+    @FXML
+    private Label suppBtn;
 
     @FXML
     private Label username;
@@ -190,7 +201,7 @@ public class ArticleController implements Initializable {
                 //}
                 controller.setCommentData(comment1, username, profilePath);
                 comment.getChildren().add(commentNode);
-            } catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -202,7 +213,7 @@ public class ArticleController implements Initializable {
         if (commentTextArea.getLength() != 0) {
             Commentaire commentaire = new Commentaire();
             commentaire.setArticleId(publicationId);
-            commentaire.setUserId((long)1);
+            commentaire.setUserId((long) 1);
             commentaire.setContenu(commentTextArea.getText());
             commentaire.setAuteur("Yesmine");
             try {
@@ -213,13 +224,12 @@ public class ArticleController implements Initializable {
                 e.printStackTrace();
             }
             commentTextArea.clear();
-        }else{
+        } else {
             showWarningDialog("veuiller saisir commentaire :(");
         }
 
 
     }
-
 
 
     @FXML
@@ -248,10 +258,21 @@ public class ArticleController implements Initializable {
     }
 
 
-
     @FXML
     public void onLikeContainerPressed(MouseEvent event) {
         startTime = System.currentTimeMillis();
+    }
+
+    @FXML
+    void deletePost(MouseEvent event) {
+        try{
+            publicationService.supprimer(publicationService.getById(getArticleId()));
+        }catch(Exception e){e.printStackTrace();}
+    }
+
+    @FXML
+    void modifPost(MouseEvent event) {
+
     }
 
     @FXML
@@ -269,6 +290,7 @@ public class ArticleController implements Initializable {
             }
         }
     }
+
     public void onReactionImgPressed(MouseEvent event) {
         switch (((ImageView) event.getSource()).getId()) {
             case "imgLike":
@@ -300,7 +322,6 @@ public class ArticleController implements Initializable {
     }
 
 
-
     public void initReaction(LikeService ls, int userId, int publicationId) throws Exception {
         Like reactionValue = ls.getUserReaction(publicationId, userId);
         long reactionId;
@@ -312,7 +333,7 @@ public class ArticleController implements Initializable {
         if (reactionId == 0) {
             setReaction(Reactions.NON);
         } else {
-            switch ((int)reactionId) {
+            switch ((int) reactionId) {
                 case 1:
                     setReaction(Reactions.LIKE);
                     break;
@@ -337,7 +358,7 @@ public class ArticleController implements Initializable {
 
 
     public void setReaction(Reactions reaction) {
-        int userId = 1;
+        /*int userId = 1;
 
         Image img = new Image(getClass().getResourceAsStream(reaction.getImgSrc()));
         imgReaction.setImage(img);
@@ -347,11 +368,37 @@ public class ArticleController implements Initializable {
             if (currentReaction != null && currentReaction != reaction) {
                 ls.toggleReaction(publicationId, userId, reaction.getId());
 
-                nbReactions.setText(String.valueOf(ls.countReactions(publicationId) + " Réactions"));
+                nbReactions.setText(String.valueOf(ls.countReactions(publicationId) + " Reactions"));
+                System.out.println("Reactions");
                 List<Integer> topReactions = ls.getTop3Reactions(publicationId);
                 updateTopReactions(topReactions);
             }
 
+            currentReaction = reaction;
+           // System.out.println(currentReaction);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        int userId = 1;
+
+        Image img = new Image(getClass().getResourceAsStream(reaction.getImgSrc()));
+        imgReaction.setImage(img);
+        reactionName.setText(reaction.getName());
+        reactionName.setTextFill(Color.web(reaction.getColor()));
+        try {
+            // Toggle the reaction regardless of the current state
+            ls.toggleReaction(publicationId, userId, reaction.getId());
+
+            // Update the reaction count
+            int reactionCount = ls.countReactions(publicationId);
+            nbReactions.setText( reactionCount + " Reactions");
+
+
+            List<Integer> topReactions = ls.getTop3Reactions(publicationId, userId);
+            updateTopReactions(topReactions);
+
+            // Update the current reaction
             currentReaction = reaction;
 
         } catch (Exception e) {
@@ -398,4 +445,8 @@ public class ArticleController implements Initializable {
         alert.showAndWait();
     }
 
-}
+
+
+
+    }
+

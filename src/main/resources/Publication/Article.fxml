@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.ArticleController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="565.0" spacing="10.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.main.controllers.ArticleController">
    <children>
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="600.0" spacing="20.0">
          <children>
@@ -51,12 +51,12 @@
       </HBox>
       <VBox fx:id="sidemenu" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" style="-fx-background-color: #fff;">
          <children>
-            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-cursor: hand;" text="Modifier">
+            <Label fx:id="modifBTN" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseClicked="#modifPost" prefHeight="50.0" style="-fx-cursor: hand;" text="Modifier">
                <font>
                   <Font name="Segoe UI Semibold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" style="-fx-cursor: hand;" text="Supprimer">
+            <Label fx:id="suppBtn" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseClicked="#deletePost" prefHeight="50.0" style="-fx-cursor: hand;" text="Supprimer">
                <font>
                   <Font name="Segoe UI Semibold" size="15.0" />
                </font>
