@@ -9,7 +9,6 @@ public interface IService<T> {
     void modifier(T t) throws Exception;
     boolean supprimer(T t) throws Exception;
     List<T> rechercher() throws Exception;
-
 /*
     public boolean Ajouter(T t) ;
     public boolean Modifier(T t);

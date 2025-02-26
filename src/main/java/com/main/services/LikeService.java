@@ -126,7 +126,7 @@ public class LikeService implements IService<Like> {
     }
 
     public int countReactions(long publicationId)throws Exception  {
-       // String req = " SELECT COUNT(*) as total FROM  ' Like ' WHERE article_id =? AND Reactiontype <> ?";
+        // String req = " SELECT COUNT(*) as total FROM  ' Like ' WHERE article_id =? AND Reactiontype <> ?";
         String req = "SELECT COUNT(*) as total FROM `Like` WHERE article_id = ? AND Reactiontype <> ?";
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setLong(1, publicationId);
@@ -140,7 +140,7 @@ public class LikeService implements IService<Like> {
     }
 
     public List<Integer> getTop3Reactions(long publicationId, long userId) throws Exception {
-      //  String req = "SELECT  Reactiontype COUNT(*) as total FROM  'Like ' WHERE article_id =? AND Reactiontype <>? GROUP BY Reactiontype ORDER BY total DESC LIMIT 3";
+        //  String req = "SELECT  Reactiontype COUNT(*) as total FROM  'Like ' WHERE article_id =? AND Reactiontype <>? GROUP BY Reactiontype ORDER BY total DESC LIMIT 3";
         String req = "SELECT Reactiontype, COUNT(*) as total FROM `Like` WHERE article_id = ? AND Reactiontype <> ? GROUP BY Reactiontype ORDER BY total DESC LIMIT 3";
 
         PreparedStatement ps = connection.prepareStatement(req);

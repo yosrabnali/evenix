@@ -5,24 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.main.controllers.PostController;
-
 
 public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/Post-view.fxml"));
+            // Charger le fichier FXML et obtenir le Parent
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main/UserMainLayout.fxml"));
+            Parent root = loader.load();
 
-
-
-            Parent root = loader.load(); // Charger le fichier FXML
-
-            // ✅ Récupérer le contrôleur après avoir chargé le fichier
-            //PostController materialController = loader.getController();
-            //PostController.setUser(1); // Passer l'ID utilisateur connecté
-            // ✅ Afficher la fenêtre principale
-            primaryStage.setTitle("Post Management");
+            // Afficher la fenêtre principale
+            primaryStage.setTitle("Evenix - User Main Layout");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (Exception e) {
@@ -31,6 +24,7 @@ public class main extends Application {
         }
     }
 
-    public static void main(String[] args) {launch(args);}
-
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

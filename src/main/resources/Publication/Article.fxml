@@ -115,7 +115,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </HBox>
-            <HBox fx:id="ReactionsContainer" maxWidth="-Infinity" styleClass="reactions-container" stylesheets="@../css/style.css" visible="false">
+            <HBox fx:id="ReactionsContainer" maxWidth="-Infinity" styleClass="reactions-container" stylesheets="@../css/style.css">
                <children>
                   <ImageView fx:id="imgLike" fitHeight="40.0" fitWidth="40.0" onMousePressed="#onReactionImgPressed" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -3,7 +3,7 @@ package com.main.Entity;
 public enum Reactions {
 
         NON(0,"Like","#606266","/images/ic_like_outline.png"),
-        LIKE(1,"Like","#056BE1","/images/like.png"),
+        LIKE(1,"Like","#056BE1","/images/ic_like.png"),
         LOVE(2,"Love","#E12C4A","/images/ic_love_.png"),
         CARE(3,"Care","#EAA823","/images/ic_care.png"),
         HAHA(4,"Haha","#EAA823","/images/ic_haha.png"),

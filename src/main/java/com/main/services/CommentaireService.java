@@ -23,8 +23,8 @@ public class CommentaireService implements IService<Commentaire> {
             pst.setLong(2, commentaire.getArticleId());
             pst.setLong(3, commentaire.getUserId());
             pst.setString(4, commentaire.getAuteur());
-           // pst.setTimestamp(5, Timestamp.valueOf(commentaire.getCreatedAt()));
-            
+            // pst.setTimestamp(5, Timestamp.valueOf(commentaire.getCreatedAt()));
+
             pst.executeUpdate();
             System.out.println("Commentaire ajouté avec succès");
         } catch (SQLException e) {
@@ -77,10 +77,10 @@ public class CommentaireService implements IService<Commentaire> {
                 commentaire.setArticleId(rs.getLong("article_id"));
                 commentaire.setUserId(rs.getLong("user_id"));
                 commentaire.setAuteur(rs.getString("auteur"));
-                
+
                 Timestamp timestamp = rs.getTimestamp("created_at");
 
-                
+
                 commentaires.add(commentaire);
             }
         } catch (SQLException e) {
@@ -96,17 +96,17 @@ public class CommentaireService implements IService<Commentaire> {
         ps.setLong(1, articleId);
         ResultSet rs = ps.executeQuery();
         List<Commentaire> commentaires = new ArrayList<>();
-            while (rs.next()) {
-                Commentaire commentaire = new Commentaire();
-                commentaire.setId(rs.getLong("id"));
-                commentaire.setContenu(rs.getString("contenu"));
-                commentaire.setArticleId(rs.getLong("article_id"));
-                commentaire.setUserId(rs.getLong("user_id"));
-                commentaire.setAuteur(rs.getString("auteur"));
-                Timestamp timestamp = rs.getTimestamp("created_at");
+        while (rs.next()) {
+            Commentaire commentaire = new Commentaire();
+            commentaire.setId(rs.getLong("id"));
+            commentaire.setContenu(rs.getString("contenu"));
+            commentaire.setArticleId(rs.getLong("article_id"));
+            commentaire.setUserId(rs.getLong("user_id"));
+            commentaire.setAuteur(rs.getString("auteur"));
+            Timestamp timestamp = rs.getTimestamp("created_at");
 
-                commentaires.add(commentaire);
-            }
+            commentaires.add(commentaire);
+        }
         return commentaires;
     }
 

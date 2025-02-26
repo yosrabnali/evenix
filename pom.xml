@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.2</version>
+            <version>17.0.6</version>
         </dependency>
 
 
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.2</version>
+            <version>17.0.6</version>
         </dependency>
 
 
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>17.0.2</version>
+            <version>17.0.6</version>
         </dependency>
 
 
@@ -73,6 +73,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
+                    <include>**/*.jpg</include>
                     <include>**/*.png</include>
                     <include>**/*.css</include>
                     <include>**/*.fxml</include>

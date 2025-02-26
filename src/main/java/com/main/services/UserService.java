@@ -28,7 +28,7 @@ public class UserService implements IService<User> {
 
     @Override
     public boolean supprimer(User user) throws Exception {
-        return false;
+        return true;
     }
 
     @Override

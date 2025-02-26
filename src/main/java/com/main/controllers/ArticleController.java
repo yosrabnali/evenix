@@ -273,6 +273,8 @@ public class ArticleController implements Initializable
     @FXML
     void modifPost(MouseEvent event) {
 
+
+
     }
 
     @FXML
