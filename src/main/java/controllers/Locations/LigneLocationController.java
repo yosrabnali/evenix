@@ -22,6 +22,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +176,23 @@ public class LigneLocationController {
                 "</style>");
         sb.append("</head>");
         sb.append("<body>");
+
+        // Embed the logo as Base64
+        String imagePath = "C:\\Users\\MSI\\Documents\\projectAPI6 - Copie\\projectAPI\\src\\main\\resources\\images\\logo.jpg";  // Your logo's path
+        String base64Image = "";
+        try {
+            byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
+            base64Image = Base64.getEncoder().encodeToString(imageBytes);
+        } catch (IOException e) {
+            System.err.println("Error reading image: " + e.getMessage());
+            // Handle the error appropriately.  Perhaps use a default image.
+            base64Image = getDefaultBase64Image(); // Use a fallback
+        }
+
+        sb.append("<img src=\"data:image/png;base64,"); // or data:image/jpeg;base64,  etc.
+        sb.append(base64Image);
+        sb.append("\" alt=\"Evenix Logo\" style=\"width:200px;height:150px;\">");
+
         sb.append("<h1>Lignes de Location</h1>");
 
         sb.append("<table>");
@@ -192,5 +212,11 @@ public class LigneLocationController {
         sb.append("</html>");
 
         return sb.toString();
+    }
+
+    private String getDefaultBase64Image() {
+        // A very small, simple, transparent GIF or PNG as a placeholder.
+        // You can replace this with a more visually appealing default.
+        return "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
     }
 }

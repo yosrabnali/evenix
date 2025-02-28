@@ -54,8 +54,8 @@ public class LocationsController {
     private static final long ALERT_THRESHOLD_DAYS = 7; // Nombre de jours avant le début pour l'alerte
     private static final String ALERT_STYLE_CLASS = "location-proche"; // Classe CSS pour l'alerte
 
-    private static final String EMAIL_USERNAME = "hemdenminou@gmail.com";
-    private static final String EMAIL_PASSWORD = "szex gsyo jnyu lvaq\n"; // Replace
+    private static final String EMAIL_USERNAME = "evenixgroup@gmail.com";
+    private static final String EMAIL_PASSWORD = "gbhc nnrx hvzr ekrb"; // Replace
 
     private Set<Integer> alertedLocationIds = new HashSet<>();  // Track alerted locations
     private static final int DELAY_BETWEEN_EMAILS_MS = 1000; // 1 second (Rate limiting) //Délai entre l'envoi de deux emails pour éviter le spam
@@ -463,6 +463,8 @@ public class LocationsController {
             e.printStackTrace();
         }
     }
+    //Déclenche périodiquement la vérification des locations à venir.
+    //Appelle checkUpcomingLocationsAndSendAlerts pour envoyer des alertes par email.
     //Démarrage du système d'alerte pour vérifier les locations à venir.
     private void startAlertSystem() {
         Timeline timeline = new Timeline(
