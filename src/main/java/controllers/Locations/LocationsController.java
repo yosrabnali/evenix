@@ -229,7 +229,7 @@ public class LocationsController {
             int idUser = recupererIdUser();
 
             // Créer une nouvelle location
-            Location nouvelleLocation = new Location(0, idUser, dateDebut, dateFin);
+            Location nouvelleLocation = new Location(0, idUser, dateDebut, dateFin); // Set idlocation to 0 for auto-increment
 
             // Ajouter la location via le service
             boolean success = serviceLocation.add(nouvelleLocation);
@@ -431,8 +431,7 @@ public class LocationsController {
     //Envoi d'un email via SMTP.
     public static void sendEmail(String to, String subject, String content) {
         // Sender's email credentials
-        final String username = "hemdenminou@gmail.com"; // Replace
-        final String password = "szex gsyo jnyu lvaq\n"; // Replace
+
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
