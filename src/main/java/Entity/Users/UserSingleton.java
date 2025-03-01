@@ -29,11 +29,7 @@ public class UserSingleton {
     public User getUser() {
         return user;
     }
-
-    // Replace the current User instance if needed
-    public void setUser(User user) {
-        this.user = user;
-    }
+    
 
     // Logout method to clear the user instance (set it to null)
     public void logout() {
