@@ -37,6 +37,8 @@ public class UserSingleton {
 
     // Logout method to clear the user instance (set it to null)
     public void logout() {
+
+        //logout
         this.user = null;
     }
 }
