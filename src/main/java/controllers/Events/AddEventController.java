@@ -1,6 +1,7 @@
 package controllers.Events;
 
 import Entity.Events.Event;
+import Entity.Users.UserSingleton;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import services.EventsServices.ServiceEvent;
@@ -118,7 +119,7 @@ public class AddEventController {
             double longitude = Double.parseDouble(txtlongitude.getText());
 
             // Création de l'objet Event
-            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu, 1234,latitude, longitude);
+            Event e = new Event(date, titre, description, nbPlaces, prix, etat, type, image, lieu, UserSingleton.getInstance().getUser().getIduser(),latitude, longitude);
 
             // Insertion dans la base
             serviceEvent.addEvent(e);

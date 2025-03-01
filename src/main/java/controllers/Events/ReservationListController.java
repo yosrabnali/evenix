@@ -5,6 +5,8 @@ import Entity.Events.Reservation;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+
+import Entity.Users.UserSingleton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
@@ -43,7 +45,7 @@ public class ReservationListController {
 
     private void loadReservations() {
         try {
-            List<Reservation> reservations = reservationService.afficherReservationsByUser(1234);
+            List<Reservation> reservations = reservationService.afficherReservationsByUser(UserSingleton.getInstance().getUser().getIduser());
             System.out.println("affichage reservation");
             System.out.println(reservations);
             reservationListView.getItems().setAll(reservations);

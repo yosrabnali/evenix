@@ -1,5 +1,6 @@
 package controllers.Events;
 
+import Entity.Users.UserSingleton;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import Entity.Events.Event;
@@ -248,7 +249,7 @@ public class ReservationDetailsController  {
         Double prix = event.getPrix() * nbPlaces;
         try {
             ServiceReservation serviceReservation = new ServiceReservation();
-            Reservation r = new Reservation(1234, new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
+            Reservation r = new Reservation(UserSingleton.getInstance().getUser().getIduser(), new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
             serviceReservation.ajouterReservation(r);
             ServiceEvent serviceEvent = new ServiceEvent();
             int newnbplaces = event.getNBplaces() - nbPlaces;

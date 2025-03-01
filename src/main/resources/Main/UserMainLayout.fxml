@@ -58,6 +58,12 @@
         <VBox fx:id="leftBar" alignment="CENTER_LEFT" prefHeight="745.0" prefWidth="50.0" spacing="20" style="-fx-background-color: white; -fx-border-radius: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="65">
             <children>
                 <Region VBox.vgrow="ALWAYS" />
+                <ImageView fx:id="dashboardIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleDashboard" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/icondashboard.png" />
+                    </image>
+                </ImageView>
+
                 <ImageView fx:id="eventIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleEvent" preserveRatio="true" styleClass="card">
                     <image>
                         <Image url="@../images/iconevent.jpg" />
@@ -68,9 +74,14 @@
                         <Image url="@../images/iconpublication.jpg" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="materielIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handlemateriel" preserveRatio="true" styleClass="card">
+                <ImageView fx:id="materielIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleMateriel" preserveRatio="true" styleClass="card">
                     <image>
                         <Image url="@../images/iconmateriel.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="feedbackIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleFeedback" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/iconcomplaint.png" />
                     </image>
                 </ImageView>
                 <Region VBox.vgrow="ALWAYS" />

@@ -1,5 +1,8 @@
 package Test;
 
+import Entity.Users.Role;
+import Entity.Users.User;
+import Entity.Users.UserSingleton;
 import com.stripe.Stripe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         try {
             // Ici, on charge la vue de démarrage.
             // Par exemple, si vous voulez démarrer avec la vue client :

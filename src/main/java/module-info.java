@@ -11,6 +11,7 @@ module projectAPI {
     requires com.gluonhq.maps;
     requires java.desktop;
     requires stripe.java;
+    requires java.management;
 
     // Export and open controllers
     exports controllers;
