@@ -106,7 +106,7 @@ public class LigneLocationController {
                 // Show download choice to user
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Save PDF File");
-                fileChooser.setInitialFileName("LigneLocation.pdf");
+                fileChooser.setInitialFileName("LocationsListe.pdf");
                 FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
                 fileChooser.getExtensionFilters().add(extFilter);
 
@@ -162,7 +162,7 @@ public class LigneLocationController {
         StringBuilder sb = new StringBuilder();
         sb.append("<!DOCTYPE html>");
         sb.append("<html>");
-        sb.append("<head><title>Lignes de Location</title>");
+        sb.append("<head><title>LocationsListe</title>");
         sb.append("<style>\n" +
                 "table {\n" +
                 "    width: 100%;\n" +
@@ -193,10 +193,10 @@ public class LigneLocationController {
         sb.append(base64Image);
         sb.append("\" alt=\"Evenix Logo\" style=\"width:200px;height:150px;\">");
 
-        sb.append("<h1>Lignes de Location</h1>");
+        sb.append("<h1>LocationsListe</h1>");
 
         sb.append("<table>");
-        sb.append("<thead><tr><th>ID Ligne</th><th>Nom Matériel</th><th>Quantité</th><th>Montant Total</th></tr></thead>");
+        sb.append("<thead><tr><th>ID</th><th>Materiel Name</th><th>Quantity</th><th> Total Amount</th></tr></thead>");
         sb.append("<tbody>");
         for (LigneLocation ligne : ligneLocationList) {
             sb.append("<tr>");

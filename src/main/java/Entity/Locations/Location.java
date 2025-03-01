@@ -7,17 +7,17 @@ import java.util.Objects;
 
 public class Location {
     private final IntegerProperty idlocation;
-    private final ObjectProperty<LocalDate> datedebut;
-    private final ObjectProperty<LocalDate> datefin;
-    private final IntegerProperty idUser;
+    private final ObjectProperty<LocalDate> startDate;
+    private final ObjectProperty<LocalDate> endDate;
+    private final IntegerProperty userId;
     private final StringProperty status;
 
-    public Location(int idlocation, int idUser, LocalDate datedebut, LocalDate datefin) {
+    public Location(int idlocation, int userId, LocalDate startDate, LocalDate endDate) {
         this.idlocation = new SimpleIntegerProperty(idlocation);
-        this.idUser = new SimpleIntegerProperty(idUser);
-        this.datedebut = new SimpleObjectProperty<>(datedebut);
-        this.datefin = new SimpleObjectProperty<>(datefin);
-        this.status = new SimpleStringProperty(calculateStatus(datedebut, datefin));
+        this.userId = new SimpleIntegerProperty(userId);
+        this.startDate = new SimpleObjectProperty<>(startDate);
+        this.endDate = new SimpleObjectProperty<>(endDate);
+        this.status = new SimpleStringProperty(calculateStatus(startDate, endDate));
     }
 
     // Getters and Setters (with Property methods)
@@ -34,41 +34,41 @@ public class Location {
     }
 
     public LocalDate getDatedebut() {
-        return datedebut.get();
+        return startDate.get();
     }
 
     public ObjectProperty<LocalDate> datedebutProperty() {
-        return datedebut;
+        return startDate;
     }
 
-    public void setDatedebut(LocalDate datedebut) {
-        this.datedebut.set(datedebut);
-        updateStatus(); // Recalculate status when dateDebut changes
+    public void setDatedebut(LocalDate startDate) {
+        this.startDate.set(startDate);
+        updateStatus(); // Recalculate status when startDate changes
     }
 
     public LocalDate getDatefin() {
-        return datefin.get();
+        return endDate.get();
     }
 
     public ObjectProperty<LocalDate> datefinProperty() {
-        return datefin;
+        return endDate;
     }
 
-    public void setDatefin(LocalDate datefin) {
-        this.datefin.set(datefin);
-        updateStatus(); // Recalculate status when dateFin changes
+    public void setDatefin(LocalDate endDate) {
+        this.endDate.set(endDate);
+        updateStatus(); // Recalculate status when endDate changes
     }
 
-    public int getIdUser() {
-        return idUser.get();
+    public int getUserId() {
+        return userId.get();
     }
 
     public IntegerProperty idUserProperty() {
-        return idUser;
+        return userId;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser.set(idUser);
+    public void setUserId(int userId) {
+        this.userId.set(userId);
     }
 
     public String getStatus() {
@@ -87,17 +87,17 @@ public class Location {
         this.status.set(calculateStatus(this.getDatedebut(), this.getDatefin()));
     }
 
-    private String calculateStatus(LocalDate datedebut, LocalDate datefin) {
-        if (datedebut == null || datefin == null) {
-            return "Inconnu";
+    private String calculateStatus(LocalDate startDate, LocalDate endDate) {
+        if (startDate == null || endDate == null) {
+            return "Unknown";
         }
         LocalDate now = LocalDate.now();
-        if (now.isBefore(datedebut)) {
-            return "À venir";
-        } else if (now.isAfter(datefin)) {
-            return "Terminée";
+        if (now.isBefore(startDate)) {
+            return "Upcoming";
+        } else if (now.isAfter(endDate)) {
+            return "Completed";
         } else {
-            return "En cours";
+            return "Ongoing";
         }
     }
 
@@ -105,8 +105,8 @@ public class Location {
     public String toString() {
         return "Location{" +
                 "idlocation=" + idlocation.get() +
-                ", datedebut=" + datedebut.get() +
-                ", datefin=" + datefin.get() +
+                ", startDate=" + startDate.get() +
+                ", endDate=" + endDate.get() +
                 ", status='" + status.get() + '\'' +
                 '}';
     }

@@ -15,23 +15,23 @@ public class ServiceLocation {
         con = MyDB.getInstance().getConnection();
     }
 
-    // Ajouter une location
+    // Add a location
     public boolean add(Location location) {
         String query = "INSERT INTO location (idUser, datedebut, datefin, statut) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = con.prepareStatement(query)) {
-            pst.setInt(1, location.getIdUser());
+            pst.setInt(1, location.getUserId());
             pst.setDate(2, Date.valueOf(location.getDatedebut()));
             pst.setDate(3, Date.valueOf(location.getDatefin()));
             pst.setString(4, location.getStatus());  //Pass the status (which you must test)
             int rowsAffected = pst.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Erreur lors de l'ajout de la location : " + e.getMessage());
+            System.err.println("Error adding the location: " + e.getMessage());
             return false;
         }
     }
 
-    // Récupérer toutes les locations
+    // Retrieve all locations
     public List<Location> getAll() {
         List<Location> locations = new ArrayList<>();
         String query = "SELECT idlocation, idUser, datedebut, datefin, statut FROM location";
@@ -39,16 +39,16 @@ public class ServiceLocation {
             while (rs.next()) {
                 // Check for null values before calling toLocalDate()
                 Date datedebutSql = rs.getDate("datedebut");
-                LocalDate datedebut = (datedebutSql != null) ? datedebutSql.toLocalDate() : null;
+                LocalDate startDate = (datedebutSql != null) ? datedebutSql.toLocalDate() : null;
 
                 Date datefinSql = rs.getDate("datefin");
-                LocalDate datefin = (datefinSql != null) ? datefinSql.toLocalDate() : null;
+                LocalDate endDate = (datefinSql != null) ? datefinSql.toLocalDate() : null;
 
                 Location location = new Location(
                         rs.getInt("idlocation"),
                         rs.getInt("idUser"),
-                        datedebut,
-                        datefin  // Use LocalDate values
+                        startDate,
+                        endDate  // Use LocalDate values
                 );
                 // Set the field with RS data
                 location.setStatus(rs.getString("statut"));
@@ -56,16 +56,16 @@ public class ServiceLocation {
                 locations.add(location);
             }
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des locations : " + e.getMessage());
+            System.err.println("Error retrieving the locations: " + e.getMessage());
         }
         return locations;
     }
 
-    // Modifier une location
+    // Update a location
     public boolean update(Location location) {
         String query = "UPDATE location SET idUser = ?, datedebut = ?, datefin = ?, statut = ? WHERE idlocation = ?";
         try (PreparedStatement pst = con.prepareStatement(query)) {
-            pst.setInt(1, location.getIdUser());
+            pst.setInt(1, location.getUserId());
             pst.setDate(2, Date.valueOf(location.getDatedebut()));
             pst.setDate(3, Date.valueOf(location.getDatefin()));
             pst.setString(4, location.getStatus());  //Pass the status.
@@ -73,12 +73,12 @@ public class ServiceLocation {
             int rowsAffected = pst.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la modification de la location : " + e.getMessage());
+            System.err.println("Error updating the location: " + e.getMessage());
             return false;
         }
     }
 
-    // Supprimer une location
+    // Delete a location
     public boolean delete(Location location) {
         String query = "DELETE FROM location WHERE idlocation = ?";
         try (PreparedStatement pst = con.prepareStatement(query)) {
@@ -86,7 +86,7 @@ public class ServiceLocation {
             int rowsAffected = pst.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la suppression de la location : " + e.getMessage());
+            System.err.println("Error deleting the location: " + e.getMessage());
             return false;
         }
     }

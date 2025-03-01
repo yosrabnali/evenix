@@ -8,15 +8,15 @@
     <children>
         <TableView fx:id="ligneLocationTableView" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <columns>
-                <TableColumn fx:id="colLigneId" prefWidth="75.0" text="ID Ligne" />
-                <TableColumn fx:id="colNomMateriel" prefWidth="150.0" text="Nom Matériel" />
-                <TableColumn fx:id="colQuantite" prefWidth="75.0" text="Quantité" />
-                <TableColumn fx:id="colMontantTotal" prefWidth="100.0" text="Montant Total" />
+                <TableColumn fx:id="colLigneId" prefWidth="75.0" text=" ID" />
+                <TableColumn fx:id="colNomMateriel" prefWidth="150.0" text="Material Name" />
+                <TableColumn fx:id="colQuantite" prefWidth="75.0" text="Quantity" />
+                <TableColumn fx:id="colMontantTotal" prefWidth="100.0" text="Total Amount" />
             </columns>
         </TableView>
-        <!-- Ajouter le WebView -->
+        <!-- Add the WebView -->
         <WebView fx:id="webView" visible="false" prefWidth="200" prefHeight="100" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"/>
-        <Button layoutX="400.0" layoutY="350.0" mnemonicParsing="false" onAction="#telechargerPDF" text="Télécharger PDF" />
-        <Button layoutX="500.0" layoutY="350.0" mnemonicParsing="false" onAction="#retour" text="Retour" />
+        <Button layoutX="400.0" layoutY="350.0" mnemonicParsing="false" onAction="#telechargerPDF" text="Download PDF" />
+        <Button layoutX="500.0" layoutY="350.0" mnemonicParsing="false" onAction="#retour" text="Back" />
     </children>
 </AnchorPane>
