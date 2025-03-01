@@ -1,4 +1,5 @@
 package controllers.Events;
+
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import Entity.Events.Event;
@@ -54,6 +55,9 @@ public class ReservationDetailsController  {
     private Button btnConfirmReservation;
     @FXML
     private Button btnCancelReservation;
+    // Bouton "Complaint" ajouté dans le contrôleur
+    @FXML
+    private Button btnComplaint;
     @FXML
     private Label lblTicketCount;
 
@@ -63,7 +67,7 @@ public class ReservationDetailsController  {
     @FXML
     private Button btnIncrease;
 
-    // New label to display the total price
+    // Label pour afficher le prix total
     @FXML
     private Label lblPrice;
 
@@ -75,15 +79,15 @@ public class ReservationDetailsController  {
 
     @FXML
     private VBox vbox;
+
     private PaymentService paymentService;
 
-
-    // Current ticket count
+    // Nombre actuel de tickets
     private int ticketCount = 0;
     private static final int MAX_TICKETS = 5;
     private static final int MIN_TICKETS = 0;
 
-    // Price per ticket
+    // Prix par ticket
     private double priceperticket = 20;
     private Event event;
 
@@ -91,15 +95,16 @@ public class ReservationDetailsController  {
     private MapView mapView;
     private CustomMapLayer customLayer;
 
-    private final MapPoint eiffelPoint = new MapPoint(48.8583701,2.2944813);
+    private final MapPoint eiffelPoint = new MapPoint(48.8583701, 2.2944813);
+
     public void setMapCenter(MapPoint mapCenter) {
         this.mapCenter = mapCenter;
         if (mapView != null) {
-            // Update the center of the map view
+            // Met à jour le centre de la vue de la carte
             mapView.setCenter(mapCenter);
             mapView.flyTo(0, mapCenter, 0.1);
 
-            // Clear existing layers and add a new custom marker layer.
+            // Supprime les calques existants et ajoute un nouveau calque personnalisé.
             if (customLayer != null) {
                 mapView.removeLayer(customLayer);
             }
@@ -107,10 +112,11 @@ public class ReservationDetailsController  {
             mapView.addLayer(customLayer);
         }
     }
+
     private MapView createMapView() {
         mapView = new MapView();
 
-        // If mapCenter hasn't been set, use a default value.
+        // Si mapCenter n'est pas défini, on utilise une valeur par défaut.
         if (mapCenter == null) {
             mapCenter = eiffelPoint;
         }
@@ -120,18 +126,16 @@ public class ReservationDetailsController  {
         mapView.setPrefSize(300, 300);
         mapView.flyTo(0, mapCenter, 0.1);
 
-        // Add a custom marker layer to the map.
+        // Ajoute un calque personnalisé à la carte.
         CustomMapLayer customLayer = new CustomMapLayer(mapCenter.getLatitude(), mapCenter.getLongitude());
         mapView.addLayer(customLayer);
 
         return mapView;
     }
 
-
     @FXML
     public void initialize() {
-//        setMapCenter(new MapPoint(36.806389, 10.181667));
-
+        // setMapCenter(new MapPoint(36.806389, 10.181667));
         MapView createdMapView = createMapView();
         vbox.getChildren().add(createdMapView);
         paymentService = new PaymentService();
@@ -140,16 +144,17 @@ public class ReservationDetailsController  {
         updateTicketCountLabel();
         updatePriceLabel();
     }
+
     /**
      * Cette méthode permet de recevoir l'événement à afficher.
      */
     public void setEvent(Event event) {
         this.event = event;
-        lblTitle.setText("Title:    "+ event.getTitre());
-        lblDate.setText("Date:     "+event.getDate().toString());
-        lblDescription.setText("Address:    "+event.getDescription());
-        lblLieu.setText("Location:    "+event.getLieu());
-        lblprix.setText("Price:   "+event.getPrix()+" dt");
+        lblTitle.setText("Title: " + event.getTitre());
+        lblDate.setText("Date: " + event.getDate().toString());
+        lblDescription.setText("Address: " + event.getDescription());
+        lblLieu.setText("Location: " + event.getLieu());
+        lblprix.setText("Price: " + event.getPrix() + " dt");
         priceperticket = event.getPrix();
         Image image = new Image("file:" + event.getImage());
         coverImage.setImage(image);
@@ -157,7 +162,7 @@ public class ReservationDetailsController  {
     }
 
     /**
-     * Handles the action for decreasing the ticket count.
+     * Gère l'action de diminution du nombre de tickets.
      */
     @FXML
     private void handleDecrease() {
@@ -169,7 +174,7 @@ public class ReservationDetailsController  {
     }
 
     /**
-     * Handles the action for increasing the ticket count.
+     * Gère l'action d'augmentation du nombre de tickets.
      */
     @FXML
     private void handleIncrease() {
@@ -181,87 +186,83 @@ public class ReservationDetailsController  {
     }
 
     /**
-     * Updates the ticket count label with the current number of tickets.
+     * Met à jour l'affichage du nombre de tickets.
      */
     private void updateTicketCountLabel() {
         lblTicketCount.setText(String.valueOf(ticketCount));
     }
 
     /**
-     * Updates the price label based on the current ticket count.
+     * Met à jour l'affichage du prix total en fonction du nombre de tickets.
      */
     private void updatePriceLabel() {
         double totalPrice = ticketCount * priceperticket;
-        lblPrice.setText("Total Price:   " + totalPrice + " dt");
+        lblPrice.setText("Total Price: " + totalPrice + " dt");
     }
+
     /**
      * Action de confirmation de la réservation.
      */
     @FXML
     private void handleConfirmReservation(ActionEvent actionEvent) {
         try {
-            // Create a Checkout Session instead of a PaymentIntent
-        int nbPlaces = Integer.parseInt(lblTicketCount.getText());
-        Double prix = event.getPrix() * nbPlaces;
-            Session session = paymentService.createCheckoutSession(prix*100, "usd", event.getIdevent(), event.getTitre());
+            // Création d'une session de paiement via Stripe
+            int nbPlaces = Integer.parseInt(lblTicketCount.getText());
+            Double prix = event.getPrix() * nbPlaces;
+            Session session = paymentService.createCheckoutSession(prix * 100, "usd", event.getIdevent(), event.getTitre());
             String paymentUrl = session.getUrl();
 
             WebEngine webEngine = paymentWebView.getEngine();
             webEngine.load(paymentUrl);
             paymentWebView.setVisible(true);
-            // Add a listener for URL changes
+
+            // Ajout d'un écouteur sur les changements d'URL
             webEngine.locationProperty().addListener((obs, oldUrl, newUrl) -> {
                 if (newUrl.contains("success")) {
                     paymentWebView.setVisible(false);
                     reserveTicket();
-
-                    showAlert(Alert.AlertType.CONFIRMATION, "congragulations", "payment successful");
-
-
+                    showAlert(Alert.AlertType.CONFIRMATION, "Congratulations", "Payment successful");
                 } else if (newUrl.contains("cancel")) {
                     paymentWebView.setVisible(false);
-                    showAlert(Alert.AlertType.ERROR, "error", "payment failed");
-
+                    showAlert(Alert.AlertType.ERROR, "Error", "Payment failed");
                 }
             });
 
         } catch (Exception e) {
             e.printStackTrace();
-            // Handle exceptions appropriately
+            // Gestion appropriée des exceptions
         }
-
-
     }
+
+    /**
+     * Réalise la réservation du ticket.
+     */
     private void reserveTicket() {
-
         if (Integer.parseInt(lblTicketCount.getText()) > event.getNBplaces()) {
-
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Nombre de ticket saisie indisponible");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Nombre de ticket saisi indisponible");
             return;
         }
-        // Ici, vous pouvez ajouter la logique de réservation (ex : appel à un service)
         System.out.println("Réservation confirmée pour l'événement : " + event.getTitre());
         String etat = comboEtat.getValue();
         int nbPlaces = Integer.parseInt(lblTicketCount.getText());
         Double prix = event.getPrix() * nbPlaces;
-        // Par exemple, rediriger l'utilisateur vers la page client (EventClient.fxml)
         try {
             ServiceReservation serviceReservation = new ServiceReservation();
-            Reservation r = new Reservation(1234,new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
+            Reservation r = new Reservation(1234, new Date(), nbPlaces, new BigDecimal(prix), etat, event.getIdevent());
             serviceReservation.ajouterReservation(r);
             ServiceEvent serviceEvent = new ServiceEvent();
-            int newnbplaces = event.getNBplaces() - Integer.parseInt(lblTicketCount.getText());
+            int newnbplaces = event.getNBplaces() - nbPlaces;
 
-            if(newnbplaces == 0) {
+            if (newnbplaces == 0) {
                 serviceEvent.updateEventEtat("Complet", event.getIdevent());
             }
             serviceEvent.updateEvent(newnbplaces, event.getIdevent());
-
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
+
     /**
      * Annule la réservation et retourne à la page client.
      */
@@ -269,16 +270,21 @@ public class ReservationDetailsController  {
     private void handleCancelReservation(ActionEvent actionEvent) {
         try {
             Parent parentRoot = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
-
-
-            // Retrieve the current scene from the event's source
             Scene currentScene = ((Node) actionEvent.getSource()).getScene();
-
-            // Set the new root to the parent view
             currentScene.setRoot(parentRoot);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Gère l'action du bouton "Complaint".
+     */
+    @FXML
+    private void handleComplaint(ActionEvent actionEvent) {
+        // Implémentez ici la logique de gestion des réclamations.
+        // Pour l'instant, on affiche simplement une alerte.
+        showAlert(Alert.AlertType.INFORMATION, "Complaint", "Fonctionnalité de réclamation non implémentée.");
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {

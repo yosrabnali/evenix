@@ -74,6 +74,7 @@ public class EditEventController {
                     "Tataouine", "Tozeur", "Tunis", "Zaghouan"
             );
         }
+
     }
 
     /**

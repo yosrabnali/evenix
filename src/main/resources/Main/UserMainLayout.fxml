@@ -20,7 +20,7 @@
                 <!-- Logo avec fx:id "evenix" pour la rotation -->
                 <ImageView fx:id="evenix" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/logo.jpg" />
+                        <Image url="@../images/logo.png" />
                     </image>
                     <HBox.margin>
                         <Insets left="40.0" top="-8.0" />
@@ -88,3 +88,4 @@
         </BorderPane>
     </children>
 </AnchorPane>
+

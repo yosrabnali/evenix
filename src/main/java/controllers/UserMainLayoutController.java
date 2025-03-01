@@ -73,7 +73,7 @@ public class UserMainLayoutController {
     private void handleEvent(MouseEvent event) {
         System.out.println("Event icon clicked");
         try {
-          //  FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
+           // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
             Node eventContent = loader.load();
             centerContent.getChildren().setAll(eventContent);
@@ -109,7 +109,7 @@ public class UserMainLayoutController {
     // Méthode pour afficher le contenu "Event"
     private void showEventContent() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventContent.fxml"));
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/Events/EventAdmin.fxml"));
             Node eventContent = loader.load();
             centerContent.getChildren().setAll(eventContent);
