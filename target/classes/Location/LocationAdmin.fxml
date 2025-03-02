@@ -66,9 +66,9 @@
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
-                    <Button mnemonicParsing="false" onAction="#addLocation" style="-fx-background-color: #007BFF; -fx-text-fill: white; -fx-background-radius: 15;" text="Add Location" />
-                    <Button mnemonicParsing="false" onAction="#modifyLocation" style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-background-radius: 15;" text="Modify Location" />
-                    <Button mnemonicParsing="false" onAction="#deleteLocation" style="-fx-background-color: #28A745; -fx-text-fill: white; -fx-background-radius: 15;" text="Delete Location" />
+                    <Button mnemonicParsing="false" onAction="#addLocation" style="-fx-background-color: #007BFF; -fx-text-fill: white; -fx-background-radius: 15;" text="Add a rent " />
+                    <Button mnemonicParsing="false" onAction="#modifyLocation" style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-background-radius: 15;" text="Modify a rent" />
+                    <Button mnemonicParsing="false" onAction="#deleteLocation" style="-fx-background-color: #28A745; -fx-text-fill: white; -fx-background-radius: 15;" text="Delete a rent" />
                     <Button mnemonicParsing="false" onAction="#showDetails" style="-fx-background-color: #6C757D; -fx-text-fill: white; -fx-background-radius: 15;" text="Show Détails" />
                 </HBox>
             </VBox>
