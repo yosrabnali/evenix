@@ -33,7 +33,7 @@ public class MyDB {
         return connection;
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
                 reconnect();
