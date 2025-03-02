@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class MyDB {
 
-    private final String USER = "root";
-    private final String PWD = "";
-    private final String URL = "jdbc:mysql://localhost:3306/evenix";
-    private Connection connection;
+    private static final String USER = "root";
+    private static final String PWD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/evenix";
+    private static Connection connection;
     public static MyDB instance;
 
     public MyDB() {
@@ -45,7 +45,7 @@ public class MyDB {
         return connection;
     }
 
-    private void reconnect() {
+    private static void reconnect() {
         try {
             connection = DriverManager.getConnection(URL, USER, PWD);
             connection.setAutoCommit(true);
