@@ -1,0 +1,68 @@
+/* reclamation-style.css */
+
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+}
+
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.input-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+TextField, TextArea, DatePicker {
+    -fx-pref-height: 40px;
+    -fx-padding: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #ccc;
+}
+
+.date-picker {
+    -fx-background-color: #E0E0E0;
+    -fx-opacity: 1;
+}
+
+.file-button {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: white;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+}
+
+.file-label {
+    -fx-text-fill: #777;
+    -fx-font-size: 12px;
+}
+
+.primary-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 18px;
+    -fx-background-radius: 8px;
+}
+
+.secondary-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 18px;
+    -fx-background-radius: 8px;
+}
+
+.danger-button {
+    -fx-background-color: #F44336;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 18px;
+    -fx-background-radius: 8px;
+}

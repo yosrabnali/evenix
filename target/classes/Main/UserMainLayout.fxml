@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane prefHeight="810" prefWidth="1315" style="-fx-background-color: white;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserMainLayoutController">
+
+    <children>
+        <!-- Barre supérieure -->
+        <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="65" spacing="20" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <children>
+                <!-- Logo animé -->
+                <ImageView fx:id="evenix" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.jpg" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="40.0" top="-8.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Region prefHeight="99.0" prefWidth="1036.0" HBox.hgrow="ALWAYS" />
+                <!-- Icône de déconnexion -->
+
+                <ImageView fx:id="logoutIcon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#handleLogout" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/logout.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets right="-10.0" />
+                    </HBox.margin>
+                </ImageView>
+                <Label fx:id="userNameTop" prefHeight="26.0" prefWidth="310.0" style="-fx-text-fill: #333; -fx-font-size: 16; -fx-font-weight: bold;" text="Hiba Khadhraoui">
+                    <HBox.margin>
+                        <Insets right="-70.0" />
+                    </HBox.margin>
+                </Label>
+                <ImageView fx:id="userPhotoTop" fitHeight="53.0" fitWidth="52.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/userphoto.jpg" />
+                    </image>
+                    <clip>
+                        <Circle centerX="25" centerY="25" radius="25" />
+                    </clip>
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </ImageView>
+            </children>
+        </HBox>
+
+        <!-- Barre latérale gauche -->
+        <VBox fx:id="leftBar" alignment="CENTER_LEFT" prefHeight="745.0" prefWidth="50.0" spacing="20" style="-fx-background-color: white; -fx-border-radius: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="65">
+            <children>
+                <Region VBox.vgrow="ALWAYS" />
+                <ImageView fx:id="eventIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleEvent" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/iconevent.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="publicationIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handlePublication" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/iconpublication.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="materielIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handlemateriel" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/iconmateriel.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="complaintIcon" fitHeight="40" fitWidth="40" onMouseClicked="#handleComplaint" preserveRatio="true" styleClass="card">
+                    <image>
+                        <Image url="@../images/iconcomplaint.png" />
+                    </image>
+                </ImageView>
+                <Region VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+
+        <!-- Zone principale -->
+        <BorderPane fx:id="mainContent" style="-fx-background-color: transparent; -fx-padding:30;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="110" AnchorPane.rightAnchor="110" AnchorPane.topAnchor="65">
+            <center>
+                <VBox fx:id="centerContent" alignment="CENTER" spacing="15" styleClass="card" />
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,61 @@
+/* Style général pour tous les boutons */
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-border-color: #B0B0B0;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s;
+}
+
+/* Bouton principal (Sauvegarder, Modifier) */
+.primary-button {
+    -fx-background-color: linear-gradient(to bottom, #D9D9D9, #BFBFBF);
+    -fx-text-fill: #333;
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #E6E6E6, #CCCCCC);
+    -fx-border-color: #A0A0A0;
+}
+
+/* Bouton secondaire (Annuler, Supprimer) */
+.secondary-button {
+    -fx-background-color: linear-gradient(to bottom, #C7C7C7, #AFAFAF);
+    -fx-text-fill: #444;
+}
+
+.secondary-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #D4D4D4, #BEBEBE);
+    -fx-border-color: #9C9C9C;
+}
+
+/* Bouton neutre (Voir Liste, Retour) */
+.neutral-button {
+    -fx-background-color: linear-gradient(to bottom, #E0E0E0, #CFCFCF);
+    -fx-text-fill: #555;
+}
+
+.neutral-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #F0F0F0, #D9D9D9);
+    -fx-border-color: #B3B3B3;
+}
+
+/* Effet de clic */
+.button:pressed {
+    -fx-background-color: #A6A6A6;
+    -fx-text-fill: #222;
+}
+
+/* Style pour centrer le titre dans le Label */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: #333; /* Couleur du texte */
+    -fx-alignment: center; /* Centrer le texte dans son parent */
+}
+

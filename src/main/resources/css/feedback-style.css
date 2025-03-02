@@ -1,0 +1,46 @@
+/* feedback-style.css */
+
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+}
+
+/* Titres */
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Labels des champs */
+.input-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+/* Champs de texte */
+TextField, TextArea, DatePicker, ComboBox {
+    -fx-pref-height: 40px;
+    -fx-padding: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #ccc;
+}
+
+/* Spécial pour DatePicker */
+.date-picker {
+    -fx-background-color: #E0E0E0;
+    -fx-opacity: 1;
+}
+
+
+/* Effet au survol */
+.button:hover {
+    -fx-opacity: 0.8;
+}
+
+/* Effet lors du clic */
+.button:pressed {
+    -fx-background-color: #aaa;
+}
