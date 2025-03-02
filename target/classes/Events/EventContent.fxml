@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import java.lang.String?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.Events.EventContentController"
+            stylesheets="@../css/affichage.css"
+            style="-fx-background-color: #ffffff;"
+            prefWidth="1400"
+            prefHeight="1000">
+
+    <children>
+        <!-- TabPane existant avec une contrainte du bas modifiée pour laisser la place au footer -->
+        <TabPane fx:id="mainTabPane"
+                 tabClosingPolicy="UNAVAILABLE"
+                 AnchorPane.topAnchor="10.0"
+                 AnchorPane.leftAnchor="10.0"
+                 AnchorPane.rightAnchor="10.0"
+                 AnchorPane.bottomAnchor="60.0"
+                 style="-fx-background-color: white;
+                        -fx-background-radius: 20px;
+                        -fx-border-radius: 20px;
+                        -fx-border-color: #a0b2c0;  /* Contour bleu */
+                        -fx-border-width: 2px;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);  /* Ombre */
+                        -fx-tab-min-height: 50px;
+                        -fx-tab-max-height: 50px;
+                        -fx-padding: 5px;">
+            <tabs>
+                <!-- Events Tab -->
+                <Tab>
+                    <graphic>
+                        <Label text="Events"
+                               style="-fx-background-color: transparent;
+                                      -fx-text-fill: #ffffff;
+                                      -fx-font-size: 16px;
+                                      -fx-font-weight: bold;
+                                      -fx-padding: 10;"/>
+                    </graphic>
+                    <content>
+                        <VBox spacing="10">
+                            <!-- Filter Section -->
+                            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+                                <ComboBox styleClass="rounded-combo-field" fx:id="eventCategoryComboBox" promptText="Select Category">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Film"/>
+                                            <String fx:value="Festival "/>
+                                            <String fx:value="theatre"/>
+                                            <String fx:value="Ceremony "/>
+                                            <String fx:value="Concert"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                <ComboBox styleClass="rounded-combo-field" fx:id="lieuComboBox" promptText="Select location">
+                                    <items>
+                                        <FXCollections  fx:factory="observableArrayList">
+                                            <String fx:value="Ariana"/>
+                                            <String fx:value="Béja"/>
+                                            <String fx:value="Ben Arous"/>
+                                            <String fx:value="Bizerte"/>
+                                            <String fx:value="Gabès"/>
+                                            <String fx:value="Gafsa"/>
+                                            <String fx:value="Jendouba"/>
+                                            <String fx:value="Kairouan"/>
+                                            <String fx:value="Kasserine"/>
+                                            <String fx:value="Kebili"/>
+                                            <String fx:value="Kef"/>
+                                            <String fx:value="Mahdia"/>
+                                            <String fx:value="Manouba"/>
+                                            <String fx:value="Medenine"/>
+                                            <String fx:value="Monastir"/>
+                                            <String fx:value="Nabeul"/>
+                                            <String fx:value="Sfax"/>
+                                            <String fx:value="Sidi Bouzid"/>
+                                            <String fx:value="Siliana"/>
+                                            <String fx:value="Sousse"/>
+                                            <String fx:value="Tataouine"/>
+                                            <String fx:value="Tozeur"/>
+                                            <String fx:value="Tunis"/>
+                                            <String fx:value="Zaghouan"/>
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+
+                                <DatePicker fx:id="datePicker" promptText="Select Date"
+                                            style="-fx-background-color: #e4e7ec;
+                                                   -fx-background-radius: 5;
+                                                   -fx-border-color: #ccc;
+                                                   -fx-text-fill: #2E2E2E;
+                                                   -fx-border-radius: 5;
+                                                   -fx-padding: 10;"/>
+                                <Button text="Search" styleClass="rounded-text-field" onAction="#filterEvents" />
+                                <Button text="Reset" styleClass="rounded-text-field" onAction="#resetFilter" />
+                            </HBox>
+
+                            <!-- Events List -->
+                            <ScrollPane hbarPolicy="ALWAYS"
+                                        vbarPolicy="NEVER"
+                                        fitToHeight="false"
+                                        fitToWidth="true"
+                                        style="-fx-background-color: transparent; -fx-padding: 0;">
+                                <content>
+                                    <HBox fx:id="hboxEvents"
+                                          spacing="20"
+                                          style="-fx-background-color: transparent; -fx-padding: 0;"
+                                          maxWidth="Infinity"
+                                          maxHeight="Infinity">
+                                        <fx:include source="EventCard.fxml"/>
+                                    </HBox>
+                                </content>
+                            </ScrollPane>
+                        </VBox>
+                    </content>
+                </Tab>
+
+                <!-- Reservations Tab -->
+                <Tab onSelectionChanged="#showReservationList">
+                    <graphic>
+                        <Label text="Reservations"
+                               style="-fx-background-color: transparent;
+                                      -fx-text-fill: #ffffff;
+                                      -fx-font-size: 16px;
+                                      -fx-font-weight: bold;
+                                      -fx-padding: 10;"/>
+                    </graphic>
+                    <content>
+                        <ScrollPane hbarPolicy="ALWAYS"
+                                    vbarPolicy="NEVER"
+                                    fitToWidth="true"
+                                    fitToHeight="true"
+                                    style="-fx-background-color: transparent; -fx-padding: 0;">
+                            <content>
+                                <HBox fx:id="hboxReservation"
+                                      spacing="20"
+                                      style="-fx-background-color: transparent; -fx-padding: 20;"
+                                      maxWidth="Infinity"
+                                      maxHeight="Infinity">
+                                </HBox>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+
+        <!-- Barre grise de pied de page arrondie avec contour bleu et ombre -->
+        <HBox prefHeight="50"
+              spacing="10"
+              AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0"
+              AnchorPane.bottomAnchor="0"
+              style="-fx-background-color: #b0c5d3;
+                     -fx-background-radius: 15;
+                     -fx-border-radius: 15;
+                     -fx-border-color: #a0b2c0;
+                     -fx-border-width: 2;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);">
+            <children>
+                <Label text="Contact us : evenix@esprit.tn                                                                                                                                                        Phone number : 27181133"
+                       style="-fx-text-fill: #333333; -fx-font-size: 14px; -fx-padding: 10;"/>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

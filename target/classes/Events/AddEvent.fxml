@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controllers.Events.AddEventController"
+           styleClass="root-container">
+    <!-- ScrollPane pour autoriser le défilement sur les petits écrans -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="custom-scroll-pane">
+        <content>
+            <!-- StackPane extérieur pour centrer le contenu -->
+            <StackPane alignment="CENTER">
+                <!-- Conteneur principal, la largeur est limitée pour garder le formulaire compact -->
+                <VBox spacing="15" alignment="CENTER" maxWidth="1280" prefWidth="720" styleClass="main-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <!-- Label d'en-tête -->
+                    <Label text="Add Event Details" styleClass="header-label"/>
+
+                    <!-- Conteneur du formulaire centré -->
+                    <StackPane alignment="CENTER">
+                        <GridPane hgap="15" vgap="15" alignment="CENTER" styleClass="form-grid">
+                            <!-- Ligne 0: Event Title -->
+                            <Label text="Event Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtTitre" promptText="Enter event title"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Ligne 1: Event Description -->
+                            <Label text="Event Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtDescription" promptText="Enter event description"
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Ligne 2: Available Seats -->
+                            <Label text="Available Seats:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtNBplaces" promptText="Enter number of seats"
+                                       GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Ligne 3: Ticket Price -->
+                            <Label text="Ticket Price:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtPrix" promptText="Enter ticket price"
+                                       GridPane.rowIndex="3" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Ligne 4: Venue (remplaçant Location pour correspondre à la page edit) -->
+                            <Label text="Venue:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="txtLieu" promptText="Enter event venue"
+                                       GridPane.rowIndex="4" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Ligne 5: Event Date -->
+                            <Label text="Event Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="datePicker"
+                                        GridPane.rowIndex="5" GridPane.columnIndex="1"
+                                        styleClass="custom-date-picker"/>
+
+                            <!-- Ligne 6: Event Status -->
+                            <Label text="Event Status:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="comboEtat" promptText="Select status"
+                                      GridPane.rowIndex="6" GridPane.columnIndex="1"
+                                      styleClass="custom-combobox"/>
+
+                            <!-- Ligne 7: Event Type -->
+                            <Label text="Event Type:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="comboType" promptText="Select type"
+                                      GridPane.rowIndex="7" GridPane.columnIndex="1"
+                                      styleClass="custom-combobox"/>
+
+                            <!-- Ligne 8: Event Image -->
+                            <Label text="Event Image:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                            <HBox spacing="5" alignment="CENTER" GridPane.rowIndex="8" GridPane.columnIndex="1">
+                                <TextField fx:id="txtImage" promptText="Select image path"
+                                           HBox.hgrow="ALWAYS" styleClass="custom-textfield"/>
+                                <Button text="Browse" onAction="#handleChooseImage" styleClass="browse-button"/>
+                            </HBox>
+
+                            <!-- Ligne 9: Latitude -->
+                            <Label text="Enter latitude:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtlatitude" promptText="Enter the latitude"
+                                       GridPane.rowIndex="9" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Ligne 10: Longitude -->
+                            <Label text="Enter longitude:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                            <TextField fx:id="txtlongitude" promptText="Enter the longitude"
+                                       GridPane.rowIndex="10" GridPane.columnIndex="1"
+                                       styleClass="custom-textfield"/>
+
+                            <!-- Champ caché (pour tests, non géré et non visible) -->
+                            <ComboBox fx:id="comboRole" visible="false" managed="false"/>
+                        </GridPane>
+                    </StackPane>
+
+                    <!-- Boutons d'action -->
+                    <HBox spacing="20" alignment="CENTER" styleClass="button-container">
+                        <Button text="Save" onAction="#handleSave" styleClass="save-button"/>
+                        <Button text="Cancel" onAction="#handleCancel" styleClass="cancel-button"/>
+                    </HBox>
+                </VBox>
+            </StackPane>
+        </content>
+    </ScrollPane>
+</StackPane>

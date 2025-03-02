@@ -1,0 +1,88 @@
+/* Le conteneur racine pour ajuster éventuellement la marge globale */
+.root-container {
+    /* Optionnel : aucune couleur, c'est juste pour gérer le spacing général */
+}
+
+/* Le conteneur bleu arrondi qui englobe tous les détails, sauf l'image */
+
+
+/* Conteneur interne qui tient le texte : titre, description, etc. */
+.details-container {
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Style du titre de l'événement */
+.reservation-info-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF; /* texte en blanc sur fond bleu */
+}
+
+/* Styles des autres labels (description, date, lieu, prix) */
+.reservation-info-description,
+.reservation-info-date,
+.reservation-info-location,
+.reservation-info-price {
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Boutons + et – (tickets) */
+.ticket-decrease-button,
+.ticket-increase-button {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E90FF;
+    -fx-font-size: 16px;
+    -fx-background-radius: 10;
+    -fx-padding: 5 10;
+}
+
+/* Label pour l'affichage du nombre de tickets */
+.ticket-count-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Label du prix total */
+.reservation-total-price {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 0 0 0; /* Optionnel */
+}
+
+/* Menu déroulant (méthode de paiement) */
+.reservation-payment-method {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-padding: 5;
+    -fx-background-radius: 10;
+}
+
+/* Boutons d'action (Confirm / Cancel) */
+.reservation-confirm-button,
+.reservation-cancel-button {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1E90FF;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.reservation-confirm-button:hover {
+    -fx-background-color: #f0f0f0; /* Survol */
+}
+
+.reservation-cancel-button:hover {
+    -fx-background-color: #ff6961; /* Survol rouge clair */
+    -fx-text-fill: #FFFFFF;
+}
+.blue-rounded-background {
+    /* Dégradé diagonal bleu -> turquoise */
+    -fx-background-color: linear-gradient(to bottom right, #a0b2c0, #83eaf1);
+    -fx-background-radius: 16;
+    -fx-padding: 10;
+}
+

@@ -1,39 +1,47 @@
 package Test;
 
-import Entity.Users.Role;
-import Entity.Users.User;
-import Entity.Users.UserSingleton;
-import com.stripe.Stripe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class HelloApplication extends Application {
+
+    private static final Logger logger = Logger.getLogger(HelloApplication.class.getName());
 
     @Override
     public void start(Stage primaryStage) {
-
         try {
-            // Ici, on charge la vue de démarrage.
-            // Par exemple, si vous voulez démarrer avec la vue client :
-            Stripe.apiKey = "sk_test_51QvLfvGsAYKuXtjYOX5AAjuuuhqSUo8Uv3uYNEemkCbozPL7JyuTOvftxkSIXP0bnAeXGLUpBmzDSGLpvAlttWCQ00r7oxsfcT";
+            // Debug: Print the URL
+            URL location = getClass().getResource("/menu.fxml"); //Corrected Path!
 
-           Parent root = FXMLLoader.load(getClass().getResource("/Main/UserMainLayout.fxml"));
+            if (location == null) {
+                System.err.println("FXML file not found at /menu.fxml");
+                return;
+            }
 
+            System.out.println("FXML location: " + location.toString()); // Print URL for debugging
 
-            // Vous pouvez aussi choisir une autre vue, comme EventAdmin.fxml, selon votre cas.
-            //Parent root = FXMLLoader.load(getClass().getResource("/Events/EventAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(location);
+            Parent root = loader.load(); // Load the FXML layout
+            Scene scene = new Scene(root);
 
-            Scene scene = new Scene(root, 1300, 700);
-
-
-            primaryStage.setTitle("Mon Application d'Événements");
+            primaryStage.setTitle("EVEINX App"); // Set the window title
             primaryStage.setScene(scene);
             primaryStage.show();
+
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Failed to load FXML", e);
+            // Optionally, show an alert dialog to the user to indicate an error
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An unexpected error occurred", e);
+            //Handle Unexpected Errors (e.g., print stack trace, show an alert)
         }
     }
 

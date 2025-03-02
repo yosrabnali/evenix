@@ -1,0 +1,83 @@
+/* Style des cartes et des ombres */
+.card {
+    -fx-background-color: transparent;
+    -fx-border-radius: 15px;
+    -fx-padding: 10px;
+    -fx-spacing: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.card Label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.card .price {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2e7d32;
+}
+
+/* Style général de l'application */
+.main-container {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 20;
+}
+
+/* Barre latérale */
+.left-bar {
+    -fx-background-color: white;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+/* Style des boutons et images interactives */
+.image-view:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.5, 0, 0);
+    -fx-background-color: transparent;
+}
+
+/* Style des labels */
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10 0;
+}
+
+/* Champs de saisie */
+.custom-textfield, .custom-date-picker, .custom-combobox {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #ced4da;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-text-fill: #495057;
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-color: #a0b2c0;
+    -fx-text-fill: #ffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 5;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.reservation-action-buttons{
+    -fx-background-color: #e4e7ec;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.location-proche {
+    -fx-background-color: #FFFFE0; /* Jaune pâle */
+    -fx-font-weight: bold;
+}

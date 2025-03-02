@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+<StackPane prefWidth="250" prefHeight="280"
+           styleClass="event-card-container"
+           xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.Events.EventCardAdminController"
+           stylesheets="@../css/EventCard.css">
+
+    <!-- Background image filling the card -->
+    <ImageView fx:id="imageView" fitWidth="250" fitHeight="280" preserveRatio="false" styleClass="event-image"/>
+
+    <!-- Semi-transparent black overlay for contrast -->
+    <Rectangle width="250" height="280" fill="black" opacity="0.2"/>
+
+    <!-- Overlay content: All children appear on top of the image -->
+    <BorderPane prefWidth="250" prefHeight="280">
+
+        <!-- Top section: Price tag aligned to the right -->
+
+
+        <!-- Center section: Main event details -->
+        <center>
+            <VBox alignment="CENTER" spacing="30">
+
+
+                <VBox alignment="CENTER" spacing="10">
+
+                    <Label fx:id="lblTitle" text="Event Title" style="-fx-text-fill: white;" styleClass="event-title"/>
+
+                    <Button fx:id="btnEdit" text="Edit" styleClass="reserve-button"/>
+                    <Button fx:id="btnDelete" text="Delete" styleClass="completed-button"/>
+
+                </VBox>
+
+
+
+            </VBox>
+        </center>
+
+    </BorderPane>
+</StackPane>

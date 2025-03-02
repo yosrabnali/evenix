@@ -1,0 +1,66 @@
+/* EventCard.css */
+
+/* Style général pour le conteneur de la carte */
+.event-card-container {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Style pour l'image de l'événement */
+
+
+/* Style pour le titre de l'événement */
+.event-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Style pour les informations de l'événement (lieu et date) */
+.event-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+}
+
+/* Style pour le bouton "Book Now" */
+.reserve-button {
+    -fx-background-color: #a0b2c0;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+.canceled-button {
+    -fx-background-color: #808080;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.completed-button {
+    -fx-background-color: #bd0808;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+/* Optionnel : effet au survol du bouton */
+.reserve-button:hover {
+    -fx-background-color: #a0b2c0;
+}
+.event-image:hover {
+    -fx-opacity: 0.8; /* diminue l'opacité lors du survol */
+    -fx-scale-x: 1.05; /* agrandit légèrement l'image horizontalement */
+    -fx-scale-y: 1.05; /* agrandit légèrement l'image verticalement */
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.8), 10, 0.0, 0, 0);
+}
+

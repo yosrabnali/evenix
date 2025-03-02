@@ -11,7 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javafx.version>17.0.6</javafx.version>
         <junit.version>5.10.2</junit.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -26,12 +29,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>17.0.6</version>
+            <version>${javafx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>17.0.6</version>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
         </dependency>
 
         <!-- Gluon Charm Glisten UI Components -->
@@ -58,21 +66,12 @@
             <version>4.0.11</version>
         </dependency>
         <dependency>
-            <groupId>com.gluonhq</groupId>
-            <artifactId>maps</artifactId>
-            <version>2.0.0-ea+6</version>
+
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.stripe</groupId>
-            <artifactId>stripe-java</artifactId>
-            <version>28.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>17.0.6</version>
-        </dependency>
         <!-- JUnit for Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -110,8 +109,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
 
@@ -124,7 +123,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>Test.HelloApplication</mainClass>
+                            <mainClass>com.example.projectapi/controllers.Locations.LocationsController</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
