@@ -5,43 +5,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class HelloApplication extends Application {
-
-    private static final Logger logger = Logger.getLogger(HelloApplication.class.getName());
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Debug: Print the URL
-            URL location = getClass().getResource("/menu.fxml"); //Corrected Path!
-
-            if (location == null) {
-                System.err.println("FXML file not found at /menu.fxml");
-                return;
+            // Vérification du chemin FXML
+            URL fxmlLocation = getClass().getResource("/Main/UserMainLayout.fxml");
+            if (fxmlLocation == null) {
+                throw new RuntimeException("Fichier FXML introuvable : Vérifiez le chemin et l'emplacement du fichier.");
             }
 
-            System.out.println("FXML location: " + location.toString()); // Print URL for debugging
-
-            FXMLLoader loader = new FXMLLoader(location);
-            Parent root = loader.load(); // Load the FXML layout
-            Scene scene = new Scene(root);
-
-            primaryStage.setTitle("EVEINX App"); // Set the window title
+            Parent root = FXMLLoader.load(fxmlLocation);
+            Scene scene = new Scene(root, 800, 600);
+            primaryStage.setTitle("Mon Application des réclamations");
             primaryStage.setScene(scene);
             primaryStage.show();
 
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Failed to load FXML", e);
-            // Optionally, show an alert dialog to the user to indicate an error
+            System.out.println("Application lancée avec succès !");
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "An unexpected error occurred", e);
-            //Handle Unexpected Errors (e.g., print stack trace, show an alert)
+            System.err.println("Erreur lors du chargement de l'application :");
+            e.printStackTrace();
         }
     }
 

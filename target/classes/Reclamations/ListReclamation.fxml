@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Reclamations.ListReclamationController">
+
+    <stylesheets>
+        <URL value="@../css/reclamation-style.css" />
+    </stylesheets>
+    <stylesheets>
+        <URL value="@../css/custom_buttons_style.css" />
+    </stylesheets>
+
+    <!-- Bouton "Ajouter une réclamation" en haut à droite -->
+    <HBox alignment="TOP_RIGHT" spacing="10" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="10">
+        <Button onAction="#handleAddReclamation" styleClass="primary-button">
+            <graphic>
+                <ImageView fitHeight="16" fitWidth="16">
+                    <Image url="@../icons/add.png" />
+                    <effect>
+                        <ColorAdjust hue="-0.6" saturation="0.7" />
+                    </effect>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="10" AnchorPane.topAnchor="20" />
+
+    <!-- Conteneur principal centré -->
+    <VBox alignment="CENTER" layoutX="51.0" layoutY="44.0" prefHeight="556.0" prefWidth="598.0" spacing="20" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="51.39999999999998" AnchorPane.topAnchor="44.0">
+
+        <!-- Titre centré -->
+        <Label alignment="CENTER" prefHeight="35.0" prefWidth="245.0" styleClass="title-label" text="Complaints List" VBox.vgrow="ALWAYS" />
+
+        <!-- Filtre par date sous le titre -->
+        <!-- Filtre par date et bouton de rafraîchissement sous le titre -->
+        <HBox alignment="CENTER" prefHeight="46.0" prefWidth="616.0" spacing="10">
+            <Label text="Filter by Date:" />
+            <DatePicker fx:id="datePickerFilter" onAction="#filtrerParDate" />
+
+            <!-- Bouton Refresh -->
+            <Button onAction="#refreshTable" styleClass="primary-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <Image url="@../icons/refresh.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+
+
+        <!-- Tableau des réclamations centré -->
+        <TableView fx:id="reclamationTable" prefHeight="406.0" prefWidth="614.0">
+            <columns>
+                <TableColumn fx:id="titreColumn" prefWidth="150" text="Title" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="199.20001220703125" text="Description" />
+                <TableColumn fx:id="dateColumn" prefWidth="151.19998168945312" text="Date" />
+                <TableColumn fx:id="fichierColumn" prefWidth="200" text="File" />
+                <TableColumn fx:id="ideventColumn" text="ID Event" visible="false" /> <!-- Ajoutez cette ligne -->
+                <TableColumn fx:id="actionsColumn" prefWidth="200" text="Actions" />
+            </columns>
+        </TableView>
+    </VBox>
+
+</AnchorPane>

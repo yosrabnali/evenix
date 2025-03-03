@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import java.util.Objects;
 
 class CustomMapLayer extends MapLayer {
 
@@ -21,11 +22,7 @@ class CustomMapLayer extends MapLayer {
     public CustomMapLayer(double latitude, double longitude, Node marker) {
         this.latitude = latitude;
         this.longitude = longitude;
-        if (marker != null) {
-            this.marker = marker;
-        } else {
-            this.marker = new Circle(5, Color.RED);
-        }
+        this.marker = Objects.requireNonNullElseGet(marker, () -> new Circle(5, Color.RED));
         getChildren().add(this.marker);
     }
 
