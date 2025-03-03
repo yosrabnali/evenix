@@ -251,6 +251,7 @@ public class MaterielService implements IService<Materiel> {
                             try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
                                 deleteStmt.setInt(1, idMateriel);
                                 deleteStmt.executeUpdate();
+
                             }
                         }
                     }
