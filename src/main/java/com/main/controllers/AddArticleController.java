@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,19 +17,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.main.services.UserService;
-import javafx.stage.Stage;
 
-
-public class ArticleController implements Initializable
+public class AddArticleController implements Initializable
 {
+
+
+
+
 
     Reactions currentReaction;
     private long startTime = 0;
@@ -272,9 +269,27 @@ public class ArticleController implements Initializable
 
     @FXML
     void modifPost(MouseEvent event) {
+        try {
+            // 1. Récupérer l'article actuel
+            Article currentArticle = publicationService.getById(publicationId);
 
+            // 2. Charger la vue de modification
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Publication/Post-view.fxml"));
+            Parent root = loader.load();
 
+            // 3. Passer les données à PostController
+            PostController postController = loader.getController();
+            postController.initEditData(currentArticle);
 
+            // 4. Changer de scène
+            Stage stage = (Stage) modifBTN.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showWarningDialog("Erreur lors du chargement de l'éditeur");
+        }
     }
 
     @FXML

@@ -1,26 +1,26 @@
 package com.main.controllers;
 
 import com.main.Entity.Article;
-import com.main.Entity.Commentaire;
 import com.main.Util.CloudinaryUploader;
 import com.main.services.CommentaireService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import com.main.services.PublicationService;
+import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class PostController {
+
+
 
 
     @FXML
@@ -54,6 +54,35 @@ public class PostController {
     @FXML
     private VBox sideMenu;
 
+
+   // private String UploadedImageUrl;
+    private boolean isEditMode = false;
+    private Article currentArticle;
+
+    public boolean isEditMode() {
+        return isEditMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        isEditMode = editMode;
+    }
+
+    public Article getCurrentArticle() {
+        return currentArticle;
+    }
+
+    public void setCurrentArticle(Article currentArticle) {
+        this.currentArticle = currentArticle;
+    }
+
+
+
+
+
+
+
+
+
     public long getPublicationId() {
         return publicationId;
     }
@@ -65,6 +94,7 @@ public class PostController {
     PublicationService publicationService = new PublicationService();
     CommentaireService cs = new CommentaireService();
     private Article selectedMateriel;
+
     private String UploadedImageUrl;
 
     public String getUploadedImageUrl() {
@@ -104,7 +134,9 @@ public class PostController {
         }
     }
 
-    @FXML
+
+
+    /* @FXML
     void openAddMatView(MouseEvent event) {
         if (commentinput.getText().equals("")) {
             showWarningDialog("Status Vide :(");
@@ -117,21 +149,102 @@ public class PostController {
             if (getUploadedImageUrl() != null) {
                 p.setImage(getUploadedImageUrl());
                 System.out.println("Image URL : " + getUploadedImageUrl());
-            } /*else if (getUploadedVideoUrl() != null) {
+            } *//*else if (getUploadedVideoUrl() != null) {
                 p.setType_pub("video");
                 p.setContenu(getUploadedVideoUrl());
                 System.out.println("Video URL : " + getUploadedVideoUrl());
-            }*/ else {
-                p.setImage("");
-            }
+            }*//* else {
+        p.setImage("");
+    }
             try {
-                publicationService.ajouter(p);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            loadMaterials();
+        publicationService.ajouter(p);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    loadMaterials();
+}
+    }*/
+
+    @FXML
+    void openAddMatView(MouseEvent event) {
+        if (isEditMode) {
+            updateArticle();
+        } else {
+            createNewArticle();
         }
     }
+
+    private void updateArticle() {
+        try {
+            currentArticle.setContenu(commentinput.getText());
+            if (UploadedImageUrl != null) {
+                currentArticle.setImage(UploadedImageUrl);
+            }
+            publicationService.modifier(currentArticle);
+            showSuccessDialog("Article modifié avec succès!");
+            returnToMainView();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showWarningDialog("Erreur lors de la modification");
+        }
+    }
+
+    private void createNewArticle() {
+        if (commentinput.getText().isEmpty()) {
+            showWarningDialog("Status Vide :(");
+            return;
+        }
+
+        Article p = new Article();
+        p.setContenu(commentinput.getText());
+        p.setUserId((long) 1);
+        p.setAuteur("Yesmine");
+        p.setTitre("Post");
+        p.setImage(UploadedImageUrl != null ? UploadedImageUrl : "");
+
+        try {
+            publicationService.ajouter(p);
+            showSuccessDialog("Article publié!");
+            returnToMainView();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showWarningDialog("Erreur lors de la publication");
+        }
+    }
+
+    public void initEditData(Article article) {
+        this.currentArticle = article;
+        this.isEditMode = true;
+        commentinput.setText(article.getContenu());
+        if (article.getImage() != null && !article.getImage().isEmpty()) {
+            // Ajouter la logique pour afficher l'image existante
+        }
+    }
+
+    private void returnToMainView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/main/views/main-view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) commentinput.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showSuccessDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succès");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+
+
+    //avant
 
     public void loadMaterials() {
         try {
@@ -139,9 +252,9 @@ public class PostController {
             articlecontainer.getChildren().clear();
             for (Article article : articles) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/Publication/Article.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/Publication/AddArticle.fxml"));
                 VBox vbox = fxmlLoader.load();
-                ArticleController controller = fxmlLoader.getController();
+                AddArticleController controller = fxmlLoader.getController();
                 controller.setArticleId(article.getId());
                 controller.setPublicationId(article.getId());
                 controller.setData(article.getId());
@@ -193,5 +306,6 @@ public class PostController {
             ContenuLabel.setText(article.getContenu());
         }
     }
+
 
 }

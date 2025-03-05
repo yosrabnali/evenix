@@ -148,6 +148,11 @@
                                  </image>
                               </ImageView>
                            </children>
+
+
+
+
+
                         </HBox>
                                 <HBox fx:id="addImg" alignment="CENTER" onMouseClicked="#addImgPost" prefHeight="30.0" prefWidth="134.0" spacing="20.0">
                                     <children>
